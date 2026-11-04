@@ -1,7 +1,6 @@
-# Manually-Created Data
+# Manual Inputs
 
-This folder is used to hold manually created data that cannot be easily replicated.
-You may keep data here and keep it under version control if it is small enough.
-Keeping this data under version control can provide some peace of mind
-that the data is not inadvertently modified.
-Also, keep in mind that Git LFS is a good option if the data is large.
+Use this directory for small, permitted inputs that cannot be recreated by the
+pipeline. Document their source and how they were prepared. Keep licensed raw
+data, paper PDFs, credentials, and other restricted materials out of Git.
+Automatically downloaded data belongs in the ignored `_data/` directory.

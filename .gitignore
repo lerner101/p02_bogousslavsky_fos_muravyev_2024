@@ -3,6 +3,10 @@
 # Project Input and Output
 ##########################
 
+# Local paper PDFs and screenshots; keep copyrighted references out of Git.
+/reference/
+/_reference/
+
 # Exclude _data folder, since it should all be pulled automatically (unless in the manual folder)
 /_data/*
 
