@@ -7,9 +7,13 @@ Group: Jacob Lerner, Andrew Arbitman, Andrew McLaughlin, and Nate Lee.
 
 ## Status
 
-The ChartBook scaffold is initialized. Data acquisition, feature construction,
-13D labels, ITI estimation, event studies, pricing tests, and validation are not
-yet implemented. No research results are currently produced.
+The ChartBook scaffold is initialized. Source-data acquisition has started for
+2005–2019, with 2004 warm-up history. Feature construction, cleaned 13D labels,
+ITI estimation, event studies, pricing tests, and validation are not yet
+implemented. No research results are currently produced.
+
+See the [data acquisition inventory](docs_src/site/project_overview/data_acquisition.md)
+for sources, collection commands, coverage, and remaining gaps.
 
 ## Setup
 
@@ -24,7 +28,9 @@ python -m pip install -r requirements.txt
 
 On Windows, activate with `.venv\Scripts\Activate.ps1` in PowerShell.
 Copy `.env.example` to `.env` and set your WRDS username and local paths when
-implementing data access. Never commit credentials or licensed raw data.
+using data access. Never commit credentials or licensed raw data. Each teammate
+needs their own WRDS login and product access; see the
+[data setup and resume instructions](docs_src/site/project_overview/data_acquisition.md).
 
 ## Commands
 
@@ -33,6 +39,11 @@ doit                            # Create data/output directories only
 doit list                       # List available tasks
 doit build_chartbook_site       # Build the ChartBook site into docs/
 doit report                     # Compile reports/report.pdf
+python src/download_public_data.py    # Obtain public source archives
+python src/prepare_public_data.py     # Prepare public inputs through 2019
+python src/collect_wrds.py core indicators lending links --end-year 2019
+python src/collect_wrds.py sec --start-year 2005 --end-year 2019
+python src/data_status.py             # Inspect completed data in this checkout
 ```
 
 The report requires a LaTeX distribution with `latexmk` and `pdflatex`.

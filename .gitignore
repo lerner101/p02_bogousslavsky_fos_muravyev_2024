@@ -6,6 +6,7 @@
 # Local paper PDFs and screenshots; keep copyrighted references out of Git.
 /reference/
 /_reference/
+/Replication Code-20220087.zip
 
 # Exclude _data folder, since it should all be pulled automatically (unless in the manual folder)
 /_data/*

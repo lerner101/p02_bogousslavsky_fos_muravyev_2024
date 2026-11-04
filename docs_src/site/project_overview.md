@@ -16,6 +16,7 @@ Replication and extension of Bogousslavsky, Fos, and Muravyev (2024), Informed T
 
 project_overview/goals
 project_overview/data_sources
+project_overview/data_acquisition
 project_overview/methodology
 project_overview/replication_plan
 project_overview/consultation_pitch

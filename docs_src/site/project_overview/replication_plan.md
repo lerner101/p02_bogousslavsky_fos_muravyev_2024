@@ -99,8 +99,10 @@ silently add them to the graded replication scope.
    January 2026 update covers January 1993–December 2024, fills historical gaps,
    and includes original measures for replication. Inspect the download's schema
    and documentation before choosing series. Compare historical results to the
-   original vintage and label updated comparisons separately. Download not yet
-   inspected locally; column names and exact contents remain unverified.
+   original vintage and label updated comparisons separately. The archive has
+   now been downloaded and its schema inspected: date, PERMNO and five ITI
+   variants. Preparation preserves original/refreshed vintages separately and
+   restricts outputs through 2019; empirical validation remains outstanding.
 6. **Specification inconsistencies.** Section 5 describes clustering by stock and
    week; the local Table 10 caption says stock and month. Record and resolve this
    rather than silently choosing whichever produces a closer t-statistic. Figure
@@ -193,6 +195,10 @@ paper/pipeline understanding for the final individual questioning.
 
 ## Proposed extension
 
+**Status: undecided.** The following is an earlier candidate, not an agreed
+extension. Later-year collection does not establish the extension. Confirm the
+research question with the group and instructor before implementing it.
+
 Build a documented end-of-day informed-trading comparison tool for empirical
 researchers, with ITI/PIN/VPIN aligned to one common sample, a frozen-model test
 on later data, and diagnostics for changes in coverage and performance. Separate
@@ -283,6 +289,9 @@ The old 1913–2024 settings defaults are not a verified research sample.
   and selected linked project sources above.
 - [Author data page](https://bogousslavsky.github.io/data/).
 
-Access to licensed datasets, the contents of the downloadable author archive,
-and empirical feasibility remain to be verified. No WRDS login or data pulls
-were attempted during this review.
+The initial review did not attempt WRDS access. Subsequently, WRDS access was
+verified, the author archive was inspected, and source-data collection began.
+Collection is now stopped at the user's request, with a 2005–2019 target and
+2004 warm-up history. See the [data acquisition inventory](data_acquisition.md)
+for actual coverage, teammate instructions and unresolved inputs. Downloaded
+data have not yet been turned into validated research results.

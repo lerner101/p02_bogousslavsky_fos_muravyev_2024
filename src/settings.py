@@ -148,8 +148,10 @@ else:
     defaults["STATA_EXE"] = get_stata_exe()
 
 ## Dates
-defaults["START_DATE"] = datetime.strptime("1913-01-01", "%Y-%m-%d")
-defaults["END_DATE"] = datetime.strptime("2024-12-31", "%Y-%m-%d")
+defaults["START_DATE"] = datetime.strptime("2005-01-01", "%Y-%m-%d")
+defaults["WARMUP_START_DATE"] = datetime.strptime("2004-01-01", "%Y-%m-%d")
+defaults["PAPER_END_DATE"] = datetime.strptime("2019-07-31", "%Y-%m-%d")
+defaults["END_DATE"] = datetime.strptime("2019-12-31", "%Y-%m-%d")
 
 
 ## File paths
