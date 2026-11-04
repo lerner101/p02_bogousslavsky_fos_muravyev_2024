@@ -1,0 +1,43 @@
+{
+  "template": "https://github.com/backofficedev/cookiecutter_chartbook",
+  "commit": "9eebbda0b314cc9d95065cfd70904898a5f5731c",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "Informed Trading Intensity",
+      "project_slug": "p02_bogousslavsky_fos_muravyev_2024",
+      "project_description": "Replication and extension of Bogousslavsky, Fos, and Muravyev (2024), Informed Trading Intensity",
+      "author_name": "Jacob Lerner, Andrew Arbitman, Andrew Mclaughlin, Nate Lee",
+      "author_email": "lernston@gmail.com",
+      "python_version": "3.12",
+      "environment_manager": "pip",
+      "include_latex_reports": "Y",
+      "include_jupyter_notebooks": "Y",
+      "include_r_scripts": "False",
+      "include_stata_scripts": "False",
+      "include_chartbook": "Y",
+      "include_github_actions": "Y",
+      "include_fred": "False",
+      "include_fed_yield_curve": "False",
+      "include_ofr_api": "False",
+      "include_bloomberg": "False",
+      "include_crsp_stock": "False",
+      "include_crsp_compustat": "False",
+      "_copy_without_render": [
+        "*.bst",
+        "*.sty",
+        "*.eps",
+        "*.ipe",
+        "*.png",
+        "*.pdf",
+        "*.tex",
+        "*.bib",
+        ".github/workflows/*.yml",
+        ".claude/skills/*/*.md"
+      ],
+      "_template": "https://github.com/backofficedev/cookiecutter_chartbook",
+      "_commit": "9eebbda0b314cc9d95065cfd70904898a5f5731c"
+    }
+  },
+  "directory": null
+}
