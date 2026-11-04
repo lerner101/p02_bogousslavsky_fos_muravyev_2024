@@ -17,16 +17,17 @@ for sources, collection commands, coverage, and remaining gaps.
 
 ## Setup
 
-From the repository root, create and activate a Python environment, then install
-its dependencies:
+Use Python 3.13 and `uv` to create the environment and install dependencies.
+Python 3.14 may select package versions without compatible wheels for this
+project's dependency set, causing pip to attempt a local source build.
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
+uv venv --python 3.13 .venv-py313
+source .venv-py313/bin/activate
+uv pip install -r requirements.txt
 ```
 
-On Windows, activate with `.venv\Scripts\Activate.ps1` in PowerShell.
+On Windows, activate with `.venv-py313\Scripts\Activate.ps1` in PowerShell.
 Copy `.env.example` to `.env` and set your WRDS username and local paths when
 using data access. Never commit credentials or licensed raw data. Each teammate
 needs their own WRDS login and product access; see the
