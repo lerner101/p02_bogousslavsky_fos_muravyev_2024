@@ -153,6 +153,19 @@ defaults["WARMUP_START_DATE"] = datetime.strptime("2004-01-01", "%Y-%m-%d")
 defaults["PAPER_END_DATE"] = datetime.strptime("2019-07-31", "%Y-%m-%d")
 defaults["END_DATE"] = datetime.strptime("2019-12-31", "%Y-%m-%d")
 
+## Schedule 13D label parameters
+# Filers disclose all trades in the 60 calendar days up to the filing date
+# (paper, Sections 1-2; days_to_filing in the authors' build/get_13D.py).
+defaults["WINDOW_CALENDAR_DAYS"] = 60
+# ITI(impatient) is trained on the last 20 calendar days of the window,
+# ITI(patient) on the first 40 (paper, Section 4.1).
+defaults["IMPATIENT_CALENDAR_DAYS"] = 20
+# Price and market-cap screens at the start of the filing window (footnote 5).
+defaults["MIN_PRICE"] = 5.0
+defaults["MIN_MCAP"] = 100e6
+# Last filing year in the paper's 13D sample (1994-2018).
+defaults["PAPER_13D_LAST_YEAR"] = 2018
+
 
 ## File paths
 def if_relative_make_abs(path):
@@ -181,6 +194,7 @@ defaults = {
     "DATA_DIR": if_relative_make_abs(Path("_data")),
     "MANUAL_DATA_DIR": if_relative_make_abs(Path("data_manual")),
     "OUTPUT_DIR": if_relative_make_abs(Path("_output")),
+    "THIRTEEN_D_DIR": if_relative_make_abs(Path("_data") / "derived" / "13d"),
     **defaults,
 }
 

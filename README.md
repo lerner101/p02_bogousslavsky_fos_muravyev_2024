@@ -64,7 +64,8 @@ dependencies will be added as the replication is implemented.
 
 ## Assigned Work
 
-- Build TAQ-based features and Schedule 13D purchase labels.
+- Build TAQ-based features and Schedule 13D trade-day labels (buys and sells,
+  as in the authors' `itrade`).
 - Replicate ITI estimation and model performance.
 - Replicate event evidence and asset-pricing results.
 - Benchmark against PIN and VPIN on a common sample.

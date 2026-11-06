@@ -1,0 +1,385 @@
+accession,reporting_person,trade_date,side,shares,price,security_class,transaction_type,is_derivative,is_group_member,document_no,quote
+0000807249-10-000238,"Teton Advisors, Inc.",2010-06-02,buy,2000,19.3616,Common Stock,open_market,false,true,1,"6/02/10 2,000 19.3616"
+0000807249-10-000238,"Teton Advisors, Inc.",2010-06-07,buy,28000,18.7628,Common Stock,open_market,false,true,1,"6/07/10 28,000 18.7628"
+0000807249-10-000238,"Gabelli Securities, Inc.",2010-06-11,sell,100,18.9796,Common Stock,open_market,false,true,1,6/11/10 100- 18.9796
+0000807249-10-000238,"Gabelli Securities, Inc.",2010-06-22,sell,1400,20.0797,Common Stock,open_market,false,true,1,"6/22/10 1,400- 20.0797"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-02,sell,3000,21.3416,Common Stock,open_market,false,true,1,"7/02/10 3,000- 21.3416"
+0000807249-10-000238,"Teton Advisors, Inc.",2010-07-02,sell,8000,21.5774,Common Stock,open_market,false,true,1,"7/02/10 8,000- 21.5774"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-06,sell,7000,21.6150,Common Stock,open_market,false,true,1,"7/06/10 7,000- 21.6150"
+0000807249-10-000238,Gabelli Associates Limited II E,2010-07-12,buy,1500,23.1628,Common Stock,open_market,false,true,1,"7/12/10 1,500 23.1628"
+0000807249-10-000238,Gabelli Associates Limited,2010-07-12,buy,2000,23.1628,Common Stock,open_market,false,true,1,"7/12/10 2,000 23.1628"
+0000807249-10-000238,Gabelli Associates Fund II,2010-07-12,buy,1000,23.1628,Common Stock,open_market,false,true,1,"7/12/10 1,000 23.1628"
+0000807249-10-000238,Gabelli Associates Fund,2010-07-12,buy,5500,23.1628,Common Stock,open_market,false,true,1,"7/12/10 5,500 23.1628"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-12,buy,4000,23.1950,Common Stock,open_market,false,true,1,"7/12/10 4,000 23.1950"
+0000807249-10-000238,"Gabelli Funds, LLC - Gabelli Healthcare & Wellness Rx Trust",2010-07-12,buy,20000,23.1950,Common Stock,open_market,false,true,1,"7/12/10 20,000 23.1950"
+0000807249-10-000238,"Gabelli Funds, LLC - The Gabelli Global Deal Fund",2010-07-12,buy,2000,23.1950,Common Stock,open_market,false,true,1,"7/12/10 2,000 23.1950"
+0000807249-10-000238,"Gabelli Funds, LLC - Gabelli Enterprise M&A Fund",2010-07-12,buy,2000,23.1950,Common Stock,open_market,false,true,1,"7/12/10 2,000 23.1950"
+0000807249-10-000238,"Gabelli Funds, LLC - Gabelli ABC Fund",2010-07-12,buy,2000,23.1950,Common Stock,open_market,false,true,1,"7/12/10 2,000 23.1950"
+0000807249-10-000238,"Gabelli Securities, Inc.",2010-07-13,buy,10000,23.1850,Common Stock,open_market,false,true,1,"7/13/10 10,000 23.1850"
+0000807249-10-000238,"Gabelli Securities, Inc.",2010-07-13,buy,1000,23.1883,Common Stock,open_market,false,true,1,"7/13/10 1,000 23.1883"
+0000807249-10-000238,Gabelli Associates Limited II E,2010-07-13,buy,5000,23.1883,Common Stock,open_market,false,true,1,"7/13/10 5,000 23.1883"
+0000807249-10-000238,Gabelli Associates Limited,2010-07-13,buy,6700,23.1883,Common Stock,open_market,false,true,1,"7/13/10 6,700 23.1883"
+0000807249-10-000238,Gabelli Associates Fund II,2010-07-13,buy,3000,23.1883,Common Stock,open_market,false,true,1,"7/13/10 3,000 23.1883"
+0000807249-10-000238,Gabelli Associates Fund,2010-07-13,buy,14300,23.1883,Common Stock,open_market,false,true,1,"7/13/10 14,300 23.1883"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-13,buy,44000,23.1912,Common Stock,open_market,false,true,1,"7/13/10 44,000 23.1912"
+0000807249-10-000238,"Teton Advisors, Inc.",2010-07-13,buy,66000,23.1912,Common Stock,open_market,false,true,1,"7/13/10 66,000 23.1912"
+0000807249-10-000238,"Gabelli Funds, LLC - The Gabelli Global Deal Fund",2010-07-13,buy,75000,23.1912,Common Stock,open_market,false,true,1,"7/13/10 75,000 23.1912"
+0000807249-10-000238,"Gabelli Funds, LLC - Gabelli Enterprise M&A Fund",2010-07-13,buy,40000,23.1912,Common Stock,open_market,false,true,1,"7/13/10 40,000 23.1912"
+0000807249-10-000238,"Gabelli Funds, LLC - Gabelli ABC Fund",2010-07-13,buy,75000,23.1912,Common Stock,open_market,false,true,1,"7/13/10 75,000 23.1912"
+0000807249-10-000238,"Gabelli Securities, Inc.",2010-07-14,buy,10000,23.1850,Common Stock,open_market,false,true,1,"7/14/10 10,000 23.1850"
+0000807249-10-000238,Gabelli Associates Limited II E,2010-07-14,buy,5000,23.1817,Common Stock,open_market,false,true,1,"7/14/10 5,000 23.1817"
+0000807249-10-000238,Gabelli Associates Limited,2010-07-14,buy,7000,23.1817,Common Stock,open_market,false,true,1,"7/14/10 7,000 23.1817"
+0000807249-10-000238,Gabelli Associates Fund II,2010-07-14,buy,2500,23.1817,Common Stock,open_market,false,true,1,"7/14/10 2,500 23.1817"
+0000807249-10-000238,Gabelli Associates Fund,2010-07-14,buy,15500,23.1817,Common Stock,open_market,false,true,1,"7/14/10 15,500 23.1817"
+0000807249-10-000238,"Gabelli Funds, LLC - Gabelli ABC Fund",2010-07-14,buy,59500,23.1834,Common Stock,open_market,false,true,1,"7/14/10 59,500 23.1834"
+0000807249-10-000238,"Gabelli Securities, Inc.",2010-07-15,buy,1000,23.1721,Common Stock,open_market,false,true,1,"7/15/10 1,000 23.1721"
+0000807249-10-000238,Gabelli Associates Limited II E,2010-07-15,buy,4000,23.1721,Common Stock,open_market,false,true,1,"7/15/10 4,000 23.1721"
+0000807249-10-000238,Gabelli Associates Limited,2010-07-15,buy,4627,23.1721,Common Stock,open_market,false,true,1,"7/15/10 4,627 23.1721"
+0000807249-10-000238,Gabelli Associates Fund II,2010-07-15,buy,3000,23.1721,Common Stock,open_market,false,true,1,"7/15/10 3,000 23.1721"
+0000807249-10-000238,Gabelli Associates Fund,2010-07-15,buy,11500,23.1721,Common Stock,open_market,false,true,1,"7/15/10 11,500 23.1721"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-15,buy,9000,23.1750,Common Stock,open_market,false,true,1,"7/15/10 9,000 23.1750"
+0000807249-10-000238,"Gabelli Funds, LLC - Gabelli ABC Fund",2010-07-15,buy,22300,23.1790,Common Stock,open_market,false,true,1,"7/15/10 22,300 23.1790"
+0000807249-10-000238,"Gabelli Funds, LLC - Gabelli ABC Fund",2010-07-16,buy,20000,23.1995,Common Stock,open_market,false,true,1,"7/16/10 20,000 23.1995"
+0000807249-10-000238,Gabelli Associates Limited II E,2010-07-19,buy,3000,23.1800,Common Stock,open_market,false,true,1,"7/19/10 3,000 23.1800"
+0000807249-10-000238,Gabelli Associates Limited,2010-07-19,buy,5165,23.1800,Common Stock,open_market,false,true,1,"7/19/10 5,165 23.1800"
+0000807249-10-000238,Gabelli Associates Fund II,2010-07-19,buy,1500,23.1800,Common Stock,open_market,false,true,1,"7/19/10 1,500 23.1800"
+0000807249-10-000238,Gabelli Associates Fund,2010-07-19,buy,11000,23.1800,Common Stock,open_market,false,true,1,"7/19/10 11,000 23.1800"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-19,buy,6000,23.1895,Common Stock,open_market,false,true,1,"7/19/10 6,000 23.1895"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-19,buy,2500,23.2084,Common Stock,open_market,false,true,1,"7/19/10 2,500 23.2084"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-19,buy,1500,23.2000,Common Stock,open_market,false,true,1,"7/19/10 1,500 23.2000"
+0000807249-10-000238,"Gabelli Funds, LLC - Gabelli Small Cap Growth Fund",2010-07-19,buy,13000,23.2000,Common Stock,open_market,false,true,1,"7/19/10 13,000 23.2000"
+0000807249-10-000238,"Gabelli Funds, LLC - The Gabelli Global Deal Fund",2010-07-19,buy,23000,23.1895,Common Stock,open_market,false,true,1,"7/19/10 23,000 23.1895"
+0000807249-10-000238,"Gabelli Funds, LLC - Gabelli ABC Fund",2010-07-19,buy,21200,23.1895,Common Stock,open_market,false,true,1,"7/19/10 21,200 23.1895"
+0000807249-10-000238,Gabelli Associates Limited II E,2010-07-20,buy,1500,23.1900,Common Stock,open_market,false,true,1,"7/20/10 1,500 23.1900"
+0000807249-10-000238,Gabelli Associates Limited,2010-07-20,buy,2500,23.1900,Common Stock,open_market,false,true,1,"7/20/10 2,500 23.1900"
+0000807249-10-000238,Gabelli Associates Fund II,2010-07-20,buy,1000,23.1900,Common Stock,open_market,false,true,1,"7/20/10 1,000 23.1900"
+0000807249-10-000238,Gabelli Associates Fund,2010-07-20,buy,5000,23.1900,Common Stock,open_market,false,true,1,"7/20/10 5,000 23.1900"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-20,buy,54000,23.1985,Common Stock,open_market,false,true,1,"7/20/10 54,000 23.1985"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-20,buy,3000,23.2500,Common Stock,open_market,false,true,1,"7/20/10 3,000 23.2500"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-20,buy,28000,23.2454,Common Stock,open_market,false,true,1,"7/20/10 28,000 23.2454"
+0000807249-10-000238,Gabelli Associates Limited II E,2010-07-21,buy,964,23.1900,Common Stock,open_market,false,true,1,7/21/10 964 23.1900
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-21,buy,800,23.2300,Common Stock,open_market,false,true,1,7/21/10 800 23.2300
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-21,buy,28000,23.2121,Common Stock,open_market,false,true,1,"7/21/10 28,000 23.2121"
+0000807249-10-000238,"Gabelli Funds, LLC - Gabelli Small Cap Growth Fund",2010-07-21,buy,500,23.2000,Common Stock,open_market,false,true,1,7/21/10 500 23.2000
+0000807249-10-000238,"Gabelli Funds, LLC - Gabelli Enterprise M&A Fund",2010-07-21,buy,18000,23.2400,Common Stock,open_market,false,true,1,"7/21/10 18,000 23.2400"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-22,buy,33500,23.2251,Common Stock,open_market,false,true,1,"7/22/10 33,500 23.2251"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-22,buy,30000,23.2299,Common Stock,open_market,false,true,1,"7/22/10 30,000 23.2299"
+0000807249-10-000238,GAMCO Asset Management Inc.,2010-07-22,buy,20000,23.2300,Common Stock,open_market,false,true,1,"7/22/10 20,000 23.2300"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-17,sell,380,16.61,Common Stock,open_market,false,true,1,Sale 12/17/18 380 $16.61
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-17,sell,2000,16.61,Common Stock,open_market,false,true,1,"Sale 12/17/18 2,000 $16.61"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-17,sell,1714,16.61,Common Stock,open_market,false,true,1,"Sale 12/17/18 1,714 $16.61"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-17,sell,6572,16.61,Common Stock,open_market,false,true,1,"Sale 12/17/18 6,572 $16.61"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-17,sell,5064,16.61,Common Stock,open_market,false,true,1,"Sale 12/17/18 5,064 $16.61"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-17,sell,6318,16.61,Common Stock,open_market,false,true,1,"Sale 12/17/18 6,318 $16.61"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-17,sell,13587,16.61,Common Stock,open_market,false,true,1,"Sale 12/17/18 13,587 $16.61"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-18,sell,504,16.52,Common Stock,open_market,false,true,1,Sale 12/18/18 504 $16.52
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-18,sell,10714,16.52,Common Stock,open_market,false,true,1,"Sale 12/18/18 10,714 $16.52"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-18,sell,41715,16.52,Common Stock,open_market,false,true,1,"Sale 12/18/18 41,715 $16.52"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-18,sell,31908,16.52,Common Stock,open_market,false,true,1,"Sale 12/18/18 31,908 $16.52"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-18,sell,12429,16.52,Common Stock,open_market,false,true,1,"Sale 12/18/18 12,429 $16.52"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-18,sell,1087,16.51,Common Stock,open_market,false,true,1,"Sale 12/18/18 1,087 $16.51"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-18,sell,80563,16.52,Common Stock,open_market,false,true,1,"Sale 12/18/18 80,563 $16.52"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-19,sell,2536,16.21,Common Stock,open_market,false,true,1,"Sale 12/19/18 2,536 $16.21"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-19,sell,17000,16.22,Common Stock,open_market,false,true,1,"Sale 12/19/18 17,000 $16.22"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-19,sell,5000,16.22,Common Stock,open_market,false,true,1,"Sale 12/19/18 5,000 $16.22"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-19,sell,70000,16.21,Common Stock,open_market,false,true,1,"Sale 12/19/18 70,000 $16.21"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-19,sell,57710,16.21,Common Stock,open_market,false,true,1,"Sale 12/19/18 57,710 $16.21"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-20,buy,84102,15.78,Common Stock,open_market,false,true,1,"Purchase 12/20/18 84,102 $15.78"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-20,sell,56047,15.74,Common Stock,open_market,false,true,1,"Sale 12/20/18 56,047 $15.74"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-20,sell,26243,15.51,Common Stock,open_market,false,true,1,"Sale 12/20/18 26,243 $15.51"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-20,sell,27000,15.51,Common Stock,open_market,false,true,1,"Sale 12/20/18 27,000 $15.51"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-20,sell,15000,15.51,Common Stock,open_market,false,true,1,"Sale 12/20/18 15,000 $15.51"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-20,sell,72857,15.51,Common Stock,open_market,false,true,1,"Sale 12/20/18 72,857 $15.51"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-20,sell,220847,15.52,Common Stock,open_market,false,true,1,"Sale 12/20/18 220,847 $15.52"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-26,buy,35324,14.93,Common Stock,open_market,false,true,1,"Purchase 12/26/18 35,324 $14.93"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-26,buy,1971,14.93,Common Stock,open_market,false,true,1,"Purchase 12/26/18 1,971 $14.93"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2018-12-27,sell,141232,14.92,Common Stock,open_market,false,true,1,"Sale 12/27/18 141,232 $14.92"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-01-16,buy,21073,16.18,Common Stock,open_market,false,true,1,"Purchase 01/16/19 21,073 $16.18"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-01-31,buy,980,15.19,Common Stock,open_market,false,true,1,Purchase 01/31/19 980 $15.19
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-01-31,sell,84102,15.01,Common Stock,open_market,false,true,1,"Sale 01/31/19 84,102 $15.01"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-01-31,sell,7926,15.01,Common Stock,open_market,false,true,1,"Sale 01/31/19 7,926 $15.01"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-01-31,sell,25000,15.01,Common Stock,open_market,false,true,1,"Sale 01/31/19 25,000 $15.01"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-01-31,sell,13000,15.01,Common Stock,open_market,false,true,1,"Sale 01/31/19 13,000 $15.01"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-01-31,sell,15000,15.01,Common Stock,open_market,false,true,1,"Sale 01/31/19 15,000 $15.01"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-01-31,sell,2700,15.01,Common Stock,open_market,false,true,1,"Sale 01/31/19 2,700 $15.01"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-01-31,buy,237,15.29,Common Stock,open_market,false,true,1,Purchase 01/31/19 237 $15.29
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-01-31,buy,650950,15.19,Common Stock,open_market,false,true,1,"Purchase 01/31/19 650,950 $15.19"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-01,buy,1337000,15.25,Common Stock,open_market,false,true,1,"Purchase 02/01/19 1,337,000 $15.25"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-01,buy,1000,15.28,Common Stock,open_market,false,true,1,"Purchase 02/01/19 1,000 $15.28"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-01,buy,1000,15.25,Common Stock,open_market,false,true,1,"Purchase 02/01/19 1,000 $15.25"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-01,buy,2000,15.28,Common Stock,open_market,false,true,1,"Purchase 02/01/19 2,000 $15.28"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-01,buy,347602,15.28,Common Stock,open_market,false,true,1,"Purchase 02/01/19 347,602 $15.28"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-01,buy,235500,15.25,Common Stock,open_market,false,true,1,"Purchase 02/01/19 235,500 $15.25"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-01,buy,846273,15.28,Common Stock,open_market,false,true,1,"Purchase 02/01/19 846,273 $15.28"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-04,buy,2991,15.08,Common Stock,open_market,false,true,1,"Purchase 02/04/19 2,991 $15.08"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-04,buy,312,15.19,Common Stock,open_market,false,true,1,Purchase 02/04/19 312 $15.19
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-04,buy,894109,15.08,Common Stock,open_market,false,true,1,"Purchase 02/04/19 894,109 $15.08"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-04,buy,93388,15.19,Common Stock,open_market,false,true,1,"Purchase 02/04/19 93,388 $15.19"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-05,buy,200000,14.94,Common Stock,open_market,false,true,1,"Purchase 02/05/19 200,000 $14.94"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,buy,9919,13.11,Common Stock,open_market,false,true,1,"Purchase 02/15/19 9,919 $13.11"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,buy,690,13.12,Common Stock,open_market,false,true,1,Purchase 02/15/19 690 $13.12
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,sell,2000,13.49,Common Stock,open_market,false,true,1,"Sale 02/15/19 2,000 $13.49"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,sell,3000,13.49,Common Stock,open_market,false,true,1,"Sale 02/15/19 3,000 $13.49"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,sell,2000,13.49,Common Stock,open_market,false,true,1,"Sale 02/15/19 2,000 $13.49"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,sell,1000,13.49,Common Stock,open_market,false,true,1,"Sale 02/15/19 1,000 $13.49"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,sell,3000,13.49,Common Stock,open_market,false,true,1,"Sale 02/15/19 3,000 $13.49"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,sell,2000,13.49,Common Stock,open_market,false,true,1,"Sale 02/15/19 2,000 $13.49"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,sell,1000,13.49,Common Stock,open_market,false,true,1,"Sale 02/15/19 1,000 $13.49"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,sell,2000,13.49,Common Stock,open_market,false,true,1,"Sale 02/15/19 2,000 $13.49"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,sell,3628,13.49,Common Stock,open_market,false,true,1,"Sale 02/15/19 3,628 $13.49"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,buy,27281,13.11,Common Stock,open_market,false,true,1,"Purchase 02/15/19 27,281 $13.11"
+0000807985-19-000015,"Southeastern Asset Management, Inc. (client accounts)",2019-02-15,buy,1896,13.12,Common Stock,open_market,false,true,1,"Purchase 02/15/19 1,896 $13.12"
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-09-19,buy,272,27.4,Common Stock,open_market,false,true,1,09/19/2011 272 27.4
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-09-19,buy,4200,27.1845,Common Stock,open_market,false,true,1,"09/19/2011 4,200 27.1845"
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-09-19,buy,28,27.4,Common Stock,open_market,false,true,1,09/19/2011 28 27.4
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-09-19,buy,418,27.1845,Common Stock,open_market,false,true,1,09/19/2011 418 27.1845
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-09-20,buy,2333,27.1546,Common Stock,open_market,false,true,1,"09/20/2011 2,333 27.1546"
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-09-20,buy,232,27.1546,Common Stock,open_market,false,true,1,09/20/2011 232 27.1546
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-09-21,buy,9035,27.0101,Common Stock,open_market,false,true,1,"09/21/2011 9,035 27.0101"
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-09-21,buy,900,27.0101,Common Stock,open_market,false,true,1,09/21/2011 900 27.0101
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-09-26,buy,45,26.245,Common Stock,open_market,false,true,1,09/26/2011 45 26.245
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-09-26,buy,5,26.245,Common Stock,open_market,false,true,1,09/26/2011 5 26.245
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-09-29,buy,548,26.25,Common Stock,open_market,false,true,1,09/29/2011 548 26.25
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-09-29,buy,55,26.25,Common Stock,open_market,false,true,1,09/29/2011 55 26.25
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-10-03,buy,4339,26.2494,Common Stock,open_market,false,true,1,"10/03/2011 4,339 26.2494"
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-10-03,buy,432,26.2494,Common Stock,open_market,false,true,1,10/03/2011 432 26.2494
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-10-04,buy,923,26.2499,Common Stock,open_market,false,true,1,10/04/2011 923 26.2499
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-10-04,buy,92,26.2499,Common Stock,open_market,false,true,1,10/04/2011 92 26.2499
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-10-07,buy,3019,26.25,Common Stock,open_market,false,true,1,"10/07/2011 3,019 26.25"
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-10-07,buy,301,26.25,Common Stock,open_market,false,true,1,10/07/2011 301 26.25
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-10-28,sell,191,30.4824,Common Stock,open_market,false,true,1,10/28/2011 (191) 30.4824
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-10-28,sell,19,30.4824,Common Stock,open_market,false,true,1,10/28/2011 (19) 30.4824
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-10-31,sell,276,30,Common Stock,open_market,false,true,1,10/31/2011 (276) 30
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-10-31,sell,953,30.009,Common Stock,open_market,false,true,1,10/31/2011 (953) 30.009
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-10-31,sell,28,30,Common Stock,open_market,false,true,1,10/31/2011 (28) 30
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-10-31,sell,95,30.009,Common Stock,open_market,false,true,1,10/31/2011 (95) 30.009
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-11-04,buy,18903,27.415,Common Stock,open_market,false,true,1,"11/04/2011 18,903 27.415"
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-11-04,buy,1100,27.415,Common Stock,open_market,false,true,1,"11/04/2011 1,100 27.415"
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-11-09,buy,4820,26.25,Common Stock,open_market,false,true,1,"11/09/2011 4,820 26.25"
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-11-09,buy,47155,26.25,Common Stock,open_market,false,true,1,"11/09/2011 47,155 26.25"
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-11-09,buy,95,26.285,Common Stock,open_market,false,true,1,11/09/2011 95 26.285
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-11-09,buy,280,26.25,Common Stock,open_market,false,true,1,11/09/2011 280 26.25
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-11-09,buy,2745,26.25,Common Stock,open_market,false,true,1,"11/09/2011 2,745 26.25"
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-11-09,buy,5,26.285,Common Stock,open_market,false,true,1,11/09/2011 5 26.285
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-11-10,buy,10301,26.1993,Common Stock,open_market,false,true,1,"11/10/2011 10,301 26.1993"
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-11-10,buy,599,26.1993,Common Stock,open_market,false,true,1,11/10/2011 599 26.1993
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-11-16,buy,1298,26.22,Common Stock,open_market,false,true,1,"11/16/2011 1,298 26.22"
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-11-16,buy,76,26.22,Common Stock,open_market,false,true,1,11/16/2011 76 26.22
+0000902664-11-001642,Double Black Diamond Offshore Ltd.,2011-11-17,buy,686,26.23,Common Stock,open_market,false,true,1,11/17/2011 686 26.23
+0000902664-11-001642,Black Diamond Offshore Ltd.,2011-11-17,buy,40,26.23,Common Stock,open_market,false,true,1,11/17/2011 40 26.23
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-09-19,buy,5703,6.05,Common Stock,open_market,false,true,1,"9/19/2017 DSTR Common Stock 5,703 -- $6.05"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-09-20,buy,28797,6.05,Common Stock,open_market,false,true,1,"9/20/2017 DSTR Common Stock 28,797 -- $6.05"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-09-21,buy,91,5.80,Common Stock,open_market,false,true,1,9/21/2017 DSTR Common Stock 91 -- $5.80
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-09-21,buy,7614,5.80,Common Stock,open_market,false,true,1,9/21/2017 DSTR Common Stock 7614 -- $5.80
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-09-21,buy,509,5.80,Common Stock,open_market,false,true,1,9/21/2017 LCS Common Stock 509 -- $5.80
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-09-21,buy,42386,5.80,Common Stock,open_market,false,true,1,"9/21/2017 LCS Common Stock 42,386 -- $5.80"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-10-11,buy,2873,6.10,Common Stock,open_market,false,true,1,"10/11/2017 DSTR Common Stock 2,873 -- $6.10"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-10-11,buy,15990,6.10,Common Stock,open_market,false,true,1,"10/11/2017 LCS Common Stock 15,990 -- $6.10"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-10-12,buy,3392,6.15,Common Stock,open_market,false,true,1,"10/12/2017 DSTR Common Stock 3,392 -- $6.15"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-10-12,buy,3944,6.129247,Common Stock,open_market,false,true,1,"10/12/2017 DSTR Common Stock 3,944 -- $6.129247"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-10-12,buy,3128,6.122217,Common Stock,open_market,false,true,1,"10/12/2017 DSTR Common Stock 3,128 -- $6.122217"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-10-12,buy,17410,6.122217,Common Stock,open_market,false,true,1,"10/12/2017 LCS Common Stock 17,410 -- $6.122217"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-10-12,buy,21956,6.129247,Common Stock,open_market,false,true,1,"10/12/2017 LCS Common Stock 21,956 -- $6.129247"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-10-12,buy,18880,6.15,Common Stock,open_market,false,true,1,"10/12/2017 LCS Common Stock 18,880 -- $6.15"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-10-13,buy,3046,6.1278,Common Stock,open_market,false,true,1,"10/13/2017 DSTR Common Stock 3,046 -- $6.1278"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-10-13,buy,2284,6.09983333,Common Stock,open_market,false,true,1,"10/13/2017 DSTR Common Stock 2,284 -- $6.09983333"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-10-13,buy,2554,6.029813,Common Stock,open_market,false,true,1,"10/13/2017 DSTR Common Stock 2,554 -- $6.029813"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-10-13,buy,3807,6.0999,Common Stock,open_market,false,true,1,"10/13/2017 DSTR Common Stock 3,807 -- $6.0999"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-10-13,buy,14217,6.029813,Common Stock,open_market,false,true,1,"10/13/2017 LCS Common Stock 14,217 -- $6.029813"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-10-13,buy,21193,6.0999,Common Stock,open_market,false,true,1,"10/13/2017 LCS Common Stock 21,193 -- $6.0999"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-10-13,buy,12716,6.09983333,Common Stock,open_market,false,true,1,"10/13/2017 LCS Common Stock 12,716 -- $6.09983333"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-10-13,buy,16954,6.1278,Common Stock,open_market,false,true,1,"10/13/2017 LCS Common Stock 16,954 -- $6.1278"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-10-17,buy,5338,6.1342,Common Stock,open_market,false,true,1,"10/17/2017 DSTR Common Stock 5,338 -- $6.1342"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-10-17,buy,29718,6.1342,Common Stock,open_market,false,true,1,"10/17/2017 LCS Common Stock 29,718 -- $6.1342"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-11-02,buy,50000,6.1837,Common Stock,open_market,false,true,1,"11/2/2017 LCS Common Stock 50,000 -- $6.1837"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-11-03,buy,50000,6.05,Common Stock,open_market,false,true,1,"11/3/2017 LCS Common Stock 50,000 -- $6.05"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-11-06,buy,500000,,"Listed Equity Call Option on Common Stock (strike $7.50, exp 2018-05-18)",other,true,true,1,"LCS acquired a call option that gives LCS the right to purchase 500,000 shares"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-11-14,buy,11137,7.485409,Common Stock,open_market,false,true,1,"11/14/2017 LCS Common Stock 11,137 -- $7.485409"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-11-15,buy,43953,7.489364,Common Stock,open_market,false,true,1,"11/15/2017 LCS Common Stock 43,953 -- $7.489364"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-11-16,buy,50000,7.50,Common Stock,open_market,false,true,1,"11/16/2017 LCS Common Stock 50,000 -- $7.50"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-11-17,buy,2206,7.55,Common Stock,open_market,false,true,1,"11/17/2017 LCS Common Stock 2,206 -- $7.55"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-11-30,buy,192704,7.5934,Common Stock,open_market,false,true,1,"11/30/2017 LCS Common Stock 192,704 -- $7.5934"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-01,buy,14200,7.292606,Common Stock,open_market,false,true,1,"12/1/2017 LCS Common Stock 14,200 -- $7.292606"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-01,buy,50000,7.4375,Common Stock,open_market,false,true,1,"12/1/2017 LCS Common Stock 50,000 -- $7.4375"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-01,buy,50000,7.334589,Common Stock,open_market,false,true,1,"12/1/2017 LCS Common Stock 50,000 -- $7.334589"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-04,buy,25800,7.40,Common Stock,open_market,false,true,1,"12/4/2017 LCS Common Stock 25,800 -- $7.40"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-04,buy,60000,7.35,Common Stock,open_market,false,true,1,"12/4/2017 LCS Common Stock 60,000 -- $7.35"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-06,buy,19806,7.046718,Common Stock,open_market,false,true,1,"12/6/2017 LCS Common Stock 19,806 -- $7.046718"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-12-19,buy,2273,9.016232,Common Stock,open_market,false,true,1,"12/19/2017 DSTR Common Stock 2,273 -- $9.016232"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-12-19,buy,9091,8.999825,Common Stock,open_market,false,true,1,"12/19/2017 DSTR Common Stock 9,091 -- $8.999825"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-12-19,buy,13636,9,Common Stock,open_market,false,true,1,"12/19/2017 DSTR Common Stock 13,636 -- $9"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-12-19,buy,22727,9,Common Stock,open_market,false,true,1,"12/19/2017 DSTR Common Stock 22,727 -- $9"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-12-19,buy,27273,9,Common Stock,open_market,false,true,1,"12/19/2017 DSTR Common Stock 27,273 -- $9"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-19,buy,22727,9.016232,Common Stock,open_market,false,true,1,"12/19/2017 LCS Common Stock 22,727 -- $9.016232"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-19,buy,90909,8.999825,Common Stock,open_market,false,true,1,"12/19/2017 LCS Common Stock 90,909 -- $8.999825"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-19,buy,136364,9,Common Stock,open_market,false,true,1,"12/19/2017 LCS Common Stock 136,364.00 -- $9"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-19,buy,227273,9,Common Stock,open_market,false,true,1,"12/19/2017 LCS Common Stock 227,273.00 -- $9"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-19,buy,272727,9,Common Stock,open_market,false,true,1,"12/19/2017 LCS Common Stock 272,727.00 -- $9"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-19,buy,1650000,9.028869,Common Stock (swap-related; see Item 6 Swap Agreement),other,true,true,1,"12/19/2017 LCS Common Stock 1,650,000* -- $9.028869"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-19,sell,1000000,8.9881,Common Stock (swap-related; see Item 6 Swap Agreement),other,true,true,1,"12/19/2017 LCS Common Stock -- 1,000,000* $8.9881"
+0000919574-17-008738,Brigade Leveraged Capital Structures Fund Ltd. (LCS),2017-12-19,sell,650000,8.9881,Common Stock (swap-related; see Item 6 Swap Agreement),other,true,true,1,"12/19/2017 LCS Common Stock -- 650,000* $8.9881"
+0000919574-17-008738,Brigade Distressed Value Master Fund Ltd. (DSTR),2017-12-20,buy,110000,9.125,Common Stock,open_market,false,true,1,"12/20/2017 DSTR Common Stock 110,000 -- $9.125"
+0000921895-14-002048,PW Partners Master Fund LP,2014-07-22,buy,3000,6.5332,Common Stock,open_market,false,true,1,"Common Stock 3,000 6.5332 07/22/2014"
+0000921895-14-002048,Patrick Walsh,2014-07-22,buy,2000,6.5089,Common Stock,open_market,false,true,1,"Common Stock 2,000 6.5089 07/22/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-07-22,buy,5000,6.5000,Common Stock,open_market,false,false,1,"Common Stock 5,000 6.5000 07/22/2014"
+0000921895-14-002048,PW Partners Master Fund LP,2014-07-23,buy,2000,6.3500,Common Stock,open_market,false,true,1,"Common Stock 2,000 6.3500 07/23/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-07-24,buy,5000,6.1092,Common Stock,open_market,false,false,1,"Common Stock 5,000 6.1092 07/24/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-07-28,buy,11525,6.0814,Common Stock,open_market,false,false,1,"Common Stock 11,525 6.0814 07/28/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-07-30,buy,4012,6.0700,Common Stock,open_market,false,false,1,"Common Stock 4,012 6.0700 07/30/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-07-31,buy,28200,4.7233,Common Stock,open_market,false,false,1,"Common Stock 28,200 4.7233 07/31/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-01,buy,40774,4.3156,Common Stock,open_market,false,false,1,"Common Stock 40,774 4.3156 08/01/2014"
+0000921895-14-002048,PW Partners Master Fund LP,2014-08-04,buy,4947,4.1896,Common Stock,open_market,false,true,1,"Common Stock 4,947 4.1896 08/04/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-04,buy,900,4.1899,Common Stock,open_market,false,true,1,Common Stock 900 4.1899 08/04/2014
+0000921895-14-002048,Patrick Walsh,2014-08-04,buy,100,4.1500,Common Stock,open_market,false,true,1,Common Stock 100 4.1500 08/04/2014
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-04,buy,7000,4.1543,Common Stock,open_market,false,false,1,"Common Stock 7,000 4.1543 08/04/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-05,buy,6000,4.3394,Common Stock,open_market,false,true,1,"Common Stock 6,000 4.3394 08/05/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-05,buy,55384,4.3326,Common Stock,open_market,false,false,1,"Common Stock 55,384 4.3326 08/05/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-06,buy,35000,4.1870,Common Stock,open_market,false,false,1,"Common Stock 35,000 4.1870 08/06/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-07,buy,25000,4.1417,Common Stock,open_market,false,false,1,"Common Stock 25,000 4.1417 08/07/2014"
+0000921895-14-002048,PW Partners Master Fund LP,2014-08-08,buy,4000,4.0864,Common Stock,open_market,false,true,1,"Common Stock 4,000 4.0864 08/08/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-08,buy,20000,4.0700,Common Stock,open_market,false,false,1,"Common Stock 20,000 4.0700 08/08/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-08,buy,5000,4.0700,Common Stock,open_market,false,false,1,"Common Stock 5,000 4.0700 08/08/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-11,buy,12688,4.0652,Common Stock,open_market,false,false,1,"Common Stock 12,688 4.0652 08/11/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-13,buy,10000,4.1100,Common Stock,open_market,false,false,1,"Common Stock 10,000 4.1100 08/13/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-13,buy,5000,4.1100,Common Stock,open_market,false,false,1,"Common Stock 5,000 4.1100 08/13/2014"
+0000921895-14-002048,PW Partners Master Fund LP,2014-08-18,buy,6314,4.1872,Common Stock,open_market,false,true,1,"Common Stock 6,314 4.1872 08/18/2014"
+0000921895-14-002048,PW Partners Master Fund LP,2014-08-19,buy,2000,4.2700,Common Stock,open_market,false,true,1,"Common Stock 2,000 4.2700 08/19/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-19,buy,600,4.2999,Common Stock,open_market,false,true,1,Common Stock 600 4.2999 08/19/2014
+0000921895-14-002048,Patrick Walsh,2014-08-19,buy,200,4.2900,Common Stock,open_market,false,true,1,Common Stock 200 4.2900 08/19/2014
+0000921895-14-002048,Patrick Walsh,2014-08-19,buy,4200,4.2850,Common Stock,open_market,false,true,1,"Common Stock 4,200 4.2850 08/19/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-19,buy,7600,4.2491,Common Stock,open_market,false,true,1,"Common Stock 7,600 4.2491 08/19/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-19,buy,100,4.2500,Common Stock,open_market,false,true,1,Common Stock 100 4.2500 08/19/2014
+0000921895-14-002048,Patrick Walsh,2014-08-19,buy,2300,4.2300,Common Stock,open_market,false,true,1,"Common Stock 2,300 4.2300 08/19/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-19,buy,1000,4.2899,Common Stock,open_market,false,true,1,"Common Stock 1,000 4.2899 08/19/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-19,buy,1500,4.2800,Common Stock,open_market,false,true,1,"Common Stock 1,500 4.2800 08/19/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-19,buy,1500,4.2700,Common Stock,open_market,false,true,1,"Common Stock 1,500 4.2700 08/19/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-19,buy,15000,4.2590,Common Stock,open_market,false,false,1,"Common Stock 15,000 4.2590 08/19/2014"
+0000921895-14-002048,PW Partners Master Fund LP,2014-08-20,buy,2739,4.2927,Common Stock,open_market,false,true,1,"Common Stock 2,739 4.2927 08/20/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-20,buy,3500,4.3180,Common Stock,open_market,false,true,1,"Common Stock 3,500 4.3180 08/20/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-20,buy,300,4.2700,Common Stock,open_market,false,true,1,Common Stock 300 4.2700 08/20/2014
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-20,buy,2312,4.3200,Common Stock,open_market,false,false,1,"Common Stock 2,312 4.3200 08/20/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-20,buy,8105,4.2993,Common Stock,open_market,false,false,1,"Common Stock 8,105 4.2993 08/20/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-21,buy,2570,4.3599,Common Stock,open_market,false,true,1,"Common Stock 2,570 4.3599 08/21/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-21,buy,4380,4.3600,Common Stock,open_market,false,true,1,"Common Stock 4,380 4.3600 08/21/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-21,buy,300,4.3500,Common Stock,open_market,false,true,1,Common Stock 300 4.3500 08/21/2014
+0000921895-14-002048,Patrick Walsh,2014-08-21,buy,4000,4.3340,Common Stock,open_market,false,true,1,"Common Stock 4,000 4.3340 08/21/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-21,buy,3500,4.3340,Common Stock,open_market,false,true,1,"Common Stock 3,500 4.3340 08/21/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-21,buy,5000,4.3182,Common Stock,open_market,false,true,1,"Common Stock 5,000 4.3182 08/21/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-21,buy,400,4.3100,Common Stock,open_market,false,true,1,Common Stock 400 4.3100 08/21/2014
+0000921895-14-002048,Patrick Walsh,2014-08-21,buy,1100,4.3200,Common Stock,open_market,false,true,1,"Common Stock 1,100 4.3200 08/21/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-21,buy,5628,4.4273,Common Stock,open_market,false,true,1,"Common Stock 5,628 4.4273 08/21/2014"
+0000921895-14-002048,Patrick Walsh,2014-08-21,buy,900,4.4300,Common Stock,open_market,false,true,1,Common Stock 900 4.4300 08/21/2014
+0000921895-14-002048,Patrick Walsh,2014-08-21,buy,2222,4.4299,Common Stock,open_market,false,true,1,"Common Stock 2,222 4.4299 08/21/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-08-21,buy,2799,4.3000,Common Stock,open_market,false,false,1,"Common Stock 2,799 4.3000 08/21/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-08-25,buy,31414,4.5776,Common Stock,open_market,false,true,1,"Common Stock 31,414 4.5776 08/25/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-08-26,buy,115731,4.7081,Common Stock,open_market,false,true,1,"Common Stock 115,731 4.7081 08/26/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-08-26,sell,300,4.6833,Common Stock,open_market,false,true,1,Common Stock (300) 4.6833 08/26/2014
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-08-27,buy,202627,5.0711,Common Stock,open_market,false,true,1,"Common Stock 202,627 5.0711 08/27/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-08-27,sell,100,4.8500,Common Stock,open_market,false,true,1,Common Stock (100) 4.8500 08/27/2014
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-08-28,buy,86997,5.2917,Common Stock,open_market,false,true,1,"Common Stock 86,997 5.2917 08/28/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-08-28,buy,32400,5.2964,Common Stock,open_market,false,true,1,"Common Stock 32,400 5.2964 08/28/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-08-29,buy,84265,5.4770,Common Stock,open_market,false,true,1,"Common Stock 84,265 5.4770 08/29/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-08-29,buy,106108,5.5440,Common Stock,open_market,false,true,1,"Common Stock 106,108 5.5440 08/29/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-02,buy,142146,5.8043,Common Stock,open_market,false,true,1,"Common Stock 142,146 5.8043 09/02/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-02,sell,200,5.6000,Common Stock,open_market,false,true,1,Common Stock (200) 5.6000 09/02/2014
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-03,buy,40222,6.0003,Common Stock,open_market,false,true,1,"Common Stock 40,222 6.0003 09/03/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-04,buy,12179,6.0200,Common Stock,open_market,false,true,1,"Common Stock 12,179 6.0200 09/04/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-05,buy,14807,6.0212,Common Stock,open_market,false,true,1,"Common Stock 14,807 6.0212 09/05/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-05,sell,300,5.9900,Common Stock,open_market,false,true,1,Common Stock (300) 5.9900 09/05/2014
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-08,buy,78881,6.0339,Common Stock,open_market,false,true,1,"Common Stock 78,881 6.0339 09/08/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-08,buy,21700,6.0332,Common Stock,open_market,false,true,1,"Common Stock 21,700 6.0332 09/08/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-08,sell,600,5.6950,Common Stock,open_market,false,true,1,Common Stock (600) 5.6950 09/08/2014
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-09,buy,37706,6.1246,Common Stock,open_market,false,true,1,"Common Stock 37,706 6.1246 09/09/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-09,buy,41500,6.1301,Common Stock,open_market,false,true,1,"Common Stock 41,500 6.1301 09/09/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-10,buy,32400,6.1506,Common Stock,open_market,false,true,1,"Common Stock 32,400 6.1506 09/10/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-10,buy,8496,6.1484,Common Stock,open_market,false,true,1,"Common Stock 8,496 6.1484 09/10/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-11,buy,37287,6.1977,Common Stock,open_market,false,true,1,"Common Stock 37,287 6.1977 09/11/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-12,buy,107799,6.3500,Common Stock,open_market,false,true,1,"Common Stock 107,799 6.3500 09/12/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-12,buy,190000,6.3500,Common Stock,open_market,false,true,1,"Common Stock 190,000 6.3500 09/12/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-12,sell,200,6.1350,Common Stock,open_market,false,true,1,Common Stock (200) 6.1350 09/12/2014
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-12,buy,6500,6.3677,Common Stock,open_market,false,true,1,"Common Stock 6,500 6.3677 09/12/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-12,buy,24171,6.3407,Common Stock,open_market,false,true,1,"Common Stock 24,171 6.3407 09/12/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-09-12,sell,107799,6.3500,Common Stock,open_market,false,false,1,"Common Stock (107,799) 6.3500 09/12/2014"
+0000921895-14-002048,Certain affiliates of PW Capital Management (no longer own securities; not Reporting Persons),2014-09-12,sell,190000,6.3500,Common Stock,open_market,false,false,1,"Common Stock (190,000) 6.3500 09/12/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-15,buy,22363,6.2913,Common Stock,open_market,false,true,1,"Common Stock 22,363 6.2913 09/15/2014"
+0000921895-14-002048,PW Partners Atlas Fund III LP,2014-09-15,buy,74800,6.3167,Common Stock,open_market,false,true,1,"Common Stock 74,800 6.3167 09/15/2014"
+0000941560-16-000052,"Gardner Lewis Asset Management, L.P.",2016-07-25,buy,310600,52.16,Common Stock,open_market,false,true,1,"7/25/16 310,600 52.16"
+0000941560-16-000052,"Gardner Lewis Asset Management, L.P.",2016-07-26,buy,25000,52.21,Common Stock,open_market,false,true,1,"7/26/16 25,000 52.21"
+0000941560-16-000052,"Gardner Lewis Asset Management, L.P.",2016-07-27,buy,170387,52.21,Common Stock,open_market,false,true,1,"7/27/16 170,387 52.21"
+0000941560-16-000052,"Gardner Lewis Asset Management, L.P.",2016-07-28,buy,37665,52.21,Common Stock,open_market,false,true,1,"7/28/16 37,665 52.21"
+0000941560-16-000052,"Gardner Lewis Asset Management, L.P.",2016-07-29,sell,56321,52.66,Common Stock,open_market,false,true,1,"7/29/16 (56,321) 52.66"
+0000941560-16-000052,"Gardner Lewis Asset Management, L.P.",2016-08-17,buy,200000,52.18,Common Stock,open_market,false,true,1,"8/17/16 200,000 52.18"
+0000941560-16-000052,"Gardner Lewis Asset Management, L.P.",2016-08-30,buy,63096,51.91,Common Stock,open_market,false,true,1,"8/30/16 63,096 51.91"
+0000941560-16-000052,"Gardner Lewis Asset Management, L.P.",2016-08-31,buy,22661,51.93,Common Stock,open_market,false,true,1,"8/31/16 22,661 51.93"
+0000941560-16-000052,"Gardner Lewis Asset Management, L.P.",2016-09-01,buy,1701,51.80,Common Stock,open_market,false,true,1,"9/1/16 1,701 51.80"
+0000941560-16-000052,"Gardner Lewis Asset Management, L.P.",2016-09-02,buy,125000,51.82,Common Stock,open_market,false,true,1,"9/2/16 125,000 51.82"
+0000941560-16-000052,"Gardner Lewis Asset Management, L.P.",2016-09-07,buy,1724,51.84,Common Stock,open_market,false,true,1,"9/7/16 1,724 51.84"
+0000950157-15-000754,Donald E. Graham (indirect via GHC),2015-06-29,buy,5842313,,Common Stock,other,false,true,1,"On June 29, 2015, the Issuer distributed to GHC, then its sole stockholder, 5,842,"
+0000950157-15-000754,Donald E. Graham (indirect via GHC),2015-07-01,sell,5843313,,Common Stock,other,false,true,1,"On the Distribution Date, GHC disposed of all 5,843,313 shares of Common Stock"
+0000950157-15-000754,Donald E. Graham and family trusts,2015-07-01,buy,1013923,,Common Stock,other,false,true,1,"As a result of the Spin-Off Dividend, Mr. Graham and his family trusts described"
+0001019056-05-000041,Arvind Dharia,2004-12-09,buy,600,6.57,Common Stock (option exercise),other,true,true,1,Arvind Dharia 12/09/04 Buy** 600 $6.57
+0001019056-05-000041,Arvind Dharia,2004-12-09,buy,1400,6.57,Common Stock (option exercise),other,true,true,1,"Arvind Dharia 12/09/04 Buy** 1,400 $6.57"
+0001019056-05-000041,Arvind Dharia,2004-12-09,buy,14700,9.55,Common Stock (option exercise),other,true,true,1,"Arvind Dharia 12/09/04 Buy** 14,700 $9.55"
+0001019056-05-000041,Arvind Dharia,2004-12-09,buy,116,9.55,Common Stock (option exercise),other,true,true,1,Arvind Dharia 12/09/04 Buy** 116 $9.55
+0001019056-05-000041,Arvind Dharia,2004-12-09,buy,300,9.55,Common Stock (option exercise),other,true,true,1,Arvind Dharia 12/09/04 Buy** 300 $9.55
+0001019056-05-000041,Arvind Dharia,2004-12-09,buy,500,9.55,Common Stock (option exercise),other,true,true,1,Arvind Dharia 12/09/04 Buy** 500 $9.55
+0001019056-05-000041,Arvind Dharia,2004-12-09,buy,300,9.55,Common Stock (option exercise),other,true,true,1,Arvind Dharia 12/09/04 Buy** 300 $9.55
+0001019056-05-000041,Arvind Dharia,2004-12-09,buy,100,9.55,Common Stock (option exercise),other,true,true,1,Arvind Dharia 12/09/04 Buy** 100 $9.55
+0001019056-05-000041,Arvind Dharia,2004-12-09,buy,626,9.55,Common Stock (option exercise),other,true,true,1,Arvind Dharia 12/09/04 Buy** 626 $9.55
+0001019056-05-000041,Arvind Dharia,2004-12-09,buy,230,9.55,Common Stock (option exercise),other,true,true,1,Arvind Dharia 12/09/04 Buy** 230 $9.55
+0001019056-05-000041,Arvind Dharia,2004-12-09,buy,100,9.55,Common Stock (option exercise),other,true,true,1,Arvind Dharia 12/09/04 Buy** 100 $9.55
+0001019056-05-000041,Arvind Dharia,2004-12-09,buy,1200,9.55,Common Stock (option exercise),other,true,true,1,"Arvind Dharia 12/09/04 Buy** 1,200 $9.55"
+0001019056-05-000041,Arvind Dharia,2004-12-09,sell,600,18.94,Common Stock,open_market,false,true,1,Arvind Dharia 12/09/04 Sell 600 $18.94
+0001019056-05-000041,Arvind Dharia,2004-12-09,sell,1400,18.98,Common Stock,open_market,false,true,1,"Arvind Dharia 12/09/04 Sell 1,400 $18.98"
+0001019056-05-000041,Arvind Dharia,2004-12-09,sell,14700,18.75,Common Stock,open_market,false,true,1,"Arvind Dharia 12/09/04 Sell 14,700 $18.75"
+0001019056-05-000041,Arvind Dharia,2004-12-09,sell,116,18.77,Common Stock,open_market,false,true,1,Arvind Dharia 12/09/04 Sell 116 $18.77
+0001019056-05-000041,Arvind Dharia,2004-12-09,sell,300,18.78,Common Stock,open_market,false,true,1,Arvind Dharia 12/09/04 Sell 300 $18.78
+0001019056-05-000041,Arvind Dharia,2004-12-09,sell,500,18.89,Common Stock,open_market,false,true,1,Arvind Dharia 12/09/04 Sell 500 $18.89
+0001019056-05-000041,Arvind Dharia,2004-12-09,sell,300,18.90,Common Stock,open_market,false,true,1,Arvind Dharia 12/09/04 Sell 300 $18.90
+0001019056-05-000041,Arvind Dharia,2004-12-09,sell,100,18.91,Common Stock,open_market,false,true,1,Arvind Dharia 12/09/04 Sell 100 $18.91
+0001019056-05-000041,Arvind Dharia,2004-12-09,sell,626,18.93,Common Stock,open_market,false,true,1,Arvind Dharia 12/09/04 Sell 626 $18.93
+0001019056-05-000041,Arvind Dharia,2004-12-09,sell,230,18.93,Common Stock,open_market,false,true,1,Arvind Dharia 12/09/04 Sell 230 $18.93
+0001019056-05-000041,Arvind Dharia,2004-12-09,sell,100,18.95,Common Stock,open_market,false,true,1,Arvind Dharia 12/09/04 Sell 100 $18.95
+0001019056-05-000041,Arvind Dharia,2004-12-09,sell,1200,18.98,Common Stock,open_market,false,true,1,"Arvind Dharia 12/09/04 Sell 1,200 $18.98"
+0001019056-05-000041,Steven Madden,2005-01-06,buy,400000,1.75,Common Stock (option exercise),other,true,true,1,"Steven Madden 01/06/05 Buy* 400,000 $1.75"
+0001129787-07-000092,ValueAct Capital Master Fund L.P.,,buy,3210708,,Common Stock (merger consideration),other,false,true,1,Prior to the Merger Agreement ValueAct Master Fund was the beneficial owner of
+0001129787-07-000092,ValueAct Capital Master Fund III L.P.,,buy,560787,,Common Stock (merger consideration),other,false,true,1,"Master Fund III was the beneficial owner of 1,725,500 shares of Common Stock"
+0001144204-18-006967,"RA Capital Management, LLC / Peter Kolchinsky (the Fund)",2018-01-30,buy,1368981,,Common Stock (conversion of predecessor units),other,false,true,1,"Conversion 30-Jan-2018 1,368,981* and 320,463 (1)"
+0001144204-18-006967,"RA Capital Management, LLC / Peter Kolchinsky (the Account)",2018-01-30,buy,320463,,Common Stock (conversion of predecessor units),other,false,true,1,"Conversion 30-Jan-2018 1,368,981* and 320,463 (1)"
+0001144204-18-006967,"RA Capital Management, LLC / Peter Kolchinsky (the Fund)",2018-01-30,buy,808990,16.00,Common Stock (IPO purchase),other,false,true,1,"Purchase 30-Jan-2018 808,990* and 191,010 $16.00"
+0001144204-18-006967,"RA Capital Management, LLC / Peter Kolchinsky (the Account)",2018-01-30,buy,191010,16.00,Common Stock (IPO purchase),other,false,true,1,"Purchase 30-Jan-2018 808,990* and 191,010 $16.00"
+0001193125-06-031684,Bruce C. Gottwald,2006-02-14,buy,437220,,Common Stock,private,false,true,1,"Other than the acquisition of 437,220 shares of Common Stock in the Share Exchange"
+0001341004-10-000246,"Starr Investments Cayman II, Inc.",2010-01-28,buy,1000000,,Series A Convertible Preferred Stock,private,true,true,3,"the Investor will purchase from the Company, (i) one million (1,000,000) shares"
+0001341004-10-000246,"Starr Investments Cayman II, Inc.",2010-01-28,buy,1545455,,Warrants to purchase Common Stock (exercise price $6.47),private,true,true,3,"(ii) 1,545,455 warrants each entitling the Investor to purchase one share"
+0001341004-10-000246,"Starr Investments Cayman II, Inc.",2010-01-28,buy,150000,,Common Stock,private,false,true,8,"the Transferors have agreed to transfer an aggregate of up to 150,000 of their"
+0001418812-08-000035,ValueAct Master Fund,2008-03-24,sell,43012,21.56,Common Stock,open_market,false,true,1,"ValueAct Master Fund 03/24/2008 43,012 $21.56"
+0001418812-08-000035,ValueAct Master Fund III,2008-03-24,sell,7188,21.56,Common Stock,open_market,false,true,1,"ValueAct Master Fund III 03/24/2008 7,188 $21.56"
+0001418812-08-000035,ValueAct Master Fund,2008-03-25,sell,85682,21.74,Common Stock,open_market,false,true,1,"03/25/2008 85,682 $21.74"
+0001418812-08-000035,ValueAct Master Fund III,2008-03-25,sell,14318,21.74,Common Stock,open_market,false,true,1,"03/25/2008 14,318 $21.74"
+0001418812-08-000035,ValueAct Master Fund,2008-03-26,sell,85682,21.94,Common Stock,open_market,false,true,1,"03/26/2008 85,682 $21.94"
+0001418812-08-000035,ValueAct Master Fund III,2008-03-26,sell,14318,21.94,Common Stock,open_market,false,true,1,"03/26/2008 14,318 $21.94"
+0001418812-08-000035,ValueAct Master Fund,2008-03-27,sell,32474,21.55,Common Stock,open_market,false,true,1,"03/27/2008 32,474 $21.55"
+0001418812-08-000035,ValueAct Master Fund III,2008-03-27,sell,5426,21.55,Common Stock,open_market,false,true,1,"03/27/2008 5,426 $21.55"
+0001418812-08-000035,ValueAct Master Fund,2008-04-01,sell,86000,21.65,Common Stock,open_market,false,true,1,"04/01/2008 86,000 $21.65"
+0001418812-08-000035,ValueAct Master Fund III,2008-04-01,sell,14000,21.65,Common Stock,open_market,false,true,1,"04/01/2008 14,000 $21.65"
+0001418812-08-000035,ValueAct Master Fund,2008-04-02,sell,2236,22.01,Common Stock,open_market,false,true,1,"04/02/2008 2,236 $22.01"
+0001418812-08-000035,ValueAct Master Fund,2008-04-02,sell,15554,22.01,Common Stock,open_market,false,true,1,"04/02/2008 15,554 $22.01"
+0001418812-08-000035,ValueAct Master Fund,2008-04-02,sell,16516,22.00,Common Stock,open_market,false,true,1,"04/02/2008 16,516 $22.00"
+0001418812-08-000035,ValueAct Master Fund III,2008-04-02,sell,2531,22.01,Common Stock,open_market,false,true,1,"04/02/2008 2,531 $22.01"
+0001418812-08-000035,ValueAct Master Fund III,2008-04-02,sell,2688,22.00,Common Stock,open_market,false,true,1,"04/02/2008 2,688 $22.00"
+0001418812-08-000035,ValueAct Master Fund III,2008-04-02,sell,364,22.01,Common Stock,open_market,false,true,1,04/02/2008 364 $22.01
+0001418812-08-000035,ValueAct Master Fund,2008-04-03,sell,86000,22.03,Common Stock,open_market,false,true,1,"04/03/2008 86,000 $22.03"
+0001418812-08-000035,ValueAct Master Fund,2008-04-03,sell,43000,22.04,Common Stock,open_market,false,true,1,"04/03/2008 43,000 $22.04"
+0001418812-08-000035,ValueAct Master Fund,2008-04-03,sell,86000,22.04,Common Stock,open_market,false,true,1,"04/03/2008 86,000 $22.04"
+0001418812-08-000035,ValueAct Master Fund III,2008-04-03,sell,14000,22.04,Common Stock,open_market,false,true,1,"04/03/2008 14,000 $22.04"
+0001418812-08-000035,ValueAct Master Fund III,2008-04-03,sell,7000,22.04,Common Stock,open_market,false,true,1,"04/03/2008 7,000 $22.04"
+0001418812-08-000035,ValueAct Master Fund III,2008-04-03,sell,14000,22.03,Common Stock,open_market,false,true,1,"04/03/2008 14,000 $22.03"
+0001418812-08-000035,ValueAct Master Fund,2008-04-04,sell,86000,22.41,Common Stock,open_market,false,true,1,"04/04/2008 86,000 $22.41"
+0001418812-08-000035,ValueAct Master Fund III,2008-04-04,sell,14000,22.41,Common Stock,open_market,false,true,1,"04/04/2008 14,000 $22.41"
+0001418812-08-000035,ValueAct Master Fund,2008-04-07,sell,172000,22.26,Common Stock,open_market,false,true,1,"04/07/2008 172,000 $22.26"
+0001418812-08-000035,ValueAct Master Fund III,2008-04-07,sell,28000,22.26,Common Stock,open_market,false,true,1,"04/07/2008 28,000 $22.26"
+0001462180-09-000030,"Bulldog Investors, Phillip Goldstein and Andrew Dakos",2009-06-09,buy,300000,9.53,Common Stock,unknown,false,true,1,"06/09/09 300,000 $9.5300"
+0001462180-09-000030,"Bulldog Investors, Phillip Goldstein and Andrew Dakos",2009-06-16,buy,50000,9.55,Common Stock,unknown,false,true,1,"06/16/09 50,000 $9.5500"
+0001462180-09-000030,"Bulldog Investors, Phillip Goldstein and Andrew Dakos",2009-06-22,buy,25000,9.56,Common Stock,unknown,false,true,1,"06/22/09 25,000 $9.5600"
+0001462180-09-000030,"Bulldog Investors, Phillip Goldstein and Andrew Dakos",2009-06-22,buy,600,9.55,Common Stock,unknown,false,true,1,06/22/09 600 $9.5500
+0001462180-09-000030,"Bulldog Investors, Phillip Goldstein and Andrew Dakos",2009-06-23,buy,500,9.55,Common Stock,unknown,false,true,1,06/23/09 500 $9.5500
