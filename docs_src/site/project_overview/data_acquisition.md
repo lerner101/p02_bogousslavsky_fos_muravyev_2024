@@ -76,7 +76,9 @@ Stop a foreground collector with **Ctrl+C**. Completed Parquet/JSON pairs stay
 saved. The currently unfinished year restarts on the next run; `.part` files
 are not resumed byte-by-byte. Do not run two collectors for the same group/year
 in the same checkout. The commands run locally and stop making progress if the
-computer sleeps. The scripts are separate from the current `doit` default task.
+computer sleeps. Acquisition is explicit (`doit fetch_public`, `doit prepare_public`,
+`doit collect_wrds`); the default `doit` research build uses local data and makes
+no downloads. See the [build and handoff guide](build.md).
 
 ## Files and reproducibility
 
@@ -137,9 +139,11 @@ repository root (it is ignored by Git); its scripts have not been executed.
    these intraday inputs still need a bounded server-side extraction. Raw tick
    history has not been bulk-downloaded. New depth fields must be reconciled with
    the original definitions before substitution.
-3. **Exact news events:** `bfkr.hdf`, the Boudoukh–Feldman–Kogan–Richardson news
-   classifications referenced by the authors, was not obtained. A generic news
-   dataset is a different sample.
+3. **News-event preparation:** the public Boudoukh–Feldman–Kogan–Richardson VIP
+   classifications have been supplied as `InformationTradingVolatility_DataFile.csv`.
+   Dated CRSP linking and a preliminary Figure 4(c) regression are implemented;
+   adjusted earnings dates and the complete control/sample panel remain needed
+   for the final analysis. See [BFKR preparation and analysis](bfkr_news.md).
 4. **Back–Crotty–Li CPIE:** `cpie_13d.zip` is absent; the main script credits
    Kevin Crotty. Legacy PIN-family data do not include this comparison measure.
 5. **Out-of-fold training predictions and fitted models:** small-sample prediction

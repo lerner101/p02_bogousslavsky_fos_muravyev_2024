@@ -6,6 +6,7 @@ Includes 2004 warm-up history; the intended analysis is 2005–2019.
 Writes separate scoped outputs, preserving previously prepared wider files.
 """
 
+import argparse
 import io
 import json
 from pathlib import Path
@@ -17,12 +18,13 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "_data" / "public"
 
 
-def partition(archive, member, name, date_format):
+def partition(archive, member, name, date_format, force=False):
     target = DATA / (name + "_through_2019")
     target.mkdir(exist_ok=True)
-    if (target / "manifest.json").exists():
+    if (target / "manifest.json").exists() and not force:
         print("Already prepared:", name, flush=True)
         return
+    (target / "manifest.json").unlink(missing_ok=True)
     for p in target.glob("year=*/part-*.parquet"):
         p.unlink()
     counts, ranges = {}, {}
@@ -45,6 +47,9 @@ def partition(archive, member, name, date_format):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--force", action="store_true", help="Rebuild scoped partitions from local archives")
+    args = parser.parse_args()
     factors = []
     for filename, cols in [
         ("F-F_Research_Data_Factors_daily_CSV.zip", ["date", "mkt_rf", "smb", "hml", "rf"]),
@@ -64,9 +69,9 @@ def main():
         DATA / "ff4_daily_2004_2019.parquet", index=False)
     with ZipFile(DATA / "ITIs_extended_1993_2024.zip") as z:
         (DATA / "ITI_readme.txt").write_bytes(z.read("readme.txt"))
-    partition("ITIs_extended_1993_2024.zip", "ITIs_original_1993_2019.csv", "iti_original", "%Y-%m-%d")
-    partition("ITIs_extended_1993_2024.zip", "ITIs_extended_1993_2024.csv", "iti_extended", "%Y-%m-%d")
-    partition("cpie_data.zip", "cpie_daily.csv", "pin_legacy_daily", "%Y%m%d")
+    partition("ITIs_extended_1993_2024.zip", "ITIs_original_1993_2019.csv", "iti_original", "%Y-%m-%d", args.force)
+    partition("ITIs_extended_1993_2024.zip", "ITIs_extended_1993_2024.csv", "iti_extended", "%Y-%m-%d", args.force)
+    partition("cpie_data.zip", "cpie_daily.csv", "pin_legacy_daily", "%Y%m%d", args.force)
     supplied_zip = ROOT / "Replication Code-20220087.zip"
     if supplied_zip.exists():
         with ZipFile(supplied_zip) as z, z.open(

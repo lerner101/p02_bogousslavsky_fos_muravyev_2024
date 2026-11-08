@@ -69,6 +69,18 @@ def main():
     if factors.exists():
         lines.append(f"| FF4 daily factors | 1 | 16/16 | {pq.read_metadata(factors).num_rows:,} | "
                      f"{factors.stat().st_size/2**30:.3f} | 2004–2019 |")
+    news = data / "public" / "InformationTradingVolatility_DataFile.csv"
+    news_manifest = data / "derived" / "bfkr" / "manifest.json"
+    if news_manifest.exists():
+        obj = json.loads(news_manifest.read_text())
+        path = news_manifest.parent / "news_daily.parquet"
+        if path.exists():
+            rows = pq.read_metadata(path).num_rows
+            if rows != obj["link_counts"].get("linked", 0):
+                raise ValueError("BFKR linked row count differs from manifest")
+            lines.append(f"| BFKR linked news | 1 | — | {rows:,} | "
+                         f"{path.stat().st_size/2**30:.3f} | "
+                         + ", ".join(sorted(obj["linked_rows_by_year"])) + " |")
     partials = list(data.rglob("*.part"))
     incomplete = [str(p.relative_to(data)) for p in partials
                   if not (p.name[:4].isdigit() and int(p.name[:4]) > END_YEAR)]
@@ -78,7 +90,11 @@ def main():
               "", f"Retained later-year WRDS files outside scope: {len(later_files)}. Previously prepared wider public files are also retained.",
               "", "Stopped later-year partial files (not active downloads): " + (", ".join(later_partials) or "none"),
               "", "Failed extracts: " + (", ".join(failures) or "none"), "",
-              "Remaining gaps: cleaned/audited 13D labels; exact BFKR news events; BCL CPIE; "
+              "BFKR source CSV: " + (f"present ({news.stat().st_size/2**20:.1f} MiB). "
+                  "Figure 4(c) still needs adjusted earnings dates and the complete control panel."
+                  if news.exists() else "missing."), "",
+              "Remaining gaps: cleaned/audited 13D labels; "
+              + ("" if news.exists() else "BFKR news classifications; ") + "BCL CPIE; "
               "supplemental intraday inputs; original training artifacts or retrained models.", "",
               "See docs_src/site/project_overview/data_acquisition.md for scope and definitions."]
     report = ROOT / "_output" / "data_acquisition_status.md"
