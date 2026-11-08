@@ -10,6 +10,9 @@
 
 # Exclude _data folder, since it should all be pulled automatically (unless in the manual folder)
 /_data/*
+# _data and the venv may be symlinks to a folder outside iCloud (e.g. ~/iti_local)
+/_data
+/.venv-py313
 
 # Exclude _output directory since it's should generated automatically
 /_output/*
