@@ -14,8 +14,8 @@
 /_data
 /.venv-py313
 
-# Exclude _output directory since it's should generated automatically
-/_output/*
+# _output is committed so teammates can see results; skip Finder/iCloud duplicates
+/_output/* 2.*
 
 # Exclude PDFs generated from source LaTeX files, which are kept in the reports directory
 /reports/*.pdf
