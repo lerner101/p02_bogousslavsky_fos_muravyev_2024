@@ -249,7 +249,8 @@ def fig4():
 def ma_events(d):
     """Completed acquisitions of US public targets, linked to CRSP by 6-digit CUSIP."""
     s = pd.read_parquet(WRDS / "sdc_ma.parquet")
-    s = s[(s.tpublic == "Public") & (s.tnation == "United States") & (s.status == "Completed")]
+    s = s[(s.tpublic == "Public") & (s.tnation == "United States") & (s.status == "Completed")
+          & s.form.isin(["Merger", "Acquisition", "Acq. Maj. Int.", "Acq. Rem. Int."])]
     s = s.dropna(subset=["master_cusip", "dateann"])
     s["cusip6"] = s.master_cusip.str[:6]
     names = pd.read_parquet(WRDS / "crsp_names.parquet", columns=["permno", "ncusip", "namedt", "nameendt"])

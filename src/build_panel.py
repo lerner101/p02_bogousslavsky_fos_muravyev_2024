@@ -74,6 +74,8 @@ def taq_controls(year):
             "effectivespread_percent_dw", "percentpriceimpact_lr_dw",
             "bestofrdepth_share_tw", "bestbiddepth_share_tw", "ivol_t"]
     iid = pd.read_parquet(WRDS / "intraday_indicators" / f"{year}.parquet", columns=cols)
+    for c in cols[3:]:
+        iid[c] = pd.to_numeric(iid[c], errors="coerce").astype("float64")
     link = pd.read_parquet(WRDS / "crsp_taq_links" / f"{year}.parquet")
     link = link[["date", "sym_root", "sym_suffix", "permno"]].dropna(subset=["permno"])
     for frame in (iid, link):
