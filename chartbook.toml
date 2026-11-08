@@ -12,6 +12,10 @@ build = "doit"
 # Register project artifacts here as they are implemented.
 [notebooks]
 
-[dataframes]
+[dataframes.labels_13d_daily]
+name = "Schedule 13D trade-day labels"
+description = "One row per rebuilt 13D event and trading day in its 60-calendar-day window: whether the filer traded (itrade) and the signed dollar amount (ivol), in the authors' label layout."
+path = "_data/derived/13d/labels_daily.parquet"
+docs = "Built by src/build_13d_labels.py from WRDS SC 13D filing text (2005-2019). Columns follow src/schema_13d.py. Licensed CRSP fields (prc, shrout, vol) are included; do not redistribute. See the 13D section of the methodology page for screens and extraction accuracy."
 
 [charts]

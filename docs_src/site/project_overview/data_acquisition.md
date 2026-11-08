@@ -7,20 +7,13 @@ Previously downloaded later-year files are retained, outside the current scope.
 Individual datasets have shorter coverage. Starting in 2005 changes the sample
 and does not reproduce the paper's full-period estimates.
 
-## Paused collection snapshot
+## Collection status
 
-Collection was stopped at the user's request on November 4, 2026, at about
-4:48 p.m. Chicago time. No download process is running from this session.
-This table describes the original local checkout, not files supplied by GitHub.
-
-| Dataset | Years complete | Saved through | Next unfinished year |
-|---|---:|---:|---:|
-| Original 13D filings and index | 15/15 | 2019 | Complete for this range |
-| CRSP daily stocks | 11/16 | 2014 | 2015 |
-| Insider transactions | 11/16 | 2014 | 2015 |
-| Daily TAQ indicators | 4/16 | 2007 | 2008 |
-| Markit securities lending | 13/14 | 2018 | 2019 |
-| CRSP–TAQ links | 16/16 | 2019 | Complete for this range |
+As of November 6, 2026, every WRDS and public extract in the source map below
+is complete in at least one teammate checkout for its full available range:
+2004–2019 for market data (13D filing text 2005–2019, Markit 2006–2019,
+legacy PIN 2004–2012). Run `python src/data_status.py` to verify your own
+checkout; it validates each Parquet footer against its manifest row count.
 
 Original/refreshed ITI scores, factors, legacy PIN measures, earnings dates and
 M&A source extracts have been obtained within their available coverage. Scores
@@ -88,8 +81,8 @@ computer sleeps. The scripts are separate from the current `doit` default task.
 ## Files and reproducibility
 
 All downloaded research data are in ignored `_data/`, not in Git. The original
-replication ZIP is an input supplied by the user. Its analysis scripts were copied
-to `_data/author_code/`; they have not been executed.
+replication ZIP is an input supplied by the user and is read in place from the
+repository root (it is ignored by Git); its scripts have not been executed.
 
 - `python src/prepare_public_data.py` converts downloaded public archives into
   compact Parquet files. Original and extended ITI vintages remain separate.
@@ -131,9 +124,13 @@ to `_data/author_code/`; they have not been executed.
 ## Remaining gaps
 
 1. **Authors' cleaned 13D labels:** `sc13_1994_2018.dta` is absent from the
-   supplied replication ZIP. Request it from the authors, or extract and manually
-   audit transactions from the downloaded filings. An index or text download
-   does not reproduce the 1,593-event sample.
+   supplied replication ZIP, which also contains no 13D extraction code and no
+   model-training or cross-validation code. `build/get_13D.py` documents only
+   the label file's layout (see the 13D section of the methodology page). We
+   rebuild labels from the downloaded filing text; an index or text download
+   does not reproduce the 1,593-event sample. The authors' event *windows*
+   (PERMNO and dates, not the trades) can be recovered from blanks in the posted
+   ITI file; see `src/authors_13d_windows.py`.
 2. **Supplemental intraday inputs:** daily indicators do not supply all the
    paper's 30-minute midquote returns, morning/afternoon volumes and derived
    volatility/autocorrelation/illiquidity variables. TAQ access was verified, but
