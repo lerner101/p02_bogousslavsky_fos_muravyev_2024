@@ -37,6 +37,7 @@ FILINGS = {
     "n_documents": "Int64",
     "item5_found": "boolean",
     "schedule_ref": "string",  # e.g. "Schedule A", "Exhibit 99.1", or <NA>
+    "is_amendment": "boolean",  # cover page says "Amendment No. N" with N >= 1
 }
 
 TRANSACTIONS = {
@@ -65,6 +66,7 @@ EVENTS = {
     # Window matches one recovered from the posted ITI file (authors_13d_windows.py):
     # same PERMNO, filing date 3 days before to 7 days after the window's last day.
     "in_authors_sample": "boolean",
+    "pass_original": "boolean",  # not an amendment filed under form type SC 13D
     "pass_linked": "boolean",
     "pass_common_stock": "boolean",
     "pass_price": "boolean",
@@ -95,7 +97,8 @@ LABELS_DAILY = {
     "shrout": "float64",  # CRSP shares outstanding, thousands
     "vol": "float64",  # CRSP share volume
     "turn": "float64",  # vol / (shrout * 1000)
-    "13Dturn": "float64",  # |ivol| / (prc * shrout * 1000)
+    "gross_dollars": "float64",  # sum of |shares * price| that day, USD
+    "13Dturn": "float64",  # gross_dollars / (prc * shrout * 1000)
     "13Dvol/vol": "float64",  # 13Dturn / turn, capped at 1 (authors' rule)
     "in_paper_period": "boolean",
     "in_authors_sample": "boolean",
