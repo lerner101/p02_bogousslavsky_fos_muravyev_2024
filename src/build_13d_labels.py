@@ -5,6 +5,8 @@ extraction_log.parquet; CRSP daily/names from _data/wrds.
 
 events.parquet: one row per filing (schema_13d.EVENTS). Screens, applied in order, with
 the first failure recorded in `exclusion_reason`:
+    original           not an amendment ("Amendment No. N", N >= 1) filed as SC 13D
+                       (paper, footnote 5)
     linked             CRSP PERMNO found and the issuer name matches CRSP's name history
     common_stock       CRSP share code 10 or 11 on the filing date
     price, mcap        |price| >= MIN_PRICE and market cap >= MIN_MCAP on the first CRSP
@@ -22,7 +24,8 @@ labels_daily.parquet: one row per included event and CRSP trading day with
 filing_date - WINDOW_CALENDAR_DAYS <= date <= filing_date (schema_13d.LABELS_DAILY), using
 the authors' column names: itrade (bought or sold that day), ivol (signed dollars,
 sales negative), days_to_filing (calendar days), filing (event id).
-13Dturn = |ivol| / (prc * shrout * 1000); 13Dvol/vol = 13Dturn / turn capped at 1
+13Dturn = gross dollars traded / (prc * shrout * 1000), so same-day buys and sells
+add rather than net out (equals |ivol| / (prc * shrout * 1000) on one-sided days); 13Dvol/vol = 13Dturn / turn capped at 1
 (ITI_main.py). Values are not winsorized here; the authors winsorize at 0.05% in analysis.
 
 Run: python src/build_13d_labels.py
@@ -39,7 +42,7 @@ from schema_13d import EVENTS, LABELS_DAILY  # noqa: E402
 from screen_13d import load_crsp_daily, window_start_screens  # noqa: E402
 from settings import config  # noqa: E402
 
-SCREENS = ["linked", "common_stock", "price", "mcap", "no_derivatives", "has_trades"]
+SCREENS = ["original", "linked", "common_stock", "price", "mcap", "no_derivatives", "has_trades"]
 
 
 def cast(df, schema):
@@ -65,8 +68,9 @@ def authors_match(ev, windows, before=3, after=7):
 
 
 def build(filings, links, tx, crsp=None, authors_windows=None):
-    ev = filings[["accession", "filing_date"]].merge(
+    ev = filings[["accession", "filing_date", "is_amendment"]].merge(
         links[["accession", "permno", "link_method", "name_ok"]], on="accession", how="left")
+    ev["pass_original"] = ~ev.pop("is_amendment").astype("boolean").fillna(False).astype(bool)
     ev["pass_linked"] = ev.permno.notna() & ev.name_ok.astype("boolean").fillna(False).astype(bool)
     linked = ev[ev.pass_linked].drop(columns=["name_ok"])
     crsp = crsp if crsp is not None else load_crsp_daily(linked.permno)
@@ -108,9 +112,10 @@ def build(filings, links, tx, crsp=None, authors_windows=None):
     # Daily labels.
     inc = events[events.included]
     usable = usable[usable.accession.isin(pool)].assign(accession=lambda d: d.accession.map(pool))
-    usable["dollars"] = np.where(usable.side == "sell", -1, 1) * usable.shares * usable.price
+    usable["gross"] = (usable.shares * usable.price).abs()
+    usable["dollars"] = np.where(usable.side == "sell", -1, 1) * usable.gross
     daily = usable.groupby(["accession", "trade_date"]).agg(
-        ivol=("dollars", "sum"), n_trades=("shares", "size"),
+        ivol=("dollars", "sum"), gross_dollars=("gross", "sum"), n_trades=("shares", "size"),
         shares_bought=("shares", lambda s: s[usable.loc[s.index, "side"] == "buy"].sum()),
         shares_sold=("shares", lambda s: s[usable.loc[s.index, "side"] == "sell"].sum()),
     ).reset_index().rename(columns={"trade_date": "date"})
@@ -119,14 +124,14 @@ def build(filings, links, tx, crsp=None, authors_windows=None):
              "in_authors_sample"]].merge(c, on="permno")
     w = w[(w.date >= w.window_start) & (w.date <= w.filing_date)]
     lab = w.merge(daily, on=["accession", "date"], how="left")
-    for col in ["ivol", "shares_bought", "shares_sold", "n_trades"]:
+    for col in ["ivol", "gross_dollars", "shares_bought", "shares_sold", "n_trades"]:
         lab[col] = lab[col].fillna(0)
     lab["itrade"] = (lab.n_trades > 0).astype("int8")
     lab["days_to_filing"] = (lab.filing_date - lab.date).dt.days
     lab["patient"] = lab.days_to_filing > config("IMPATIENT_CALENDAR_DAYS")
     lab["prc"] = lab.prc.abs()
     lab["turn"] = lab.vol / (lab.shrout * 1000)
-    lab["13Dturn"] = lab.ivol.abs() / (lab.prc * lab.shrout * 1000)
+    lab["13Dturn"] = lab.gross_dollars / (lab.prc * lab.shrout * 1000)
     ratio = np.where(lab.turn > 0, lab["13Dturn"] / lab.turn, 0.0)
     lab["13Dvol/vol"] = np.minimum(ratio, 1.0)
     lab["in_paper_period"] = lab.filing_date.dt.year <= config("PAPER_13D_LAST_YEAR")

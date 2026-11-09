@@ -10,9 +10,12 @@
 
 # Exclude _data folder, since it should all be pulled automatically (unless in the manual folder)
 /_data/*
+# _data and the venv may be symlinks to a folder outside iCloud (e.g. ~/iti_local)
+/_data
+/.venv-py313
 
-# Exclude _output directory since it's should generated automatically
-/_output/*
+# _output is committed so teammates can see results; skip Finder/iCloud duplicates
+/_output/* 2.*
 
 # Exclude PDFs generated from source LaTeX files, which are kept in the reports directory
 /reports/*.pdf
