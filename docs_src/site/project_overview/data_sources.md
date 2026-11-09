@@ -12,8 +12,12 @@ factor library. Actual completion is recorded by each extract's JSON sidecar in
 
 Research data and credentials stay outside Git. Downloaded source extracts are
 not yet linked, screened, or transformed into a validated replication panel.
-The cleaned 13D labels, exact news sample, BCL comparison measures and some
+The independently verified 13D labels, final news-event sample, BCL comparison measures and some
 intraday inputs remain outstanding; see the inventory for details.
+
+The public BFKR VIP news-classification CSV is now available locally. See
+[BFKR preparation and Figure 4(c)](bfkr_news.md) for historical linking, the
+preliminary analysis and the remaining final-sample requirements.
 
 Downloads in the original checkout were stopped on November 4, 2026. GitHub
 contains scripts and instructions, not the local data. See the inventory for

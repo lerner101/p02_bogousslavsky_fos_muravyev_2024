@@ -1,6 +1,9 @@
 # Replication and Consultation Plan
 
-Prepared November 4, 2026. Research implementation has not started. This is a
+Prepared November 4, 2026. The original planning discussion below predates the
+implemented 13D pipeline and preliminary news regression. For the current
+execution contract, see the [build and professor handoff guide](build.md) and
+the dataset inventory in the repository README. This is a
 plan grounded in the local paper, all 13 local screenshots, the assignment, and
 selected course examples; it is not an instructor-approved scope agreement.
 
@@ -256,8 +259,10 @@ it contains no empirical results.
 
 The site should contain dataset lineage, charts, clear source/access metadata,
 and a project-specific notebook tour. End-to-end build dependencies must connect
-data, tests, outputs, notebook, report, and site. The present `doit` default only
-creates directories; do not represent this as a completed research build.
+data, tests, outputs, notebook, report, and site. The `doit` default now builds
+implemented research tasks from local data and rejects missing required years;
+the final screenshot pipeline is still incomplete. Publishing remains separate;
+see the build guide.
 
 ## Cleanup audit
 

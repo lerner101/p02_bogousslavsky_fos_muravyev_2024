@@ -397,7 +397,8 @@ def finalize(rows):
 
 def run(accessions=None):
     rows, logs = [], []
-    for path in sorted(SOURCE.glob("*.parquet")):
+    for path in sorted(p for p in SOURCE.glob("*.parquet")
+                       if p.stem.isdigit() and 2005 <= int(p.stem) <= 2019):
         df = pd.read_parquet(path, columns=["accession", "form", "filing_date", "filing"])
         df = df[df.form == "SC 13D"]
         if accessions is not None:

@@ -212,7 +212,8 @@ def apply_schema(df, schema):
 
 def main():
     rows = []
-    for path in sorted(SOURCE.glob("*.parquet")):
+    for path in sorted(p for p in SOURCE.glob("*.parquet")
+                       if p.stem.isdigit() and 2005 <= int(p.stem) <= 2019):
         df = pd.read_parquet(path, columns=["accession", "form", "filing_date", "filing"])
         df = df[df.form == "SC 13D"]
         rows += [parse_filing(a, d, t) for a, d, t in zip(df.accession, df.filing_date, df.filing)]

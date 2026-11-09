@@ -18,10 +18,11 @@ WRDS = ROOT / "_data" / "wrds"
 
 
 def load_crsp_daily(permnos, columns=("permno", "date", "prc", "shrout", "vol", "ret")):
-    """CRSP daily rows for the given PERMNOs across all saved years."""
+    """CRSP rows for the given PERMNOs within the build's 2004-2019 scope."""
     permnos = pd.Series(pd.unique(pd.Series(permnos).dropna())).astype("int64")
     frames = []
-    for path in sorted((WRDS / "crsp_daily").glob("*.parquet")):
+    for path in sorted(p for p in (WRDS / "crsp_daily").glob("*.parquet")
+                       if p.stem.isdigit() and 2004 <= int(p.stem) <= 2019):
         df = pd.read_parquet(path, columns=list(columns))
         frames.append(df[df.permno.isin(permnos)])
     out = pd.concat(frames, ignore_index=True)

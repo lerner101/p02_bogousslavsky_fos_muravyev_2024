@@ -9,27 +9,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.13'
           cache: pip
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
       - name: Check build configuration
         run: |
           python -m doit list
-          python -m doit
-      - name: Run project tests when present
-        run: |
-          python - <<'PYTHON'
-          from pathlib import Path
-          import subprocess
-          import sys
-
-          tests = [
-              path for root in (Path('src'), Path('tests'))
-              for path in root.rglob('*.py')
-              if path.name.startswith('test_') or path.name.endswith('_test.py')
-          ]
-          if tests:
-              sys.exit(subprocess.call([sys.executable, '-m', 'pytest']))
-          print('No project tests implemented yet.')
-          PYTHON
+      - name: Run credential-free checks
+        run: python -m doit check
