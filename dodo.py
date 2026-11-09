@@ -252,6 +252,49 @@ def task_bfkr_preview():
     }
 
 
+## Replication exhibits from the posted ITI file. Not default tasks (need local WRDS data).
+PANEL = Path("_data/derived/panel")
+REPLICATION = Path("_output/replication")
+
+
+def task_panel():
+    """Build the daily and weekly stock panels (CRSP, TAQ indicators, posted ITI)."""
+    return {
+        "actions": [python_action("src/build_panel.py")],
+        "file_dep": ["src/build_panel.py", "src/paper_values.py", *CRSP_DAILY],
+        "targets": [PANEL / "daily.parquet", PANEL / "weekly.parquet"],
+    }
+
+
+def task_replication():
+    """Replicate Tables 5, 10, 11 and Figures 4(a)-(b), IA.5."""
+    return {
+        "actions": [python_action("src/replicate_exhibits.py")],
+        "file_dep": ["src/replicate_exhibits.py", "src/regress.py", "src/paper_values.py",
+                     PANEL / "daily.parquet", PANEL / "weekly.parquet"],
+        "targets": [REPLICATION / f for f in ["table10.csv", "table11.csv", "table5.csv",
+                                              "figure4a.csv", "figure4b.csv", "figureIA5.csv"]],
+    }
+
+
+def task_replication_notebook():
+    """Execute the replication notebook and export it to HTML in _output/."""
+    py = Path("src/01_iti_replication.ipynb.py")
+    nb = py.with_suffix("")
+    return {
+        "actions": [
+            f"jupytext --to notebook --output {nb} {py}",
+            f"jupyter nbconvert --execute --to notebook --ClearMetadataPreprocessor.enabled=True --inplace {nb}",
+            f"jupyter nbconvert --to html --output-dir=_output {nb}",
+            f"mv {nb} _output/",
+        ],
+        "file_dep": [py, *[REPLICATION / f for f in ["table10.csv", "table11.csv", "table5.csv"]],
+                     THIRTEEN_D / "labels_daily.parquet"],
+        "targets": [Path("_output/01_iti_replication.html")],
+        "clean": True,
+    }
+
+
 def task_report():
     """Compile the project report (requires latexmk and a LaTeX distribution)."""
     return {

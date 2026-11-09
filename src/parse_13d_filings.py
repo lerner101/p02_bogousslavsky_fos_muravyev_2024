@@ -173,6 +173,19 @@ def item5_location(doc_text):
     return True, anchor, (f"{ref.group(1).title()} {ref.group(2)}" if ref else None)
 
 
+AMENDMENT_RE = re.compile(
+    r"Amendment\s+No\.?\s*:?\s*(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\b", re.I)
+
+
+def is_amendment(doc_text):
+    """True if the cover page numbers the filing as an amendment (No. 1 or later).
+
+    Paper footnote 5 drops 13D/A filings submitted under form type SC 13D. Original
+    filings print a blank or zero ("Amendment No. ___", "Amendment No. 0")."""
+    m = AMENDMENT_RE.search(doc_text[:8000])
+    return bool(m) and m.group(1).lower() not in ("0", "00")
+
+
 def parse_filing(accession, filing_date, text):
     text = str(text)
     docs = split_documents(text)
@@ -185,7 +198,7 @@ def parse_filing(accession, filing_date, text):
            "cusip8": cusip[:8] if cusip else None,
            "cusip_candidates": ";".join(dict.fromkeys(c[:8] for c in cands)) or None,
            "event_date": parse_event_date(main), "n_documents": len(docs),
-           "item5_found": found, "schedule_ref": ref}
+           "item5_found": found, "schedule_ref": ref, "is_amendment": is_amendment(main)}
     return row
 
 
@@ -213,7 +226,8 @@ def main():
     print("CUSIP found:", f"{out.cusip8.notna().mean():.1%}",
           "| event date:", f"{out.event_date.notna().mean():.1%}",
           "| Item 5:", f"{out.item5_found.mean():.1%}",
-          "| schedule ref:", f"{out.schedule_ref.notna().mean():.1%}")
+          "| schedule ref:", f"{out.schedule_ref.notna().mean():.1%}",
+          "| amendments:", f"{out.is_amendment.mean():.1%}")
 
 
 if __name__ == "__main__":
