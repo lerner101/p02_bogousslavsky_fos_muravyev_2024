@@ -6,8 +6,8 @@ Filings are original SC 13D submissions 2005-2019 from WRDS. 'Paper period' mean
 
 | First failed screen | Filings |
 |---|---:|
-| linked | 11,188 |
-| common_stock | 4,160 |
+| linked | 11,204 |
+| common_stock | 4,144 |
 | price | 3,911 |
 | mcap | 1,272 |
 | no_derivatives | 58 |
@@ -61,4 +61,4 @@ Mean ITI on trade days 0.368 vs non-trade days 0.303; within-filing slope of itr
 
 ## Abnormal return around filing
 
-Events: 1976. Cumulative excess return from day -40 to day -1: 1.30% (paper Fig. IA.1: about 3%); days 0 to +1: 2.02% (paper: about 2%). Chart: `_output/13d_filing_car.png`.
+Events: 1952. Cumulative excess return from day -40 to day -1: 1.20% (paper Fig. IA.1: about 3%); days 0 to +1: 2.03% (paper: about 2%). Chart: `_output/13d_filing_car.png`.

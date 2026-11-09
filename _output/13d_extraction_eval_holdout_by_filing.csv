@@ -1,0 +1,16 @@
+accession,issuer_name,has_open_market_trades,packet_truncated_trades_possible,true_rows,pred_rows,matched,true_shares,pred_shares,regions
+0000950152-05-004672,American Greetings Corporation,no,no,0,0,0,0.0,0.0,item5c:0
+0001033475-06-000005,"Saga Communications, Inc. -",yes,no,15,15,15,486930.0,486930.0,item5c:0;ref:Schedule I:15
+0001104659-07-055445,"INSPIRE PHARMACEUTICALS, INC.",no,no,1,0,0,140186.0,0.0,item5c:0;exhibit:EX-1:0
+0001193125-08-242286,"Life Time Fitness, Inc.",yes,no,48,46,46,3632408.0,3466950.0,item5c:46
+0001040063-09-000003,"Kimball International, Inc.",no,no,5,0,0,112240.0,0.0,item5c:0
+0001104659-10-021019,Facet Biotech Corporation,no,no,3,0,0,81910724.0,0.0,item5c:0;ref:Annex I:0
+0001193125-11-068847,99 ONLY STORES,no,no,0,0,0,0.0,0.0,item5c:0;exhibit:EX-7.4:0
+0001188112-12-000920,"Greenway Medical Technologies, Inc.",no,no,4,0,0,5284679.0,0.0,item5c:0
+0001193125-13-214474,"T-Mobile US, Inc.",no,no,1,0,0,535286077.0,0.0,item5c:0
+0000921895-14-000641,"Cbeyond, Inc.",yes,no,17,17,17,598491.0,598491.0,item5c:0;ref:Schedule A:17
+0001104659-15-010748,"Genocea Biosciences, Inc.",no,no,3,0,0,1292415.0,0.0,item5c:0
+0001193125-16-525027,MIDDLEBURG FINANCIAL CORPORATION,yes,no,6,6,6,6948.0,6948.0,item5c:6
+0000919574-17-003011,"DigitalGlobe, Inc.",yes,no,2,2,2,4000.0,4000.0,item5c:0;ref:Exhibit B:2
+0000899140-18-000607,Horizon Global Corporation,yes,no,16,16,16,812163.0,812163.0,item5c:0;ref:Schedule II:16
+0000950142-19-000821,"Hemisphere Media Group, Inc.",no,no,0,0,0,0.0,0.0,item5c:0
