@@ -1,0 +1,19 @@
+{
+  "mode": "PRELIMINARY: raw earnings dates; no control completeness screen",
+  "observations": 1127042,
+  "stocks": 678,
+  "date_range": [
+    "2005-01-03",
+    "2015-12-23"
+  ],
+  "earnings_window_rows_excluded_full_news_history": 99578,
+  "iti": "Original posted ITI(impatient); all three 13D scores required nonmissing",
+  "earnings_input": "/Users/aarbitman/Desktop/Data Pipelines for Quantitative Research/p02_bogousslavsky_fos_muravyev_2024/_data/derived/bfkr/earnings_unadjusted.parquet",
+  "control_input": null,
+  "specification": "Stock fixed effects; stock/date clustered SE; intervals +/-2 SE",
+  "limitations": [
+    "Default sample starts 2005; screenshot starts 2000",
+    "Ticker links with ambiguity are excluded",
+    "Preview does not apply the paper's complete control/universe screens"
+  ]
+}
