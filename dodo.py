@@ -321,3 +321,52 @@ def task_build_chartbook_site():
         "task_dep": ["build_summary"],
         "clean": True,
     }
+
+
+# Explicit ML tasks: never added to default research or automatic downloads.
+ML_DATA = Path("_data/derived/ml_model")
+ML_OUT = Path("_output/ml_model")
+
+
+def task_iti_taq_pilot():
+    """Network: measure supplemental TAQ extraction on early/late pilot days."""
+    return {"actions": [python_action("src/collect_iti_taq.py", "--pilot")], "uptodate": [False]}
+
+
+def task_iti_collect():
+    """Network: resume training-history and ten-stock scoring TAQ acquisition."""
+    return {"actions": [python_action("src/collect_iti_taq.py")], "uptodate": [False]}
+
+
+def task_iti_features():
+    """Build all 41 features from existing supplemental aggregates; no download."""
+    return {"actions": [python_action("src/build_iti_features.py")],
+            "file_dep": ["src/build_iti_features.py", "src/iti_features.py"],
+            "targets": [ML_DATA / "features.parquet", ML_DATA / "features_manifest.json"],
+            "uptodate": [False]}
+
+
+def task_iti_train():
+    """Explicit nested XGBoost training; requires a complete feature build."""
+    return {"actions": [python_action("src/train_iti.py")],
+            "file_dep": ["src/train_iti.py", "src/iti_features.py", ML_DATA / "features.parquet",
+                         ML_DATA / "features_manifest.json", THIRTEEN_D / "labels_daily.parquet"],
+            "targets": [ML_DATA / "iti_13d.json", ML_DATA / "oof_predictions.parquet",
+                        ML_DATA / "model_manifest.json"], "uptodate": [False]}
+
+
+def task_iti_score():
+    """Score eligible acquired stock-days using the fitted ITI(13D) model."""
+    return {"actions": [python_action("src/score_iti.py")],
+            "file_dep": ["src/score_iti.py", ML_DATA / "model_manifest.json", ML_DATA / "iti_13d.json",
+                         ML_DATA / "features.parquet", THIRTEEN_D / "labels_daily.parquet"],
+            "targets": [ML_DATA / "scores.parquet"]}
+
+
+def task_iti_compare():
+    """Compare new project scores with original author ITI and published metrics."""
+    return {"actions": [python_action("src/compare_iti.py")],
+            "file_dep": ["src/compare_iti.py", "src/replicate_exhibits.py", "src/regress.py",
+                         ML_DATA / "scores.parquet", ML_DATA / "oof_predictions.parquet"],
+            "targets": [ML_OUT / "comparison.md", ML_OUT / "score_agreement.png",
+                        ML_OUT / "model_performance.png", ML_OUT / "annual_comparison.png"]}

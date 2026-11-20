@@ -1,6 +1,6 @@
 # Data acquisition status
 
-Snapshot: 2026-11-09T03:40:46.488767+00:00
+Snapshot: 2026-11-20T16:43:48.554163+00:00
 
 Completed files only; a readable Parquet footer and matching manifest row count were checked.
 
@@ -22,6 +22,7 @@ Scope: through 2019, including 2004 warm-up history. Wider combined source extra
 | sec_13d_filings | 15 | 15/15 | 27,622 | 0.210 | 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 |
 | sec_13d_index | 15 | 15/15 | 189,305 | 0.005 | 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 |
 | sec_cusip_links | 1 | — | 89,934 | 0.003 |  |
+| ITI supplemental TAQ (bounded, v2) | 4027 | — | 582,754 | 0.100 | Bounded daily extract; see ML acquisition report |
 | iti_original | 1162 | 16/16 | 10,421,219 | 0.448 | 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 |
 | iti_extended | 60 | 16/16 | 10,916,428 | 0.443 | 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019 |
 | pin_legacy_daily | 198 | 9/9 | 2,285,733 | 0.140 | 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 |
@@ -38,6 +39,8 @@ Failed extracts: none
 
 BFKR source CSV: present (37.2 MiB). Figure 4(c) still needs adjusted earnings dates and the complete control panel.
 
-Remaining gaps: cleaned/audited 13D labels; BCL CPIE; supplemental intraday inputs; original training artifacts or retrained models.
+Project ITI(13D): fitted model and held-out predictions present.
+
+Remaining gaps: independent 13D label verification; BCL CPIE; full-universe feature/scoring coverage; additional ITI model variants.
 
 See docs_src/site/project_overview/data_acquisition.md for scope and definitions.
