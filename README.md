@@ -7,17 +7,29 @@ Group: Jacob Lerner, Andrew Arbitman, Andrew McLaughlin, and Nate Lee.
 
 ## Status
 
+The [ITI(13D) estimation workflow](docs_src/site/project_overview/ml_model.md)
+has completed supplemental TAQ collection, feature building, nested XGBoost
+training, scoring, and comparisons for the bounded training-history/scoring sample.
+It fits 65,752 filing-day observations from 1,655 filings and produces 191,040
+eligible stock-day scores. See the [ML results](_output/ml_model/comparison.md)
+for held-out performance, score agreement, earnings plots, and limitations.
+All 41 feature columns are retained; only odd-lot counts may be missing, using
+XGBoost's native handling. The paper's exact undocumented settings are unavailable.
+
 Source-data acquisition covers a working target of 2005–2019, with 2004 warm-up
 history. Schedule 13D extraction, label construction and validation code are
 implemented; independent label verification remains outstanding. BFKR news
-linking and a preliminary Figure 4(c) regression are implemented. Complete
-features, model training, final event samples and pricing tests remain unfinished;
-no final screenshot replication is claimed.
+linking and a preliminary Figure 4(c) regression are implemented. Full-universe
+scoring, additional trained ITI variants, and final event/pricing replications
+remain unfinished; no complete screenshot replication is claimed.
 
 See the [data acquisition inventory](docs_src/site/project_overview/data_acquisition.md)
 for sources, collection commands, coverage, and remaining gaps.
 
 ## Dataset inventory
+
+The historical inventory below predates the ML workflow; consult its results
+report above for the current bounded feature/model outputs.
 
 Snapshot of **this checkout, November 8, 2026**. Git does not include `_data/`;
 other teammates may have more complete extracts. Our working analysis period is
