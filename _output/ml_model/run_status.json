@@ -1,0 +1,13 @@
+{
+  "started_utc": "2026-11-20T16:33:20.480344+00:00",
+  "completed_steps": [
+    "build_iti_features.py",
+    "train_iti.py",
+    "score_iti.py",
+    "compare_iti.py"
+  ],
+  "status": "complete",
+  "current_step": "compare_iti.py",
+  "resumed_utc": "2026-11-20T16:41:42.961004+00:00",
+  "finished_utc": "2026-11-20T16:41:55.738137+00:00"
+}

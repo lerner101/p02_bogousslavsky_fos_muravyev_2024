@@ -1,0 +1,12 @@
+{
+  "unique_stock_day_scores": true,
+  "unique_filing_day_predictions": true,
+  "filings_kept_within_fold": true,
+  "stock_days_kept_within_fold": true,
+  "bounded_finite_scores": true,
+  "scored_rows": 191040,
+  "heldout_rows": 65752,
+  "comparison_excludes_reconstructed_training_windows": true,
+  "score_min": 0.13208438456058502,
+  "score_max": 0.9449592232704163
+}

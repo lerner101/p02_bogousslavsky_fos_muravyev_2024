@@ -1,7 +1,7 @@
 """Report completed, incomplete and failed data extracts without reading values."""
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pyarrow.parquet as pq
@@ -17,6 +17,10 @@ def main():
     failures = []
     later_files = []
     for meta in sorted(wrds.rglob("*.json")):
+        # Supplemental aggregates have YYYYMMDD filenames, not YYYY extracts.
+        # They are a bounded acquisition and must not count as complete years.
+        if meta.is_relative_to(wrds / "iti_supplemental"):
+            continue
         if meta.stem.isdigit() and int(meta.stem) > END_YEAR:
             later_files.append(str(meta.relative_to(data)))
             continue
@@ -41,7 +45,7 @@ def main():
         if meta.stem.isdigit():
             g["years"].append(int(meta.stem))
     lines = ["# Data acquisition status", "",
-             f"Snapshot: {datetime.now(timezone.utc).isoformat()}", "",
+             f"Snapshot: {datetime.now(UTC).isoformat()}", "",
              "Completed files only; a readable Parquet footer and matching manifest row count were checked.", "",
              "Scope: through 2019, including 2004 warm-up history. Wider combined source extracts must be date-filtered before analysis.", "",
              "| Source | Complete files | Years complete | Rows | Size (GiB) | Completed years |",
@@ -51,6 +55,27 @@ def main():
         progress = f"{len(obj['years'])}/{END_YEAR-first_year+1}" if obj["years"] else "—"
         lines.append(f"| {name} | {obj['files']} | {progress} | {obj['rows']:,} | {obj['bytes']/2**30:.3f} | "
                      + ", ".join(map(str, obj["years"])) + " |")
+    supplemental = []
+    for meta in sorted((wrds / "iti_supplemental/daily").glob("*.json")):
+        try:
+            obj = json.loads(meta.read_text())
+        except json.JSONDecodeError:
+            continue  # A concurrent collector may be publishing this sidecar.
+        if meta.with_suffix(".parquet").exists():
+            supplemental.append((meta, obj))
+    if supplemental:
+        newest = max(obj["version"] for _, obj in supplemental)
+        active = [(p, obj) for p, obj in supplemental if obj["version"] == newest]
+        rows, size = 0, 0
+        for p, obj in active:
+            path = p.with_suffix(".parquet")
+            count = pq.read_metadata(path).num_rows
+            if count != obj["rows"]:
+                raise ValueError(f"Supplemental row count mismatch: {path}")
+            rows += count
+            size += path.stat().st_size
+        lines.append(f"| ITI supplemental TAQ (bounded, v{newest}) | {len(active)} | — | {rows:,} | "
+                     f"{size/2**30:.3f} | Bounded daily extract; see ML acquisition report |")
     for name in ["iti_original", "iti_extended", "pin_legacy_daily"]:
         p = data / "public" / (name + "_through_2019")
         manifest = p / "manifest.json"
@@ -86,6 +111,16 @@ def main():
                   if not (p.name[:4].isdigit() and int(p.name[:4]) > END_YEAR)]
     later_partials = [str(p.relative_to(data)) for p in partials
                       if p.name[:4].isdigit() and int(p.name[:4]) > END_YEAR]
+    ml = data / "derived/ml_model"
+    feature_manifest = ml / "features_manifest.json"
+    features_ready = ((ml / "features.parquet").exists() and feature_manifest.exists()
+                      and not json.loads(feature_manifest.read_text()).get("partial_acquisition", True))
+    model_ready = all((ml / name).exists() for name in ["iti_13d.json", "model_manifest.json", "oof_predictions.parquet"])
+    gaps = ["independent 13D label verification", "BCL CPIE"]
+    if not news.exists():
+        gaps.append("BFKR news classifications")
+    gaps.append("full-universe feature/scoring coverage" if features_ready else "supplemental intraday inputs")
+    gaps.append("additional ITI model variants" if model_ready else "original training artifacts or retrained models")
     lines += ["", "Incomplete files (not usable yet): " + (", ".join(incomplete) or "none"),
               "", f"Retained later-year WRDS files outside scope: {len(later_files)}. Previously prepared wider public files are also retained.",
               "", "Stopped later-year partial files (not active downloads): " + (", ".join(later_partials) or "none"),
@@ -93,9 +128,8 @@ def main():
               "BFKR source CSV: " + (f"present ({news.stat().st_size/2**20:.1f} MiB). "
                   "Figure 4(c) still needs adjusted earnings dates and the complete control panel."
                   if news.exists() else "missing."), "",
-              "Remaining gaps: cleaned/audited 13D labels; "
-              + ("" if news.exists() else "BFKR news classifications; ") + "BCL CPIE; "
-              "supplemental intraday inputs; original training artifacts or retrained models.", "",
+              "Project ITI(13D): " + ("fitted model and held-out predictions present." if model_ready else "not yet fitted."), "",
+              "Remaining gaps: " + "; ".join(gaps) + ".", "",
               "See docs_src/site/project_overview/data_acquisition.md for scope and definitions."]
     report = ROOT / "_output" / "data_acquisition_status.md"
     report.parent.mkdir(exist_ok=True)
