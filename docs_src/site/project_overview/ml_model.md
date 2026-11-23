@@ -55,7 +55,11 @@ python src/replicate_iti_figures.py --figure 2
 ```
 
 The task writes `figure1`, `figure2`, and `figure3` as PNG and CSV files
-under `_output/replication/`. It reads the saved run and uses the stock-day
+under `_output/replication/`, alongside a vector `figure3.pdf`,
+`figures1_3_comparison.md`, and an input SHA-256 manifest. Published comparison
+curves are approximate digitizations of the supplied paper; their coordinates,
+axis calibrations, and provenance live in `data_manual/iti_figure_benchmarks/`.
+Published reference values never enter estimation. It reads the saved run and uses the stock-day
 years present in the held-out filing sample. Figure 2 loads the existing XGBoost
 model for prediction. Figure 3 fits a small surrogate. The task makes no WRDS
 connection and does not run acquisition, feature building, or XGBoost training.
@@ -63,8 +67,9 @@ connection and does not run acquisition, feature building, or XGBoost training.
 - **Figure 1** uses `oof_predictions.parquet` and `raw_features.parquet`
   from `_data/derived/ml_model/`, plus the existing yearly CRSP daily shares
   outstanding, CRSP–TAQ links, and IID share-depth columns under `_data/wrds/`.
-  The regressions use the eight controls in the authors' archived Figure 1
-  script. Spread, lambda, realized volatility, volume, imbalance, and return
+  The primary regressions use the nine controls in the Figure 1 caption,
+  including price impact; the eight-control archived-script specification is
+  exported as a same-sample sensitivity. Spread, lambda, realized volatility, volume, imbalance, and return
   come from the unstandardized project features. Depth uses the sum of WRDS
   IID bid and ask share depth. Depth, turnover, and imbalance are divided by
   shares outstanding. Controls are winsorized at 0.05% and 99.95% on the
@@ -74,12 +79,18 @@ connection and does not run acquisition, feature building, or XGBoost training.
   `iti_13d.json` and `model_manifest.json` from the same run. It varies
   standardized daily share volume and realized volatility separately, averages
   the fitted model's predictions, and overlays the observed density. Each
-  panel uses a grid spanning the 1st to 99th percentiles of that feature.
+  panel uses the published display range, with project and digitized paper
+  partial dependence and densities. Density divides by all sample observations;
+  the CSV reports the fraction outside the displayed range.
 - **Figure 3** uses the same standardized filing-day features and manifest
   with the saved held-out ITI predictions as the outcome. A depth-three,
   squared-error regression tree uses a minimum leaf size of 1% of the sample.
   This is the project's rule for discouraging tiny splits. The plotted
-  sample R² describes the surrogate's fit to the held-out ITI scores.
+  sample R² describes the surrogate's fit to the held-out ITI scores. The
+  second panel redraws the published tree with its printed rounded thresholds,
+  counts, MSEs, and node means on the same color scale. Its root count differs
+  from the paper's main sample; no exact published R² is inferred from rounded
+  MSEs. Both the discrepancy and the caption's fit claim are preserved.
 
 ## Feature contract
 

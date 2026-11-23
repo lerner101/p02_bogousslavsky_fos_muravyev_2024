@@ -376,10 +376,14 @@ def task_iti_figures():
     """Build Figures 1–3 from a completed ML run and local WRDS extracts."""
     return {
         "actions": [python_action("src/replicate_iti_figures.py")],
-        "file_dep": ["src/replicate_iti_figures.py", "src/iti_features.py", "src/build_iti_features.py"],
+        "file_dep": ["src/replicate_iti_figures.py", "src/iti_features.py", "src/build_iti_features.py",
+                     *[f"data_manual/iti_figure_benchmarks/figure{n}.csv" for n in (1, 2, 3)],
+                     "data_manual/iti_figure_benchmarks/provenance.json"],
         # The script checks saved input paths. Listing the model artifacts as
         # file_dep would make doit invoke their producers and retrain XGBoost.
         "uptodate": [False],
-        "targets": [REPLICATION / f"figure{number}.{extension}"
-                    for number in (1, 2, 3) for extension in ("csv", "png")],
+        "targets": [*[REPLICATION / f"figure{number}.{extension}"
+                      for number in (1, 2, 3) for extension in ("csv", "png")],
+                    REPLICATION / "figure3.pdf", REPLICATION / "figures1_3_comparison.md",
+                    REPLICATION / "figures1_3_manifest.json"],
     }

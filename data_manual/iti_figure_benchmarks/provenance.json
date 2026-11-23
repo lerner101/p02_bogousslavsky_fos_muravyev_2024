@@ -1,0 +1,67 @@
+{
+  "citation": "Bogousslavsky, Fos, and Muravyev (2024), Informed Trading Intensity; supplied forthcoming-paper PDF",
+  "doi": "10.1111/jofi.13320",
+  "pdf_sha256": "52324d0fc70f17cd23bd61a12063e47be7246220ef14640cd400f6b2b47deae3",
+  "pdf_pages": [
+    43,
+    44,
+    45
+  ],
+  "printed_pages": [
+    41,
+    42,
+    43
+  ],
+  "rendering_pixels": [
+    1800,
+    2329
+  ],
+  "rendering": "macOS PDFKit thumbnailOfSize_forBox_((1800,2400),0), PNG; local renderings are not distributed",
+  "calibration": {
+    "figure1": {
+      "x_year_1994": 485,
+      "x_year_2018": 1441,
+      "y_r2_zero": 871,
+      "y_r2_point2": 614
+    },
+    "svol": {
+      "x0": 763,
+      "x1": 925.5,
+      "y0": 1269,
+      "value0": 0.25,
+      "y1": 858,
+      "value1": 0.4,
+      "density_zero_y": 1297,
+      "density_tick_y": 829,
+      "density_tick": 0.8,
+      "left": 630,
+      "right": 1189,
+      "top": 770,
+      "bottom": 1296
+    },
+    "rvol": {
+      "x0": 871,
+      "x1": 1029.5,
+      "y0": 1930,
+      "value0": 0.32,
+      "y1": 1574,
+      "value1": 0.38,
+      "density_zero_y": 2015,
+      "density_tick_y": 1545,
+      "density_tick": 0.5,
+      "left": 630,
+      "right": 1189,
+      "top": 1485,
+      "bottom": 2014
+    }
+  },
+  "method": "RGB pixel tracing with linear axis calibration; annual points for Figure 1, 100 horizontal samples per Figure 2 panel; Figure 3 transcribed from node labels",
+  "units": "ITI and R2 are decimal fractions. Density is per unit of standardized feature, using the paper's right-axis percent ticks divided by 100.",
+  "approximation": "Figures 1\u20132 are approximate digitizations, not author-provided numeric results. Raster/axis errors, dashed-line gaps and narrow spikes limit precision; roughly 0.005 R2/ITI resolution, without a formal error guarantee. No smoothing of substantive curve shapes.",
+  "tree_notes": [
+    "Preserve printed rounded node values, counts, MSEs and topology.",
+    "Tree root count 61,255 differs from main paper sample count 58,197.",
+    "Caption says about one-third of ITI variation; printed rounded MSEs do not reproduce that claim exactly. Do not infer an exact published R2 from these nodes.",
+    "Left branches follow <= thresholds, consistent with the graphic; caption's generic right-branch wording is not used."
+  ]
+}
