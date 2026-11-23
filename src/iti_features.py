@@ -30,6 +30,18 @@ IID_MAP = {
 SUPPLEMENTAL = ["mid_1000", "mid_1200", "mid_1400", "mid_close", "rv_in", "autocorr_in", "last_return", "volume_open", "svol_am", "svol_pm", "illiq_in", "depth_dollar", "depth_imb"]
 
 
+def link_indicators(link, iid):
+    """Link WRDS indicators to one PERMNO per stock-day, dropping ambiguous keys."""
+    symbol_key = ["date", "sym_root", "sym_suffix"]
+    for frame in (link, iid):
+        frame["sym_suffix"] = frame.sym_suffix.fillna("").astype(str)
+    link = link[["permno", *symbol_key]].drop_duplicates()
+    link = link[~link.duplicated(symbol_key, keep=False)]
+    link = link[~link.duplicated(["permno", "date"], keep=False)]
+    iid = iid[~iid.duplicated(symbol_key, keep=False)]
+    return link.merge(iid, on=symbol_key, validate="one_to_one")
+
+
 def derive_features(d):
     """Daily CRSP + IID + supplemental TAQ, sorted by PERMNO/date.
 

@@ -44,6 +44,43 @@ the same stages. Acquisition and model fitting are explicit; the existing
 default `doit` build is unchanged. Full-universe acquisition is not implemented
 as a default or launched by this workflow; review pilot cost before expanding.
 
+## Figures 1–3 from a completed run
+
+Run from the repository root in the same environment used for the ML run:
+
+```bash
+python -m doit iti_figures
+# To build only one figure, for example Figure 2:
+python src/replicate_iti_figures.py --figure 2
+```
+
+The task writes `figure1`, `figure2`, and `figure3` as PNG and CSV files
+under `_output/replication/`. It reads the saved run and uses the stock-day
+years present in the held-out filing sample. Figure 2 loads the existing XGBoost
+model for prediction. Figure 3 fits a small surrogate. The task makes no WRDS
+connection and does not run acquisition, feature building, or XGBoost training.
+
+- **Figure 1** uses `oof_predictions.parquet` and `raw_features.parquet`
+  from `_data/derived/ml_model/`, plus the existing yearly CRSP daily shares
+  outstanding, CRSP–TAQ links, and IID share-depth columns under `_data/wrds/`.
+  The regressions use the eight controls in the authors' archived Figure 1
+  script. Spread, lambda, realized volatility, volume, imbalance, and return
+  come from the unstandardized project features. Depth uses the sum of WRDS
+  IID bid and ask share depth. Depth, turnover, and imbalance are divided by
+  shares outstanding. Controls are winsorized at 0.05% and 99.95% on the
+  pooled common sample. Both annual regressions use the same filing-days.
+  The CSV includes held-out and complete-control counts.
+- **Figure 2** joins the held-out filing-days to `features.parquet` and uses
+  `iti_13d.json` and `model_manifest.json` from the same run. It varies
+  standardized daily share volume and realized volatility separately, averages
+  the fitted model's predictions, and overlays the observed density. Each
+  panel uses a grid spanning the 1st to 99th percentiles of that feature.
+- **Figure 3** uses the same standardized filing-day features and manifest
+  with the saved held-out ITI predictions as the outcome. A depth-three,
+  squared-error regression tree uses a minimum leaf size of 1% of the sample.
+  This is the project's rule for discouraging tiny splits. The plotted
+  sample R² describes the surrogate's fit to the held-out ITI scores.
+
 ## Feature contract
 
 All features below are standardized by stock using the preceding 252 CRSP

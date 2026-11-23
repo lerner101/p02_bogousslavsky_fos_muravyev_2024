@@ -18,6 +18,8 @@ The news chart uses unadjusted earnings dates and incomplete sample screens. It 
 
 ## Remaining screenshot work
 
-Tables 1–5 and 9–11, Figures 1–3, Figure 4(a–b), and Figure IA.5 do not yet have completed end-to-end builders. Figure 4(c) has a preliminary implementation only. Complete market features, fitted models/out-of-fold predictions, final events and pricing panels remain to implement. BCL data for Table 9 remain unavailable.
+Figures 1–3 can be built on the project sample with `doit iti_figures` using the saved ITI(13D) run and local market extracts.
+
+Tables 1–5 and 9–11, Figure 4(a–b), and Figure IA.5 do not yet have completed end-to-end builders. Figure 4(c) has a preliminary implementation only. Full-universe ITI scoring, additional model variants, final event studies, and pricing analyses remain unfinished. BCL data for Table 9 remain unavailable.
 
 See README.md for dataset coverage and docs_src/site/project_overview/build.md for the build/data handoff contract.

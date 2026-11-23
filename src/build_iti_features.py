@@ -19,6 +19,7 @@ from iti_features import (
     REQUIRED_FEATURES,
     SUPPLEMENTAL,
     derive_features,
+    link_indicators,
     standardize,
 )
 
@@ -78,13 +79,7 @@ def main():
         iid_cols = list(dict.fromkeys(["date", "sym_root", "sym_suffix", *IID_MAP.values(),
                     "buyvol_lr", "sellvol_lr", "buynumtrades_lr", "sellnumtrades_lr", "vwavg_buy_price_lr", "vwavg_sell_price_lr"]))
         iid = pd.read_parquet(WRDS / f"intraday_indicators/{year}.parquet", columns=iid_cols)
-        for x in (link, iid):
-            x["sym_suffix"] = x.sym_suffix.fillna("").astype(str)
-        link = link[["permno", "date", "sym_root", "sym_suffix"]].drop_duplicates()
-        link = link[~link.duplicated(["date", "sym_root", "sym_suffix"], keep=False)]
-        link = link[~link.duplicated(["permno", "date"], keep=False)]
-        iid = iid[~iid.duplicated(["date", "sym_root", "sym_suffix"], keep=False)]
-        m = link.merge(iid, on=["date", "sym_root", "sym_suffix"], validate="one_to_one")
+        m = link_indicators(link, iid)
         frames.append(d.merge(m.drop(columns=["symbol"], errors="ignore"), on=["permno", "date"],
                               how="left", validate="one_to_one"))
     daily = pd.concat(frames, ignore_index=True).sort_values(["permno", "date"]).reset_index(drop=True)
