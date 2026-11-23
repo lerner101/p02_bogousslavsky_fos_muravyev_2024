@@ -14,7 +14,9 @@ It fits 65,752 filing-day observations from 1,655 filings and produces 191,040
 eligible stock-day scores. See the [ML results](_output/ml_model/comparison.md)
 for held-out performance, score agreement, earnings plots, and limitations.
 All 41 feature columns are retained; only odd-lot counts may be missing, using
-XGBoost's native handling. The paper's exact undocumented settings are unavailable.
+XGBoost's native handling. `doit iti_figures` uses the completed run and local
+market extracts to build Figures 1–3 on the 2005–2018 training sample. See the
+[figure inputs and methods](docs_src/site/project_overview/ml_model.md#figures-13-from-a-completed-run).
 
 Source-data acquisition covers a working target of 2005–2019, with 2004 warm-up
 history. Schedule 13D extraction, label construction and validation code are
@@ -118,6 +120,7 @@ doit prepare_public                  # Rebuild prepared public inputs from local
 doit collect_wrds                    # Explicit licensed WRDS collection; own access required
 python src/prepare_bfkr_news.py       # Link the locally supplied BFKR news CSV
 doit bfkr_preview                    # Preliminary Figure 4(c); see limitations below
+doit iti_figures                     # Build Figures 1–3 from the saved ML run
 ```
 
 The report requires a LaTeX distribution with `latexmk` and `pdflatex`.

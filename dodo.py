@@ -370,3 +370,16 @@ def task_iti_compare():
                          ML_DATA / "scores.parquet", ML_DATA / "oof_predictions.parquet"],
             "targets": [ML_OUT / "comparison.md", ML_OUT / "score_agreement.png",
                         ML_OUT / "model_performance.png", ML_OUT / "annual_comparison.png"]}
+
+
+def task_iti_figures():
+    """Build Figures 1–3 from a completed ML run and local WRDS extracts."""
+    return {
+        "actions": [python_action("src/replicate_iti_figures.py")],
+        "file_dep": ["src/replicate_iti_figures.py", "src/iti_features.py", "src/build_iti_features.py"],
+        # The script checks saved input paths. Listing the model artifacts as
+        # file_dep would make doit invoke their producers and retrain XGBoost.
+        "uptodate": [False],
+        "targets": [REPLICATION / f"figure{number}.{extension}"
+                    for number in (1, 2, 3) for extension in ("csv", "png")],
+    }
