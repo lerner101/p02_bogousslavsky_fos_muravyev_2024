@@ -15,7 +15,8 @@ eligible stock-day scores. See the [ML results](_output/ml_model/comparison.md)
 for held-out performance, score agreement, earnings plots, and limitations.
 All 41 feature columns are retained; only odd-lot counts may be missing, using
 XGBoost's native handling. `doit iti_figures` uses the completed run and local
-market extracts to build Figures 1–3 on the 2005–2018 training sample. See the
+market extracts to build Figures 1–3 on the 2005–2018 training sample, with
+approximate published-figure comparisons and a methods report. See the
 [figure inputs and methods](docs_src/site/project_overview/ml_model.md#figures-13-from-a-completed-run).
 
 Source-data acquisition covers a working target of 2005–2019, with 2004 warm-up
