@@ -26,6 +26,7 @@
 # | 13D trade-day labels | `doit 13d_validation` | `_data/derived/13d/`, `_output/13d_label_validation.md` |
 # | Stock panels | `doit panel` | `_data/derived/panel/{daily,weekly}.parquet` |
 # | Exhibits | `doit replication` | `_output/replication/` |
+# | Figure 4 | `doit figure4_ab figure4_c` | `_output/replication/figure4*` |
 
 # %%
 from pathlib import Path
@@ -153,22 +154,35 @@ side_by_side(t5, pv.TABLE5, pv.TABLE5_NOBS)
 # controls, 4.5 with). Units of our spread and volatility controls differ from the
 # paper's, so their interaction coefficients are not comparable in size.
 #
-# ## 5. Figure 4(a)–(b): ITI(13D) around earnings announcements
+# ## 5. Figure 4: ITI around earnings announcements and news events
 #
-# Compustat `rdq` linked through CCM; day 0 is the higher-volume of the reported day
-# and the next trading day. Stock fixed effects; errors clustered by stock and date;
-# bars are 95% intervals. Panel (b) puts top, middle and bottom quartiles of
-# |day-0 return| in one regression. Dashed lines are read off the paper's plots.
+# Built by `src/replicate_figure4.py`, following the authors' `ITI_main.py`. Day 0 is
+# the higher-volume of Compustat `rdq` and the next trading day. Day indicators
+# are shifts within each stock's sequence of posted-ITI days, after dropping sparse
+# stocks; rows must have all available controls (lambda is not built for the
+# general panel). Stock fixed effects; errors double-clustered by stock and date;
+# bars are ±2 SE, as the authors export them. Panel (b) runs one regression per
+# quartile of |day-0 return|. Panel (c) uses BFKR news days for S&P 500 stocks,
+# 2005–2015, excluding earnings ±2 days. Dashed lines are read off the paper's plots.
 
 # %%
-Image(REP / "figure4a.png", width=700)
+display(Markdown((REP / "figure4_comparison.md").read_text(encoding="utf-8").split("## Panel")[0]))
+Image(REP / "figure4.png", width=700)
 
 # %%
-Image(REP / "figure4b.png", width=700)
+for name in ["figure4_diagnosis.csv", "figure4_subperiods.csv"]:
+    if (REP / name).exists():
+        display(pd.read_csv(REP / name).round(4))
 
 # %% [markdown]
 # Same shape as the paper: ITI rises from day −2, spikes on day 0, decays over ten
-# days, and the spike is larger for large-|r| announcements.
+# days, and the spike is larger for large-|r| announcements. The earnings profiles
+# correlate above 0.98 with the paper's, but their level is 1.2–1.5× higher (day 0:
+# 0.123 vs 0.095). The authors' sample rules barely move it (diagnosis table). The
+# day-0 response rises over our sample, from 0.109 in 2005–09 to 0.147 in 2015–19
+# (`figure4_subperiods.csv`). That is consistent with the paper's 1993–2019 average
+# being lower than our 2005–2019 one, though local data can't test 1993–2004.
+# Panel (c) matches the paper closely: day 0 is 0.0115 vs 0.0120.
 #
 # ## 6. Figure IA.5: ITI(13D) around M&A announcements
 #
@@ -192,7 +206,7 @@ Image(REP / "figureIA5.png", width=700)
 # | Table 10 col 6 | Brown–Hillegeist annual PIN (authors' replication ZIP) |
 # | Table 10 Panel B | ITI(insider buy/sell): not posted; needs our own model |
 # | Lambda in Tables 5, 10 controls | Kyle's lambda from TAQ trades |
-# | Figure 4(c), Table 6 cols 5–6 | BFKR news file (public; on teammate's `bfkr-news` branch, not merged) |
+# | Table 6 cols 5–6 | Regressions on the BFKR news panel (inputs now built for Figure 4(c)) |
 # | Table 6 col 7 | Ahern (2020) illegal insider trades |
 # | Table 9 | BCL measure |
 # | Insider-trained ITI from scratch | Insider trades before 2004 (routine vs opportunistic) |

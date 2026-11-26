@@ -58,7 +58,26 @@ The labels on the chart and report identify those limitations. It writes
 `_output/figure_04c_preview.{png,csv,json,md}` and saves the actual regression
 sample to `_data/derived/bfkr/figure_04c_preview_sample.parquet`.
 
-## Final analysis inputs
+## Figure 4(c) build
+
+```bash
+doit panel bfkr_news figure4_ab figure4_c
+```
+
+`src/replicate_figure4.py c` builds panel (c) with the inputs the preview lacks.
+It uses volume-adjusted earnings dates, `_data/derived/figure4/earnings_adjusted.parquet`,
+written by the `figure4_ab` step: day 0 is the higher-volume of `rdq` and the next
+trading day. It also applies the screened stock-day universe from the daily panel:
+eligible common stocks, posted-ITI days, sparse stocks dropped, and all seven available
+controls observed. The event design and regression are the same `event_design` and
+`estimate` functions used here.
+
+The sample is 2005–2015, not the paper's 2000–2015. Kyle's lambda is not part of the
+control screen, because it isn't built for the general panel. Outputs are
+`_output/replication/figure4c.{csv,png}` and the combined `figure4.png`, with the
+comparison to the paper in `figure4_comparison.md`.
+
+## Final analysis inputs (external CLI)
 
 ```bash
 python src/analyze_bfkr_news.py \

@@ -267,13 +267,40 @@ def task_panel():
 
 
 def task_replication():
-    """Replicate Tables 5, 10, 11 and Figures 4(a)-(b), IA.5."""
+    """Replicate Tables 5, 10, 11 and Figure IA.5."""
     return {
         "actions": [python_action("src/replicate_exhibits.py")],
         "file_dep": ["src/replicate_exhibits.py", "src/regress.py", "src/paper_values.py",
                      PANEL / "daily.parquet", PANEL / "weekly.parquet"],
         "targets": [REPLICATION / f for f in ["table10.csv", "table11.csv", "table5.csv",
-                                              "figure4a.csv", "figure4b.csv", "figureIA5.csv"]],
+                                              "figureIA5.csv"]],
+    }
+
+
+FIGURE4 = Path("_data/derived/figure4")
+FIGURE4_COMMON = ["src/replicate_figure4.py", "src/regress.py", "src/paper_values.py", "src/build_panel.py",
+                  PANEL / "daily.parquet", WRDS / "compustat_earnings.parquet",
+                  WRDS / "crsp_compustat_links.parquet"]
+
+
+def task_figure4_ab():
+    """Figure 4(a)-(b): ITI(13D) around earnings announcements, with the spec diagnosis."""
+    return {
+        "actions": [python_action("src/replicate_figure4.py", "diagnose", "ab")],
+        "file_dep": FIGURE4_COMMON,
+        "targets": [REPLICATION / f for f in ["figure4a.csv", "figure4b.csv", "figure4_diagnosis.csv", "figure4_subperiods.csv"]]
+                   + [FIGURE4 / "earnings_adjusted.parquet"],
+    }
+
+
+def task_figure4_c():
+    """Figure 4(c): ITI(impatient) around BFKR news days, excluding earnings windows."""
+    return {
+        "actions": [python_action("src/replicate_figure4.py", "c")],
+        "file_dep": [*FIGURE4_COMMON, "src/analyze_bfkr_news.py", "_data/derived/bfkr/news_daily.parquet",
+                     WRDS / "crsp_market.parquet", FIGURE4 / "earnings_adjusted.parquet"],
+        "task_dep": ["bfkr_inputs"],
+        "targets": [REPLICATION / "figure4c.csv", FIGURE4 / "figure4c_sample.parquet"],
     }
 
 

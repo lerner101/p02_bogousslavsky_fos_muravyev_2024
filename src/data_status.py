@@ -126,7 +126,7 @@ def main():
               "", "Stopped later-year partial files (not active downloads): " + (", ".join(later_partials) or "none"),
               "", "Failed extracts: " + (", ".join(failures) or "none"), "",
               "BFKR source CSV: " + (f"present ({news.stat().st_size/2**20:.1f} MiB). "
-                  "Figure 4(c) still needs adjusted earnings dates and the complete control panel."
+                  "Figure 4(c) is built by `doit figure4_c` with volume-adjusted earnings dates and the screened control panel."
                   if news.exists() else "missing."), "",
               "Project ITI(13D): " + ("fitted model and held-out predictions present." if model_ready else "not yet fitted."), "",
               "Remaining gaps: " + "; ".join(gaps) + ".", "",
