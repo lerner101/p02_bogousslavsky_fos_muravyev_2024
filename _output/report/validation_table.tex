@@ -14,14 +14,14 @@ Filer share of daily volume & 0.142 & 0.280 & Sec. 3.1: 28\% of daily volume whe
 13D turnover, median ($\times 100$) & 0.078 & 0.105 & Table IA.5, trade days \\
 Share of 13D trades that are sells & 0.120 & 0.060 & ITI\_main.py comment: $\sim$6\% of activist trades are sells \\
 \midrule
-\multicolumn{4}{l}{\textit{B. TAQ consolidated volume vs CRSP daily volume (pilot days)}} \\
-Volume ratio 2004 (3 stocks) & 1.000--1.000 & 1.000 & identity \\
-Volume ratio 2019 (3 stocks) & 0.834--0.967 & 1.000 & identity \\
+\multicolumn{4}{l}{\textit{B. TAQ bucket sum vs WRDS IID volume (pilot days)}} \\
+Volume ratio 2004 (3 stocks) & 1.000--1.000 & $\leq$ 1 & IID total\_vol\_m \\
+Volume ratio 2019 (3 stocks) & 0.834--0.967 & $\leq$ 1 & IID total\_vol\_m \\
 \midrule
 \multicolumn{4}{l}{\textit{C. Coverage and agreement with the authors' posted ITI}} \\
 Min.\ label rows with model inputs, 2005--2018 & 0.643 & $\geq$ 0.60 & tolerance \\
 Min.\ scored days found in authors' file & 0.954 & $\geq$ 0.95 & tolerance \\
 Min.\ yearly Pearson, ours vs authors' ITI(13D) & 0.519 & $\geq$ 0.40 & tolerance \\
-Volume ratio band & 0.834--1.000 & 0.8--1.2 & tolerance \\
+Volume ratio band & 0.834--1.000 & 0.8--1.0 & tolerance \\
 \bottomrule
 \end{tabular}

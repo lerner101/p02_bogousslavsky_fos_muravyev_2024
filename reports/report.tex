@@ -35,9 +35,10 @@ paper's sign and lies within a factor of \ScoreBand{} of the published value
 (Table~\ref{tab:scorecard}).
 
 \paragraph{Where it worked.} The event-study exhibits (earnings, news, M\&A),
-the return-reversal regression, the ITI(13D) and ITI(impatient) return
-predictability, and the stability of ITI's advantage over liquidity controls in
-Figure~1 all replicate in sign and magnitude.
+the return-reversal regression, ITI(impatient) return predictability, and the
+stability of ITI's advantage over liquidity controls in Figure~1 replicate in
+sign and magnitude. ITI(13D) return predictability replicates in sign, with
+smaller magnitude for the long-short alpha (Table~11, 0.33 of the paper's).
 
 \paragraph{Where it was hard.} (i) Raw 13D data: filers' transaction tables are
 free text, so we wrote and hand-audited an extractor. (ii) TAQ: several of the
@@ -59,8 +60,9 @@ Table~\ref{tab:validation} checks our data against benchmarks that do not depend
 on our code. Panel A compares the rebuilt 13D labels with statistics published
 in the paper: the share of window days with a 13D trade is \ItradeOurs{}
 (paper: \ItradePaper{}), and filers trade more often in the last 20 days than
-in the first 40, as the 10-day filing deadline implies. Panel B reconciles TAQ
-consolidated volume with CRSP daily volume (lowest ratio \VolRatioMin{}).
+in the first 40, as the 10-day filing deadline implies. Panel B reconciles our
+TAQ bucket-sum volume with WRDS Intraday Indicators (IID) market-hours volume
+(lowest ratio \VolRatioMin{}).
 Panel C and Figure~\ref{fig:validation} track coverage over time. Every
 training year keeps at least \MinCoverage{} of label rows after the feature
 screens (lowest in \MinCoverageYear{}), and our yearly ITI(13D) correlation with
@@ -72,9 +74,11 @@ as tests in the pipeline (\texttt{tests/test\_data\_validation.py}).
 \caption{Data validation. Rebuilt labels match the paper's trade frequency
 closely, but filers' share of daily volume is about half the published figure.
 Our extractor keeps small trades that the authors may have aggregated, so
-our labels carry the right timing with a weaker per-day signal. TAQ and CRSP
-volumes agree exactly in 2004 and within the tolerance in 2019, when CRSP
-excludes some off-exchange odd-lot prints. Coverage and agreement with the
+our labels carry the right timing with a weaker per-day signal. Our TAQ volume
+matches WRDS IID volume exactly in 2004 and is \VolRatioMin{} or more of it in 2019. Both
+aggregate the same TAQ trades, so this checks our aggregation rather than the
+trade data itself; the 2019 shortfall is volume printed under sale conditions
+our regular/odd-lot screen excludes. Coverage and agreement with the
 authors' series clear every tolerance, so differences in the downstream exhibits
 do not come from a broken universe or a missing year.}
 \label{tab:validation}
@@ -122,8 +126,11 @@ return predictability and in the volatility partial dependence of Figure~2.}\lab
 inside the shaded tolerance band. Return-predictability estimates (Tables 10--11)
 sit left of 1: right sign, smaller size, as expected from a model trained on a
 shorter, reconstructed label sample. Event-study peaks (Figure 4, IA.5) sit at
-or slightly right of 1. Points outside the band at large ratios are paper
-estimates that were themselves insignificant.}
+or slightly right of 1. Of the points beyond the band at large ratios,
+two pass because the paper's own estimate is insignificant (Table~5 \texttt{ret}
+and \texttt{ret*turn}); two are genuine misses: Figure~4(b) ``small day $-1$''
+(3.61, no published $t$-statistic) and Table~5 \texttt{ret*ES\%} (3.35, paper
+$t=-4.94$).}
 \end{figure}
 
 \subsection{Detecting informed trading (Figures 1--3)}

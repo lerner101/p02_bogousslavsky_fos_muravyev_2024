@@ -25,7 +25,8 @@ def test_filers_trade_more_often_near_the_deadline():
     assert S["impatient_minus_patient_ours"] > 0
 
 
-def test_taq_volume_reconciles_with_crsp():
+def test_taq_volume_reconciles_with_iid():
+    """Our TAQ bucket sum vs WRDS IID total_vol_m on the pilot days."""
     lo, hi = TOL["volume_ratio_band"]
     assert lo <= S["volume_ratio_min"] and S["volume_ratio_max"] <= hi
 

@@ -15,7 +15,7 @@
     "itrade_abs_diff": 0.05,
     "volume_ratio_band": [
       0.8,
-      1.2
+      1.01
     ],
     "min_input_coverage": 0.6,
     "min_author_match": 0.95,

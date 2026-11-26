@@ -45,6 +45,12 @@ def test_within_tolerance(exhibit, item, status):
     assert status == "pass", f"{exhibit} {item} outside the x{sc.RATIO_BAND:g} band"
 
 
+def test_no_missing_comparisons():
+    """A renamed or dropped output column must fail, not shrink the scorecard."""
+    missing = CARD[CARD.status == "missing"]
+    assert missing.empty, f"missing comparisons: {list(zip(missing.exhibit, missing.item))}"
+
+
 def test_known_misses_still_exist():
     """Every documented miss must refer to a scored comparison."""
     keys = set(zip(SCORED.exhibit, SCORED.item))

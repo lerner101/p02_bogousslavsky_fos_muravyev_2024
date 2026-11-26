@@ -306,17 +306,31 @@ VALIDATION_INPUTS = [Path("_output/13d_label_validation.md"), *[Path("_output/ml
     "comparison_coverage.csv", "agreement_by_year.csv"]]]
 
 
+REPORT_FIGURES = [Path("_output") / f for f in [
+    "replication/figure1.png", "replication/figure2.png", "replication/figure3.png",
+    "replication/figure4a.png", "replication/figure4b.png", "replication/figureIA5.png",
+    "figure_04c_preview.png", "13d_filing_car.png"]]
+
+
 def committed_outputs_unchanged(paths):
     """Rerun when committed outputs change, without making them file_dep.
 
-    These CSVs are targets of data-dependent tasks (replication, iti_figures);
-    listing them as file_dep would make doit try to rebuild them from WRDS data.
+    These files are targets of data-dependent tasks (replication, iti_figures,
+    bfkr_preview, 13d_validation); listing them as file_dep would make doit try
+    to rebuild them from WRDS data. The hash is computed when the task is
+    checked, not when dodo.py loads, so a producer that rewrites a file earlier
+    in the same run makes the consumer rerun.
     """
+    import json
     from hashlib import md5
 
-    from doit.tools import config_changed
-    return config_changed({str(p): md5(Path(p).read_bytes()).hexdigest() if Path(p).exists() else None
-                           for p in paths})
+    def check(task, values):
+        hashes = {str(p): md5(Path(p).read_bytes()).hexdigest() if Path(p).exists() else None
+                  for p in paths}
+        digest = md5(json.dumps(hashes, sort_keys=True).encode()).hexdigest()
+        task.value_savers.append(lambda: {"outputs_digest": digest})
+        return values.get("outputs_digest") == digest
+    return check
 
 
 def task_scorecard():
@@ -362,6 +376,8 @@ def task_report():
                      REPORT_DIR / "validation_table.tex", REPORT_DIR / "validation_coverage.png",
                      REPORT_DIR / "table5.tex", REPORT_DIR / "table10.tex",
                      REPORT_DIR / "table11.tex", REPORT_DIR / "stats.tex"],
+        # Figures included directly from _output/ (produced by data tasks).
+        "uptodate": [committed_outputs_unchanged(REPORT_FIGURES)],
         "targets": ["reports/report.pdf"],
         "clean": True,
     }

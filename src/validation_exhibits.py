@@ -4,7 +4,8 @@ Each check compares our data with something known independently of our code:
 
 1. Rebuilt 13D labels vs statistics the paper publishes (Table 1, Sec. 3.1/4.1,
    Table IA.5), parsed from _output/13d_label_validation.md.
-2. TAQ consolidated volume vs CRSP daily volume on the acquisition pilot days.
+2. Our TAQ bucket-sum volume vs WRDS Intraday Indicators (IID) market-hours
+   volume (total_vol_m) on the acquisition pilot days.
 3. Coverage through time: share of 13D label rows with complete model inputs,
    and share of our scored stock-days present in the authors' posted ITI file.
 4. Agreement between our ITI(13D) and the authors' posted ITI(13D) by year.
@@ -26,20 +27,26 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
+from settings import config  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "_output"
 ML = OUTPUT / "ml_model"
 REPORT = OUTPUT / "report"
-TRAIN_YEARS = range(2005, 2019)  # 13D training filings; 2019 is out of sample by design
+# 13D training filings; 2019 is out of sample by design.
+TRAIN_YEARS = range(config("START_DATE").year, config("PAPER_13D_LAST_YEAR") + 1)
 
 VALIDATION_TOLERANCES = {
     # Trade-day frequency is a direct property of the filings; the paper
     # reports 36.03%. Five points allows for our shorter 2005-2018 sample.
     "itrade_abs_diff": 0.05,
-    # TAQ and CRSP volumes count the same trades; after 2014 CRSP excludes some
-    # off-exchange odd-lot prints that TAQ includes, so allow 20%.
-    "volume_ratio_band": (0.8, 1.2),
+    # Our bucket sum and IID total_vol_m aggregate the same TAQ trade tape over
+    # market hours, but we keep only regular/odd-lot sale conditions
+    # (blank/@/E/F/I), a subset of what IID counts. So the ratio should be at
+    # most 1 (1.01 allows rounding) and falls below 1 by the volume printed
+    # under other conditions (e.g. opening/closing cross prints), which is
+    # larger in recent years and for large stocks. Allow up to 20% of that.
+    "volume_ratio_band": (0.8, 1.01),
     # At least 60% of label rows in each training year must have model inputs.
     "min_input_coverage": 0.60,
     # Our scored stock-days must exist in the authors' file (same universe).
@@ -52,15 +59,16 @@ VALIDATION_TOLERANCES = {
 def parse_markdown_table(text, heading):
     """Return the first markdown table after `heading` as a DataFrame of strings."""
     block = text.split(heading, 1)[1]
-    lines = [ln for ln in block.splitlines() if ln.startswith("|")]
     rows = []
-    for ln in lines:
+    for ln in block.splitlines():
+        if not ln.startswith("|"):
+            if rows:
+                break  # end of the first table
+            continue
         cells = [c.strip() for c in ln.strip("|").split("|")]
         if all(re.fullmatch(r":?-+:?", c) for c in cells):
             continue
         rows.append(cells)
-        if len(rows) > 1 and not ln.startswith("|"):
-            break
     header, body = rows[0], rows[1:]
     return pd.DataFrame(body, columns=header)
 
@@ -75,6 +83,7 @@ def label_stats():
 
 
 def volume_reconciliation():
+    """Our TAQ bucket-sum volume over WRDS IID total_vol_m (not CRSP volume)."""
     v = pd.read_csv(ML / "pilot_volume_reconciliation.csv")
     v["ratio"] = v.market_volume / v.total_vol_m
     return v
@@ -103,7 +112,8 @@ def summarize():
         "volume_pilot_rows": int(len(vol)),
         "min_input_coverage_train": float(train.fraction.min()),
         "min_input_coverage_year": int(train.loc[train.fraction.idxmin(), "year"]),
-        "input_coverage_2019": float(cov.loc[cov.year == 2019, "fraction"].iloc[0]),
+        "input_coverage_2019": float(cov.loc[cov.year == 2019, "fraction"].iloc[0])
+        if (cov.year == 2019).any() else None,
         "min_author_match": float(cov.match_fraction.min()),
         "min_yearly_pearson": float(cov.pearson.min()),
         "median_yearly_pearson": float(cov.pearson.median()),
@@ -125,9 +135,9 @@ def write_table(path):
     for r in labels.itertuples():
         src = r.Source.replace("_", r"\_").replace("~", r"$\sim$").replace("%", r"\%")
         lines.append(f"{names.get(r.Statistic, r.Statistic)} & {r.ours:.3f} & {r.paper:.3f} & {src} \\\\")
-    lines += [r"\midrule", r"\multicolumn{4}{l}{\textit{B. TAQ consolidated volume vs CRSP daily volume (pilot days)}} \\"]
+    lines += [r"\midrule", r"\multicolumn{4}{l}{\textit{B. TAQ bucket sum vs WRDS IID volume (pilot days)}} \\"]
     for year, g in vol.groupby(vol.date.str[:4]):
-        lines.append(f"Volume ratio {year} ({len(g)} stocks) & {g.ratio.min():.3f}--{g.ratio.max():.3f} & 1.000 & identity \\\\")
+        lines.append(f"Volume ratio {year} ({len(g)} stocks) & {g.ratio.min():.3f}--{g.ratio.max():.3f} & $\\leq$ 1 & IID total\\_vol\\_m \\\\")
     lo, hi = VALIDATION_TOLERANCES["volume_ratio_band"]
     lines += [r"\midrule", r"\multicolumn{4}{l}{\textit{C. Coverage and agreement with the authors' posted ITI}} \\",
               f"Min.\\ label rows with model inputs, 2005--2018 & {s['min_input_coverage_train']:.3f} & "

@@ -71,9 +71,10 @@ def regression_rows(exhibit, csv, paper_table):
     for col, coefs in paper_table.items():
         sub = t[t.column == str(col)].set_index("variable")
         for var, (p_coef, p_t) in coefs.items():
-            if var in sub.index:
-                rows.append(row(exhibit, f"col {col}: {var}", sub.loc[var, "coef"], p_coef,
-                                p_t, sub.loc[var, "t"]))
+            # A variable absent from our CSV becomes a "missing" row, never a dropped one.
+            found = var in sub.index
+            rows.append(row(exhibit, f"col {col}: {var}", sub.loc[var, "coef"] if found else np.nan,
+                            p_coef, p_t, sub.loc[var, "t"] if found else None))
     return rows
 
 

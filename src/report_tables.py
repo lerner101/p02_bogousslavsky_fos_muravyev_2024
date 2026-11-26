@@ -95,7 +95,7 @@ def stats(path):
         "ElevenAlpha": f"{t11.loc[('ITI(13D)', 'H-L'), 'alpha']*100:.2f}",
         "ElevenAlphaT": f"{t11.loc[('ITI(13D)', 'H-L'), 'alpha_t']:.1f}",
         "ImpAlpha": f"{t11.loc[('ITI(impatient)', 'H-L'), 'alpha']*100:.2f}",
-        "FourDayZero": f"{f4a.loc[0, 'coef']:.3f}", "FourDayZeroPaper": f"{pv.FIG4A[10]:.3f}",
+        "FourDayZero": f"{f4a.loc[0, 'coef']:.3f}", "FourDayZeroPaper": f"{dict(zip(pv.DAYS, pv.FIG4A))[0]:.3f}",
         "IAFiveDayOne": f"{ia5.loc[1, 'coef']:.3f}", "IAFiveEvents": f"{int(ia5.n_events.iloc[0]):,}",
         "FigOneIti": f"{f1.iti_adjusted_r2.mean():.3f}", "FigOneCtrl": f"{f1.controls_adjusted_r2.mean():.3f}",
         "FigOnePaperIti": f"{f1.paper_iti_adjusted_r2.mean():.3f}",
