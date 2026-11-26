@@ -295,30 +295,95 @@ def task_replication_notebook():
     }
 
 
+# Report exhibits read only committed _output/ files, so they rebuild from a
+# clean clone without WRDS access.
+REPORT_DIR = Path("_output/report")
+REPLICATION_CSVS = [REPLICATION / f for f in [
+    "table5.csv", "table10.csv", "table11.csv", "figure1.csv", "figure2.csv",
+    "figure4a.csv", "figure4b.csv", "figureIA5.csv"]]
+VALIDATION_INPUTS = [Path("_output/13d_label_validation.md"), *[Path("_output/ml_model") / f for f in [
+    "pilot_volume_reconciliation.csv", "available_input_attrition.csv",
+    "comparison_coverage.csv", "agreement_by_year.csv"]]]
+
+
+def committed_outputs_unchanged(paths):
+    """Rerun when committed outputs change, without making them file_dep.
+
+    These CSVs are targets of data-dependent tasks (replication, iti_figures);
+    listing them as file_dep would make doit try to rebuild them from WRDS data.
+    """
+    from hashlib import md5
+
+    from doit.tools import config_changed
+    return config_changed({str(p): md5(Path(p).read_bytes()).hexdigest() if Path(p).exists() else None
+                           for p in paths})
+
+
+def task_scorecard():
+    """Score every replicated number against the paper with the fixed tolerance."""
+    return {
+        "actions": [python_action("src/replication_scorecard.py")],
+        "file_dep": ["src/replication_scorecard.py", "src/paper_values.py"],
+        "uptodate": [committed_outputs_unchanged([*REPLICATION_CSVS, "_output/figure_04c_preview.csv",
+                                                  "_output/ml_model/model_performance.csv"])],
+        "targets": [REPORT_DIR / f for f in ["scorecard.csv", "scorecard.tex", "scorecard.png", "scorecard.json"]],
+    }
+
+
+def task_validation_exhibits():
+    """Data-validation table and coverage figure from committed validation outputs."""
+    return {
+        "actions": [python_action("src/validation_exhibits.py")],
+        "file_dep": ["src/validation_exhibits.py"],
+        "uptodate": [committed_outputs_unchanged(VALIDATION_INPUTS)],
+        "targets": [REPORT_DIR / f for f in ["validation_table.tex", "validation_coverage.png",
+                                             "validation_summary.json"]],
+    }
+
+
+def task_report_tables():
+    """Ours-vs-paper LaTeX tables and the number macros quoted in the report."""
+    return {
+        "actions": [python_action("src/report_tables.py")],
+        "file_dep": ["src/report_tables.py", "src/paper_values.py",
+                     REPORT_DIR / "scorecard.json", REPORT_DIR / "validation_summary.json"],
+        "uptodate": [committed_outputs_unchanged([*REPLICATION_CSVS, "_output/ml_model/model_performance.csv",
+                                                  "_output/ml_model/agreement_overall.csv"])],
+        "targets": [REPORT_DIR / f for f in ["table5.tex", "table10.tex", "table11.tex", "stats.tex"]],
+    }
+
+
 def task_report():
     """Compile the project report (requires latexmk and a LaTeX distribution)."""
     return {
         "actions": ["latexmk -pdf -halt-on-error -cd reports/report.tex"],
         "file_dep": ["reports/report.tex", "reports/bibliography.bib", ".latexmkrc",
-                     *sorted(Path("reports").rglob("*.tex"))],
+                     REPORT_DIR / "scorecard.tex", REPORT_DIR / "scorecard.png",
+                     REPORT_DIR / "validation_table.tex", REPORT_DIR / "validation_coverage.png",
+                     REPORT_DIR / "table5.tex", REPORT_DIR / "table10.tex",
+                     REPORT_DIR / "table11.tex", REPORT_DIR / "stats.tex"],
         "targets": ["reports/report.pdf"],
         "clean": True,
     }
 
 
+def task_publish():
+    """Clean-clone build: scorecard, validation exhibits, tests and report; no data needed."""
+    return {"actions": None, "task_dep": ["report", "tests"]}
+
+
 def task_build_chartbook_site():
-    """Build the project site from its metadata and documentation."""
+    """Build the public project site into docs/ from committed outputs; no data needed."""
     return {
         "actions": ["chartbook docs build -f"],
         "file_dep": [
             "README.md",
             "chartbook.toml",
-            "_output/build_summary.md",
-            THIRTEEN_D / "labels_daily.parquet",
+            REPORT_DIR / "scorecard.png",
+            REPORT_DIR / "validation_coverage.png",
             *sorted(Path("docs_src").rglob("*.md")),
         ],
         "targets": ["docs/index.html"],
-        "task_dep": ["build_summary"],
         "clean": True,
     }
 

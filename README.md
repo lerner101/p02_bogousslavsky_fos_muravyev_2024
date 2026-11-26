@@ -122,7 +122,13 @@ doit collect_wrds                    # Explicit licensed WRDS collection; own ac
 python src/prepare_bfkr_news.py       # Link the locally supplied BFKR news CSV
 doit bfkr_preview                    # Preliminary Figure 4(c); see limitations below
 doit iti_figures                     # Build Figures 1–3 from the saved ML run
+doit publish                         # Clean clone, no data: scorecard, validation, tests, report
+doit build_chartbook_site            # Clean clone, no data: public site into docs/
 ```
+
+**From a clean clone without data access**, `doit publish` rebuilds the
+replication scorecard, the data-validation exhibits, all tests and
+`reports/report.pdf` from the committed `_output/` files.
 
 The report requires a LaTeX distribution with `latexmk` and `pdflatex`.
 The default build runs the implemented 13D and preliminary news pipelines,
@@ -170,11 +176,36 @@ by Git.
 
 ## Extension
 
-Pending agreement at the instructor consultation. Record the agreed scope here
-after the meeting.
+> **TODO (team):** confirm this wording matches what was agreed at the
+> consultation; the rubric grades the extension against this section.
+
+**ITI replication monitor: a public ChartBook site on GitHub Pages.**
+Researchers who want to use ITI need to know where it is robust and where it
+is fragile, and most cannot rebuild it, because that takes WRDS, TAQ and
+hand-extracted 13D labels. The site gives them that without credentials:
+
+1. **Replication scorecard.** Every replicated number sits next to the
+   published value with a pass/fail under one tolerance fixed in advance
+   (same sign, within a factor of 3; `src/replication_scorecard.py`). It is
+   recomputed and republished on every push to `main`.
+2. **Independent ITI(13D) vs the authors' posted series.** Our model is
+   trained from scratch on 13D labels rebuilt from filing text. The site shows
+   yearly agreement with the authors' series and coverage diagnostics.
+3. **Replicated exhibits and their data,** registered in `chartbook.toml`
+   with sources recorded for each dataframe.
+
+*Who uses it:* an empirical microstructure researcher deciding whether ITI
+(and which variant) to use as a control or outcome, before paying the data
+cost. *How we know it worked:* the site builds from a clean clone in CI
+(`.github/workflows/pages.yml`), the scorecard and validation checks run as
+tests (`tests/test_replication_tolerance.py`, `tests/test_data_validation.py`),
+and every known miss is documented as a strict expected failure.
 
 ## Tests and Collaboration
 
-Tests cover Schedule 13D parsing/extraction and BFKR historical links and news
-regressions. Run them with `python -m pytest`. GitHub Actions runs tests on pushes
+Tests cover Schedule 13D parsing/extraction, BFKR historical links and news
+regressions, replication tolerances against the paper
+(`tests/test_replication_tolerance.py`), and data validation against independent
+benchmarks (`tests/test_data_validation.py`). The last two read only committed
+`_output/` files, so they run in CI. Run them with `python -m pytest`. GitHub Actions runs tests on pushes
 and pull requests. Each pull request must be reviewed by a teammate before merging.

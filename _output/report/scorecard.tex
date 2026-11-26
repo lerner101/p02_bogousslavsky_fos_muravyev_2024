@@ -1,0 +1,81 @@
+\begin{longtable}{llrrrl}
+\ScorecardCaption \\
+\toprule
+Exhibit & Item & Ours & Paper & Ours/Paper & Status \\
+\midrule
+\endfirsthead
+\toprule
+Exhibit & Item & Ours & Paper & Ours/Paper & Status \\
+\midrule
+\endhead
+Table 5 & col 1: ret & -0.0124 & -0.0040 & 3.10 & pass \\
+ & col 2: ret & -0.0305 & -0.0140 & 2.18 & pass \\
+ & col 2: ITI(13D) & 0.0013 & 0.0020 & 0.66 & pass \\
+ & col 2: ret$\times$ITI(13D) & 0.0463 & 0.0310 & 1.49 & pass \\
+ & col 3: ret & -0.0131 & -0.0060 & 2.19 & pass \\
+ & col 3: ITI(13D) & 0.0013 & 0.0020 & 0.65 & pass \\
+ & col 3: ret$\times$ITI(13D) & 0.0273 & 0.0340 & 0.80 & pass \\
+ & col 3: ret$\times$turn & 0.0546 & 0.0080 & 6.83 & pass \\
+ & col 3: ret$\times$rvol & -79.43 & -0.0290 & 2739.13 & not comparable \\
+ & col 3: ret$\times$ES\% & -2.5363 & -0.7560 & 3.35 & fail \\
+\midrule
+Table 10 & col 1: ITI(13D) & 0.0048 & 0.0126 & 0.38 & pass \\
+ & col 2: ITI(13D) & 0.0050 & 0.0117 & 0.42 & pass \\
+ & col 2: ITI(insider) & 0.0011 & 0.0119 & 0.09 & fail \\
+ & col 2: ITI(short) & -0.0018 & -0.0084 & 0.21 & pass \\
+ & col 3: ITI(patient) & -0.0014 & 0.0006 & -2.29 & pass \\
+ & col 3: ITI(impatient) & 0.0078 & 0.0158 & 0.50 & pass \\
+ & col 4: ITI(13D) & 0.0025 & 0.0053 & 0.48 & pass \\
+ & col 4: ITI(insider) & 0.0006 & 0.0107 & 0.05 & fail \\
+ & col 4: ITI(short) & -0.0087 & -0.0201 & 0.44 & pass \\
+ & col 4: ITI(patient) & -0.0027 & -0.0030 & 0.90 & pass \\
+ & col 4: ITI(impatient) & 0.0090 & 0.0163 & 0.55 & pass \\
+ & col 5: ITI(13D) & 0.0038 & 0.0061 & 0.62 & pass \\
+ & col 5: ITI(insider) & 0.0034 & 0.0094 & 0.36 & pass \\
+ & col 5: ITI(short) & -0.0153 & -0.0065 & 2.36 & pass \\
+ & col 5: ITI(patient) & -0.0002 & -0.0038 & 0.06 & pass \\
+ & col 5: ITI(impatient) & 0.0063 & 0.0164 & 0.39 & pass \\
+\midrule
+Table 11 & ITI(13D) H-L raw & 0.0015 & 0.0044 & 0.34 & pass \\
+ & ITI(13D) H-L FF4 alpha & 0.0017 & 0.0052 & 0.33 & fail \\
+ & ITI(insider) H-L raw & 0.0003 & 0.0037 & 0.09 & fail \\
+ & ITI(insider) H-L FF4 alpha & -0.0001 & 0.0022 & -0.04 & fail \\
+ & ITI(short) H-L raw & 0.0012 & 0.0014 & 0.88 & pass \\
+ & ITI(short) H-L FF4 alpha & -0.0002 & 0.0005 & -0.32 & pass \\
+ & ITI(patient) H-L raw & 0.0009 & 0.0030 & 0.29 & fail \\
+ & ITI(patient) H-L FF4 alpha & 0.0010 & 0.0034 & 0.29 & fail \\
+ & ITI(impatient) H-L raw & 0.0024 & 0.0051 & 0.47 & pass \\
+ & ITI(impatient) H-L FF4 alpha & 0.0020 & 0.0054 & 0.38 & pass \\
+\midrule
+Figure 1 & mean annual adj. R2, ITI & 0.0700 & 0.1464 & 0.48 & pass \\
+ & mean annual adj. R2, controls & 0.0353 & 0.0421 & 0.84 & pass \\
+ & share of years ITI beats controls & 1.0000 & 1.0000 & 1.00 & pass \\
+\midrule
+Figure 2 & ITI change across volume range & 0.0764 & 0.1588 & 0.48 & pass \\
+ & ITI change across volatility range & 0.0000 & -0.0683 & -0.00 & fail \\
+\midrule
+Table IA.6 & ROC AUC minus 0.5 & 0.1350 & 0.2084 & 0.65 & pass \\
+\midrule
+Figure 4(a) & day -2 & 0.0101 & 0.0050 & 2.02 & pass \\
+ & day -1 & 0.0291 & 0.0180 & 1.62 & pass \\
+ & day +0 & 0.1225 & 0.0950 & 1.29 & pass \\
+ & day +1 & 0.0606 & 0.0440 & 1.38 & pass \\
+ & day +2 & 0.0445 & 0.0340 & 1.31 & pass \\
+\midrule
+Figure 4(b) & large day -1 & 0.0372 & 0.0300 & 1.24 & pass \\
+ & large day +0 & 0.1850 & 0.1550 & 1.19 & pass \\
+ & large day +1 & 0.1105 & 0.0900 & 1.23 & pass \\
+ & small day -1 & 0.0217 & 0.0060 & 3.61 & fail \\
+ & small day +0 & 0.0861 & 0.0580 & 1.48 & pass \\
+ & small day +1 & 0.0295 & 0.0140 & 2.11 & pass \\
+\midrule
+Figure 4(c) & day -1 & 0.0071 & 0.0063 & 1.13 & pass \\
+ & day +0 & 0.0115 & 0.0120 & 0.96 & pass \\
+ & day +1 & 0.0081 & 0.0065 & 1.25 & pass \\
+\midrule
+Figure IA.5 & day -1 & 0.0090 & 0.0235 & 0.38 & pass \\
+ & day +0 & 0.3920 & 0.2700 & 1.45 & pass \\
+ & day +1 & 0.4479 & 0.3070 & 1.46 & pass \\
+ & day +5 & 0.2946 & 0.1790 & 1.65 & pass \\
+\bottomrule
+\end{longtable}

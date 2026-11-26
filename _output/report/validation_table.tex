@@ -1,0 +1,27 @@
+\begin{tabular}{lrrl}
+\toprule
+Check & Ours & Benchmark & Benchmark source \\
+\midrule
+\multicolumn{4}{l}{\textit{A. Rebuilt Schedule 13D labels (2005--2018) vs published statistics}} \\
+Stock-days per filing & 40.993 & 36.533 & Table 1: 58,197 rows / 1,593 filings \\
+Share of days with 13D trade & 0.363 & 0.360 & Table 1 \\
+  ... first 40 days (patient) & 0.321 & 0.300 & Sec. 4.1: 30\% of days in first 40 \\
+  ... last 20 days (impatient) & 0.440 & 0.490 & Sec. 4.1: 49\% of days in last 20 \\
+Filer share of daily volume & 0.142 & 0.280 & Sec. 3.1: 28\% of daily volume when trading \\
+  ... patient & 0.125 & 0.200 & Sec. 4.1 \\
+  ... impatient & 0.167 & 0.370 & Sec. 4.1 \\
+13D turnover, mean ($\times 100$) & 0.294 & 0.276 & Table IA.5, trade days \\
+13D turnover, median ($\times 100$) & 0.078 & 0.105 & Table IA.5, trade days \\
+Share of 13D trades that are sells & 0.120 & 0.060 & ITI\_main.py comment: $\sim$6\% of activist trades are sells \\
+\midrule
+\multicolumn{4}{l}{\textit{B. TAQ consolidated volume vs CRSP daily volume (pilot days)}} \\
+Volume ratio 2004 (3 stocks) & 1.000--1.000 & 1.000 & identity \\
+Volume ratio 2019 (3 stocks) & 0.834--0.967 & 1.000 & identity \\
+\midrule
+\multicolumn{4}{l}{\textit{C. Coverage and agreement with the authors' posted ITI}} \\
+Min.\ label rows with model inputs, 2005--2018 & 0.643 & $\geq$ 0.60 & tolerance \\
+Min.\ scored days found in authors' file & 0.954 & $\geq$ 0.95 & tolerance \\
+Min.\ yearly Pearson, ours vs authors' ITI(13D) & 0.519 & $\geq$ 0.40 & tolerance \\
+Volume ratio band & 0.834--1.000 & 0.8--1.2 & tolerance \\
+\bottomrule
+\end{tabular}

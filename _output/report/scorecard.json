@@ -1,0 +1,47 @@
+{
+  "scored": 59,
+  "passed": 49,
+  "by_exhibit": {
+    "Table 5": {
+      "scored": 9,
+      "passed": 8
+    },
+    "Table 10": {
+      "scored": 16,
+      "passed": 14
+    },
+    "Table 11": {
+      "scored": 10,
+      "passed": 5
+    },
+    "Figure 1": {
+      "scored": 3,
+      "passed": 3
+    },
+    "Figure 2": {
+      "scored": 2,
+      "passed": 1
+    },
+    "Table IA.6": {
+      "scored": 1,
+      "passed": 1
+    },
+    "Figure 4(a)": {
+      "scored": 5,
+      "passed": 5
+    },
+    "Figure 4(b)": {
+      "scored": 6,
+      "passed": 5
+    },
+    "Figure 4(c)": {
+      "scored": 3,
+      "passed": 3
+    },
+    "Figure IA.5": {
+      "scored": 4,
+      "passed": 4
+    }
+  },
+  "ratio_band": 3.0
+}

@@ -58,3 +58,10 @@ FIG4B_SMALL = [0.0, -0.002, -0.004, -0.003, -0.002, -0.002, -0.001, 0.0, 0.002, 
 FIGIA5 = [0.003, 0.003, 0.0065, 0.0105, 0.004, 0.011, 0.0135, 0.018, 0.021, 0.0235,
           0.27, 0.307, 0.248, 0.21, 0.186, 0.179, 0.162, 0.145, 0.133, 0.132, 0.125]
 FIGIA5_EVENTS = 1_577
+
+# Figure 4(c): ITI around news events (excluding earnings), days -5..5, read off the plot.
+NEWS_DAYS = list(range(-5, 6))
+FIG4C = [-0.0012, 0.0006, 0.0010, 0.0018, 0.0063, 0.0120, 0.0065, 0.0032, 0.0006, -0.0001, -0.0001]
+
+# Table IA.6 Panel (b): XGBoost out-of-sample metrics on the 13D sample.
+IA6_XGB = {"roc_auc": 0.7084, "log_loss": 0.5940, "mae": 0.3763}
