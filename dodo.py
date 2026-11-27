@@ -387,3 +387,44 @@ def task_iti_figures():
                     REPLICATION / "figure3.pdf", REPLICATION / "figures1_3_comparison.md",
                     REPLICATION / "figures1_3_manifest.json"],
     }
+
+
+def task_tables():
+    """Build Tables 1, 2 and 4 from the saved ML run, 13D labels and daily panel."""
+    return {
+        "actions": [python_action("src/replicate_tables.py", "table1", "table2", "table4")],
+        "file_dep": ["src/replicate_tables.py", "src/regress.py", "src/paper_values.py",
+                     "src/replicate_iti_figures.py"],
+        # Like iti_figures: model artifacts are checked by the script, not listed
+        # as file_dep, so doit never retrains XGBoost to rebuild a table.
+        "uptodate": [False],
+        "targets": [*[REPLICATION / f"table{n}.csv" for n in (1, 2, 4)],
+                    REPLICATION / "table1_coverage.json", REPLICATION / "table2_turnover_diagnostics.csv",
+                    REPLICATION / "table2_turnover_sensitivity.csv"],
+    }
+
+
+def task_iti_train_groups():
+    """Explicit: train the four feature-group ITIs for Table 3 (four extra model fits)."""
+    return {"actions": [python_action("src/train_iti_groups.py")],
+            "file_dep": ["src/train_iti_groups.py", "src/train_iti.py", "src/iti_features.py"],
+            "targets": [ML_DATA / "group_oof_predictions.parquet", ML_DATA / "group_models.json"],
+            "uptodate": [False]}
+
+
+def task_table3():
+    """Build Table 3 from the saved group ITIs; run `doit iti_train_groups` first."""
+    return {"actions": [python_action("src/replicate_tables.py", "table3")],
+            "file_dep": ["src/replicate_tables.py", "src/regress.py"],
+            "uptodate": [False],
+            "targets": [REPLICATION / "table3.csv"]}
+
+
+def task_tables_report():
+    """Validate completed Tables 1–4 and summarize published comparisons."""
+    return {"actions": [python_action("src/report_tables.py")],
+            "file_dep": ["src/report_tables.py", "src/paper_values.py"],
+            "uptodate": [False],
+            "targets": [REPLICATION / "tables_comparison.md", REPLICATION / "tables_comparison.csv",
+                        REPLICATION / "table1_comparison.csv", REPLICATION / "table3_model_performance.csv",
+                        REPLICATION / "tables_manifest.json"]}

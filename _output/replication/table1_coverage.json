@@ -1,0 +1,13 @@
+{
+  "acquired_feature_stock_days": 582754,
+  "eligible_stock_days": 506381,
+  "nontraining_stock_days": 427624,
+  "complete_control_stock_days": 408471,
+  "project_scored_stock_days": 127573,
+  "paired_author_stock_days": 125982,
+  "start": "2005-01-03 00:00:00",
+  "end": "2019-07-31 00:00:00",
+  "project_start": "2005-01-03 00:00:00",
+  "project_end": "2019-07-31 00:00:00",
+  "limitation": "Bounded local supplemental-feature acquisition; not the full market universe."
+}

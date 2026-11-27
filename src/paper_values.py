@@ -6,6 +6,54 @@ plots (about +/-0.003) and are approximate.
 
 ITI_NAMES = ["ITI(13D)", "ITI(insider)", "ITI(short)", "ITI(patient)", "ITI(impatient)"]
 
+# Table 1 (full sample): mean, SD, within-stock SD for the ITI measures, plus the
+# trade-indicator means in each training sample.
+TABLE1_ITI = {
+    "ITI(13D)": (0.2745, 0.1595, 0.1558), "ITI(patient)": (0.2038, 0.1452, 0.1427),
+    "ITI(impatient)": (0.4213, 0.1375, 0.1322), "ITI(insider)": (0.4786, 0.1578, 0.1569),
+    "ITI(short)": (0.4460, 0.0787, 0.0670),
+}
+TABLE1_13D_TRADE_MEAN = 0.3603
+TABLE1_13D_ROWS = 58_197
+
+# Table 2: day-with-13D-trade (cols 1-3) and 13D turnover on trade days (cols 4-6)
+# on ITI and controls, filing FE. (coef, t); R2 is the paper's adjusted R2.
+TABLE2 = {
+    1: {"ITI": (0.697, 43.572)},
+    2: {"es": (-3.412, -4.053), "lambda": (-1.186, -4.822), "depth": (34.360, 8.996),
+        "rvol": (-0.832, -6.149), "turn": (1.377, 9.845), "oi": (0.379, 0.748),
+        "abs_oi": (6.732, 10.534), "ret": (-0.083, -1.258)},
+    3: {"ITI": (0.604, 36.648), "es": (-0.807, -1.098), "lambda": (-0.589, -2.599),
+        "depth": (21.323, 8.037), "rvol": (-0.361, -3.475), "turn": (0.640, 6.110),
+        "oi": (0.294, 0.703), "abs_oi": (2.613, 4.781), "ret": (-0.030, -0.511)},
+    4: {"ITI": (0.007, 22.184)},
+    5: {"es": (0.099, 3.179), "lambda": (-0.024, -5.275), "depth": (-0.096, -1.135),
+        "rvol": (0.000, 0.111), "turn": (0.039, 8.284), "oi": (0.073, 3.065),
+        "abs_oi": (0.180, 6.329), "ret": (-0.008, -3.375)},
+    6: {"ITI": (0.004, 13.657), "es": (0.108, 3.505), "lambda": (-0.020, -4.673),
+        "depth": (-0.132, -1.603), "rvol": (0.001, 0.329), "turn": (0.037, 7.885),
+        "oi": (0.071, 3.092), "abs_oi": (0.161, 5.811), "ret": (-0.007, -3.064)},
+}
+TABLE2_R2 = {1: 0.0986, 2: 0.0461, 3: 0.1073, 4: 0.0692, 5: 0.2579, 6: 0.2756}
+
+# Table 3: day with 13D trade on feature-group ITIs, filing FE.
+TABLE3 = {
+    1: {"ITI": (0.697, 43.572)},
+    2: {"ITI(liquidity)": (0.596, 24.561)},
+    3: {"ITI(return)": (0.510, 18.963)},
+    4: {"ITI(volatility)": (0.498, 19.266)},
+    5: {"ITI(volume)": (0.671, 39.235)},
+    6: {"ITI(liquidity)": (0.289, 17.945), "ITI(return)": (0.239, 14.256),
+        "ITI(volatility)": (0.208, 12.912), "ITI(volume)": (0.526, 36.533)},
+}
+TABLE3_R2 = {1: 0.0986, 2: 0.0412, 3: 0.0264, 4: 0.0278, 5: 0.0769, 6: 0.1043}
+
+# Table 4: turnover-matched 13D sample. Panel (a) differences; panel (b) col 1 and 3 ITI.
+TABLE4_A = {"turn": (0.000, 1.027), "ITI": (0.033, 5.253)}
+TABLE4_B = {1: {"ITI": (0.509, 5.445)}, 3: {"ITI": (0.507, 5.284)}}
+TABLE4_OBS = 2_388
+TABLE4_TURN_GAP = 0.00002  # max |turnover difference| for a matched pair
+
 # Table 10 Panel (a): coefficient, t-stat. Columns 1-5 (column 6 adds PIN).
 TABLE10 = {
     1: {"ITI(13D)": (0.0126, 6.82)},
