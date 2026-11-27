@@ -1,6 +1,7 @@
 """Replicate Tables 1-4 on our rebuilt Schedule 13D sample and daily panel.
 
-Table 1: descriptive statistics of the controls and ITI measures (full panel)
+Table 1: descriptive statistics on bounded available feature coverage, with
+         project scores and explicitly labeled author-score benchmarks
          and of the 13D trade indicator (13D sample).
 Table 2: day-with-13D-trade (cols 1-3) and 13D filer turnover on trade days
          (cols 4-6) on held-out ITI(13D) and controls, filing FE.
@@ -12,10 +13,11 @@ Inputs, all produced by existing tasks:
   _data/derived/ml_model/oof_predictions.parquet   held-out ITI(13D) (iti_train)
   _data/derived/ml_model/raw_features.parquet + WRDS extracts  controls (as Figure 1)
   _data/derived/13d/labels_daily.parquet           itrade, turn, 13Dturn (13d_labels)
-  _data/derived/panel/daily.parquet                full panel (panel)
+  _data/derived/panel/table1_local.parquet         bounded panel (built here)
   _data/derived/ml_model/group_oof_predictions.parquet  group ITIs (Table 3 only)
-Outputs: _output/replication/table{1,2,3,4}.csv, in the same long format as
-Tables 5 and 10 (column, variable, coef, t) so the scorecard can read them.
+Outputs: _output/replication/table{1,2,3,4}.csv. Tables 2–4 retain the long
+(column, variable, coef, t) interface; Table 1 exports descriptive statistics.
+Additional turnover diagnostics preserve sensitivity to extracted quantities.
 
 Run: python src/replicate_tables.py [table1 table2 table3 table4]
 """
@@ -26,13 +28,13 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from paper_values import ITI_NAMES, TABLE4_TURN_GAP  # noqa: E402
-from regress import fe_ols  # noqa: E402
+from paper_values import ITI_NAMES, TABLE4_TURN_GAP
+from regress import fe_ols
 
 ROOT = Path(__file__).resolve().parents[1]
 ML = ROOT / "_data/derived/ml_model"
 LABELS = ROOT / "_data/derived/13d/labels_daily.parquet"
-PANEL = ROOT / "_data/derived/panel/daily.parquet"
+PANEL = ROOT / "_data/derived/panel/table1_local.parquet"
 OUT = ROOT / "_output/replication"
 SAMPLE_START, SAMPLE_END = "2005-01-01", "2019-07-31"
 # Table 2 controls as listed in the table (the text also mentions price impact).
@@ -57,12 +59,21 @@ def stack(results):
             rows.append({"column": col, "variable": var, "coef": r.coef, "t": r.t})
         rows.append({"column": col, "variable": "Obs.", "coef": stats["nobs"], "t": np.nan})
         rows.append({"column": col, "variable": "R2 (within)", "coef": stats["r2_within"], "t": np.nan})
+        rows.append({"column": col, "variable": "Adj. R2 (within)", "coef": stats["r2_adj_within"], "t": np.nan})
+        rows.append({"column": col, "variable": "Filings", "coef": stats["filings"], "t": np.nan})
     return pd.DataFrame(rows)
 
 
 def filing_regression(df, y, xs):
     """Paper specification for Tables 2-4: filing FE, SE clustered by filing."""
-    return fe_ols(df, y, xs, fe="filing", cluster=("filing",))
+    used = df[[y, *xs, "filing"]].dropna()
+    if not np.isfinite(used[[y, *xs]]).all().all() or used.filing.nunique() < 2:
+        raise ValueError("Regression requires finite data and at least two filings")
+    result, stats = fe_ols(used, y, xs, fe="filing", cluster=("filing",))
+    n, groups, k = len(used), used.filing.nunique(), len(xs)
+    stats["filings"] = groups
+    stats["r2_adj_within"] = 1 - (1-stats["r2_within"]) * (n-groups)/(n-groups-k)
+    return result, stats
 
 
 # ---------------------------------------------------------------- inputs
@@ -73,7 +84,7 @@ def load_13d_sample():
     from replicate_iti_figures import figure1_controls, heldout_predictions
 
     predictions = heldout_predictions()
-    labels = pd.read_parquet(LABELS, columns=["filing", "permno", "date", "turn", "13Dturn"])
+    labels = pd.read_parquet(LABELS, columns=["filing", "permno", "date", "turn", "13Dturn", "shares_bought", "shares_sold", "shrout"])
     controls = figure1_controls(predictions)
     return assemble_13d_sample(predictions, labels, controls)
 
@@ -84,9 +95,17 @@ def assemble_13d_sample(predictions, labels, controls):
     d = predictions.merge(labels, on=["filing", "permno", "date"], how="left", validate="one_to_one")
     d = d.merge(controls, on=["permno", "date"], how="left", validate="many_to_one")
     d = d.rename(columns={SCORE: "ITI"})
+    # Paper Table 2 defines filer turnover in SHARES, not transaction dollars.
+    # Keep the old dollar proxy for an explicit diagnostic; never rewrite labels.
+    if {"shares_bought", "shares_sold", "shrout"} <= set(d):
+        d["13Dturn_dollar_proxy"] = d["13Dturn"]
+        d["13Dturn"] = (d.shares_bought.abs() + d.shares_sold.abs()) / (d.shrout * 1000)
+        d.loc[d.shrout.le(0), "13Dturn"] = np.nan
     present = [c for c in CONTROLS if c in d]
     complete = d.dropna(subset=present)
     d.loc[complete.index, present] = winsorize_frame(complete, present)[present]
+    if d.turn_crsp.isna().any() or d["13Dturn"].isna().any():
+        raise ValueError("Held-out rows must match daily labels with valid turnover")
     return d
 
 
@@ -120,18 +139,70 @@ def require(*paths):
                          + ". Link the shared _data/ folder and run `doit panel` / `doit 13d_labels` first.")
 
 
+def build_table1_panel():
+    """Use saved acquisition coverage, not the legacy author-only market panel.
+
+    The supplemental feature acquisition is bounded; this is explicitly NOT a
+    full-universe Table 1 replication. Reuse the original eligibility flags.
+    """
+    from replicate_iti_figures import figure1_controls
+    require(ML / "features.parquet", ML / "scores.parquet")
+    coverage = pd.read_parquet(ML / "features.parquet", columns=["permno", "date", "eligible"])
+    panel = coverage.merge(figure1_controls(coverage), on=["permno", "date"], validate="one_to_one")
+    project = pd.read_parquet(ML / "scores.parquet", columns=["permno", "date", SCORE])
+    panel = panel.merge(project.rename(columns={SCORE: "Project ITI(13D)"}),
+                        on=["permno", "date"], how="left", validate="one_to_one")
+    benchmarks = []
+    for year in sorted(panel.date.dt.year.unique()):
+        path = ROOT / f"_data/public/iti_original_through_2019/year={year}"
+        require(path)
+        part = pd.read_parquet(path, columns=["permno", "date", *ITI_NAMES])
+        benchmarks.append(part.merge(panel.loc[panel.date.dt.year.eq(year), ["permno", "date"]],
+                                     on=["permno", "date"], validate="one_to_one"))
+    panel = panel.merge(pd.concat(benchmarks, ignore_index=True), on=["permno", "date"],
+                        how="left", validate="one_to_one")
+    PANEL.parent.mkdir(parents=True, exist_ok=True)
+    panel.to_parquet(PANEL, index=False)
+    return panel
+
+
 def table1():
-    require(PANEL, LABELS)
-    cols = ["permno", "date", "eligible", "es", "depth", "rvol", "turn", "oi", "absoi", "ret", *ITI_NAMES]
-    panel = pd.read_parquet(PANEL, columns=cols)
+    require(LABELS)
+    panel = build_table1_panel()
+    acquired_rows = len(panel)
     panel = panel[panel.eligible & panel.date.between(SAMPLE_START, SAMPLE_END)]
+    eligible_rows = len(panel)
     labels = pd.read_parquet(LABELS, columns=["filing", "permno", "date", "itrade", "in_paper_period"])
-    # Like the paper, the full sample excludes the 13D training stock-days.
     window = labels[["permno", "date"]].drop_duplicates().assign(in_13d=True)
-    panel = panel.merge(window, on=["permno", "date"], how="left")
+    panel = panel.merge(window, on=["permno", "date"], how="left", validate="one_to_one")
     panel = panel[panel.in_13d.isna()].drop(columns="in_13d")
-    out = table1_frame(panel, labels[labels.in_paper_period.fillna(False)])
+    nontraining_rows = len(panel)
+    panel = panel.replace([np.inf, -np.inf], np.nan).dropna(subset=CONTROLS).reset_index(drop=True)
+    p = winsorize_frame(panel, CONTROLS)
+    rows = [{"variable": c, "source": "project controls", **describe(p[c], p.permno)} for c in CONTROLS]
+    rows.append({"variable": "Project ITI(13D)", "source": "project final model", **describe(p["Project ITI(13D)"], p.permno)})
+    for name in ITI_NAMES:
+        rows.append({"variable": f"Author {name}", "source": "posted author benchmark", **describe(p[name], p.permno)})
+    paired = p.dropna(subset=["Project ITI(13D)", SCORE])
+    rows.append({"variable": "Project ITI(13D), author-scored overlap", "source": "project final model",
+                 **describe(paired["Project ITI(13D)"], paired.permno)})
+    rows.append({"variable": "Author ITI(13D), project-scored overlap", "source": "posted author benchmark",
+                 **describe(paired[SCORE], paired.permno)})
+    from replicate_iti_figures import heldout_predictions
+    heldout = heldout_predictions()
+    rows.append({"variable": "13D trade (13D sample)", "source": "project held-out labels",
+                 **describe(heldout.itrade.astype(float), heldout.filing)})
+    out = pd.DataFrame(rows)
     out.to_csv(OUT / "table1.csv", index=False)
+    import json
+    coverage = {"acquired_feature_stock_days": acquired_rows, "eligible_stock_days": eligible_rows,
+                "nontraining_stock_days": nontraining_rows, "complete_control_stock_days": len(p),
+                "project_scored_stock_days": int(p["Project ITI(13D)"].notna().sum()),
+                "paired_author_stock_days": len(paired), "start": str(p.date.min()), "end": str(p.date.max()),
+                "project_start": str(p.loc[p["Project ITI(13D)"].notna(), "date"].min()),
+                "project_end": str(p.loc[p["Project ITI(13D)"].notna(), "date"].max()),
+                "limitation": "Bounded local supplemental-feature acquisition; not the full market universe."}
+    (OUT / "table1_coverage.json").write_text(json.dumps(coverage, indent=2) + "\n")
     return out
 
 
@@ -152,7 +223,32 @@ def table2_frame(d):
 
 
 def table2():
-    out = table2_frame(load_13d_sample())
+    data = load_13d_sample()
+    out = table2_frame(data)
+    data.loc[data["13Dturn"].gt(1) | data["13Dturn_dollar_proxy"].gt(1)].to_parquet(
+        ML / "table2_quantity_audit.parquet", index=False)
+    sensitivity = []
+    for name, variant in [("raw share turnover (primary)", data.copy()),
+                          ("share turnover winsorized 0.05%/99.95%", data.copy()),
+                          ("share turnover at most 100%", data[data["13Dturn"].le(1)].copy()),
+                          ("legacy dollar turnover proxy", data.copy())]:
+        if name.startswith("share turnover winsorized"):
+            traded = variant.itrade.eq(1)
+            lo, hi = variant.loc[traded, "13Dturn"].quantile([.0005, .9995])
+            variant.loc[traded, "13Dturn"] = variant.loc[traded, "13Dturn"].clip(lo, hi)
+        if name.startswith("legacy"):
+            variant["13Dturn"] = variant["13Dturn_dollar_proxy"]
+        tab = table2_frame(variant)
+        tab = tab[tab.column.isin([4, 5, 6])].copy()
+        tab["specification"] = name
+        sensitivity.append(tab)
+    pd.concat(sensitivity, ignore_index=True).to_csv(OUT / "table2_turnover_sensitivity.csv", index=False)
+    audit = []
+    for col in ["13Dturn", "13Dturn_dollar_proxy"]:
+        v = data.loc[data.itrade.eq(1), col]
+        audit.append({"measure": col, "trade_days": len(v), "above_one": int(v.gt(1).sum()),
+                      "mean": v.mean(), "median": v.median(), "p99": v.quantile(.99), "max": v.max()})
+    pd.DataFrame(audit).to_csv(OUT / "table2_turnover_diagnostics.csv", index=False)
     out.to_csv(OUT / "table2.csv", index=False)
     return out
 
@@ -169,11 +265,21 @@ def table3():
     path = ML / "group_oof_predictions.parquet"
     if not path.exists():
         raise SystemExit(f"Missing {path}: run `doit iti_train_groups` first (four extra model fits).")
+    import json
+
+    from build_iti_features import sha256
+    require(ML / "group_models.json")
+    checkpoint = json.loads((ML / "group_models.json").read_text())
+    for relative, expected in checkpoint["input_sha256"].items():
+        if sha256(ROOT / relative) != expected:
+            raise ValueError(f"Group-model input changed: {relative}")
     groups = pd.read_parquet(path, columns=["filing", "permno", "date", *GROUP_ITIS])
     from replicate_iti_figures import heldout_predictions
 
     d = heldout_predictions().rename(columns={SCORE: "ITI"}).merge(
         groups, on=["filing", "permno", "date"], how="left", validate="one_to_one")
+    if len(d) != len(groups) or d[GROUP_ITIS].isna().any().any():
+        raise ValueError("Every held-out filing-day needs all four group ITIs")
     out = table3_frame(d)
     out.to_csv(OUT / "table3.csv", index=False)
     return out
@@ -212,7 +318,9 @@ def match_on_turnover(d, turn="turn_crsp", gap=TABLE4_TURN_GAP):
 
 
 def table4_frame(d):
-    m = match_on_turnover(d.dropna(subset=["ITI", "itrade"]))
+    m = match_on_turnover(d.dropna(subset=["ITI", "itrade", *CONTROLS]))
+    if m.empty:
+        raise ValueError("No turnover-matched pairs; inspect coverage and turnover units")
     panel_a = {
         "a: turnover": filing_regression(m, "turn_crsp", ["itrade"]),
         "a: ITI": filing_regression(m, "ITI", ["itrade"]),

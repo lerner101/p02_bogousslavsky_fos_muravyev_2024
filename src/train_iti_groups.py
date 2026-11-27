@@ -22,7 +22,11 @@ import argparse
 import json
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
+
+from build_iti_features import sha256
+from iti_features import ALLOW_MISSING, FEATURES, REQUIRED_FEATURES
 
 from iti_features import GROUPS
 from train_iti import classifier, metrics, select_params
@@ -49,21 +53,39 @@ def load_sample():
     labels = labels[labels.filing.isin(sample.filing.unique())]
     folds = sample[["filing", "outer_fold"]].drop_duplicates("filing")
     labels = labels.merge(folds, on="filing", validate="many_to_one")
+    manifest = json.loads((DATA / "model_manifest.json").read_text())
+    if manifest["features_sha256"] != sha256(DATA / "features.parquet"):
+        raise ValueError("Standardized features differ from the original model inputs")
+    if manifest["feature_order"] != FEATURES or manifest["allow_missing"] != ALLOW_MISSING:
+        raise ValueError("Feature contract differs from the saved full model")
+    if sample.duplicated(KEY).any() or len(sample) != manifest["train_rows"]:
+        raise ValueError("Invalid held-out sample")
+    if not np.isfinite(sample[REQUIRED_FEATURES]).all().all() or np.isinf(sample[ALLOW_MISSING]).any().any():
+        raise ValueError("Only odd-lot counts may be missing")
+    if sample.groupby("filing").outer_fold.nunique().gt(1).any():
+        raise ValueError("A filing crosses outer folds")
+    # No stock-day may be shared by outer training and validation sets.
+    if sample.groupby(["permno", "date"]).outer_fold.nunique().gt(1).any():
+        raise ValueError("A stock-day crosses outer folds")
     return sample, labels
 
 
-def out_of_fold(sample, labels, features, jobs=2):
+def out_of_fold(sample, labels, features, jobs=2, audit=None):
     """Outer-fold predictions for one feature list; mirrors train_iti.main."""
     predictions = pd.Series(index=sample.index, dtype="float64")
     selected = {}
     for fold in sorted(sample.outer_fold.unique()):
         train = sample[sample.outer_fold != fold]
         test = sample[sample.outer_fold == fold]
-        params, _ = select_params(train, labels[labels.outer_fold != fold], jobs, features=features)
+        print(f"Outer fold {fold}: {len(train):,} training / {len(test):,} validation rows", flush=True)
+        params, tuning = select_params(train, labels[labels.outer_fold != fold], jobs, features=features)
         model = classifier(params, jobs)
         model.fit(train[features], train.itrade)
         predictions.loc[test.index] = model.predict_proba(test[features])[:, 1]
         selected[int(fold)] = params
+        if audit is not None:
+            audit[str(int(fold))] = {"selected": params, "grid": tuning,
+                                     "train_rows": len(train), "validation_rows": len(test)}
     return predictions, selected
 
 
@@ -74,19 +96,40 @@ def main():
     args = parser.parse_args()
     sample, labels = load_sample()
     out = sample[[*KEY, "itrade", "outer_fold"]].copy()
-    if OUT.exists():  # resume: keep groups already trained
+    fingerprint = {str(p.relative_to(ROOT)): sha256(p) for p in
+                   [DATA / "features.parquet", DATA / "oof_predictions.parquet", LABELS,
+                    ROOT / "src/train_iti.py", Path(__file__), ROOT / "src/iti_features.py"]}
+    report_path = DATA / "group_models.json"
+    report = {"input_sha256": fingerprint, "groups": {}}
+    if OUT.exists() or report_path.exists():
+        if not OUT.exists() or not report_path.exists():
+            raise ValueError("Incomplete group checkpoint; preserve it and investigate before resuming")
+        report = json.loads(report_path.read_text())
+        if report.get("input_sha256") != fingerprint:
+            raise ValueError("Group checkpoint input fingerprints differ; refusing incompatible reuse")
         previous = pd.read_parquet(OUT)
-        keep = [c for c in previous if c.startswith("ITI(")]
-        out = out.merge(previous[[*KEY, *keep]], on=KEY, how="left", validate="one_to_one")
-    report = {}
+        pd.testing.assert_frame_equal(previous[[*KEY, "itrade", "outer_fold"]], out)
+        out = previous
     for group in args.groups:
-        print(f"Training {group_name(group)} on {len(GROUPS[group])} features", flush=True)
-        p, selected = out_of_fold(sample, labels, GROUPS[group], args.jobs)
-        out[group_name(group)] = p
-        report[group] = {"selected": selected, **metrics(sample.itrade, p)}
-        out.to_parquet(OUT, index=False)
-        print(f"  pooled held-out ROC AUC {report[group]['roc_auc']:.3f}", flush=True)
-    (DATA / "group_models.json").write_text(json.dumps(report, indent=2, default=str))
+        name = group_name(group)
+        if group in report["groups"] and name in out and out[name].notna().all():
+            print(f"Reusing completed {name}", flush=True)
+            continue
+        print(f"Training {name} on {len(GROUPS[group])} features", flush=True)
+        audit = {}
+        p, selected = out_of_fold(sample, labels, GROUPS[group], args.jobs, audit=audit)
+        if not p.notna().all() or not p.between(0, 1).all():
+            raise ValueError(f"Invalid predictions for {name}")
+        out[name] = p
+        report["groups"][group] = {"features": GROUPS[group], "selected": selected,
+                                    "folds": audit, **metrics(sample.itrade, p)}
+        temporary = OUT.with_suffix(".tmp.parquet")
+        out.to_parquet(temporary, index=False)
+        temporary.replace(OUT)
+        temporary_report = report_path.with_suffix(".tmp.json")
+        temporary_report.write_text(json.dumps(report, indent=2, default=str) + "\n")
+        temporary_report.replace(report_path)
+        print(f"  pooled held-out ROC AUC {report['groups'][group]['roc_auc']:.3f}", flush=True)
 
 
 if __name__ == "__main__":

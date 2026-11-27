@@ -13,8 +13,8 @@ import pandas as pd
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-import replicate_tables as rt  # noqa: E402
-from paper_values import TABLE4_TURN_GAP  # noqa: E402
+import replicate_tables as rt
+from paper_values import TABLE4_TURN_GAP
 
 
 def synthetic_13d(n_filings=60, days=40, seed=0):
@@ -120,3 +120,99 @@ def test_group_models_predict_only_out_of_fold(monkeypatch):
     p, selected = tg.out_of_fold(sample, labels, features, jobs=1)
     assert p.notna().all() and p.between(0, 1).all()
     assert set(selected) == set(sample.outer_fold.unique())
+
+
+def test_share_turnover_matches_paper_units_not_dollar_proxy():
+    pred = pd.DataFrame({'filing': [1], 'permno': [5], 'date': pd.to_datetime(['2010-01-04']),
+                         'itrade': [1], 'ITI(13D)': [.6]})
+    labels = pred[['filing', 'permno', 'date']].assign(turn=.01, shares_bought=1000.,
+                shares_sold=500., shrout=100., **{'13Dturn': 5e6})
+    controls = pred[['permno', 'date']].assign(**{c: 1. for c in rt.CONTROLS})
+    result = rt.assemble_13d_sample(pred, labels, controls)
+    assert result['13Dturn'].iloc[0] == pytest.approx(.015)
+    assert result['13Dturn_dollar_proxy'].iloc[0] == 5e6
+    with pytest.raises(ValueError, match='match daily labels'):
+        rt.assemble_13d_sample(pred, labels.iloc[:0], controls)
+
+
+def test_table1_preserves_score_provenance_and_missing_coverage(tmp_path, monkeypatch):
+    import replicate_iti_figures
+    days = pd.bdate_range('2010-01-04', periods=5)
+    panel = pd.DataFrame({'permno': 1, 'date': days, 'eligible': True,
+                          'Project ITI(13D)': [.2, .4, np.nan, .6, .3]})
+    for c in rt.CONTROLS:
+        panel[c] = .01
+    for name in rt.ITI_NAMES:
+        panel[name] = .9
+    labels = pd.DataFrame({'permno': [1], 'date': [days[0]], 'filing': [1],
+                           'itrade': [1], 'in_paper_period': [True]})
+    path = tmp_path / 'labels.parquet'
+    labels.to_parquet(path)
+    monkeypatch.setattr(rt, 'LABELS', path)
+    monkeypatch.setattr(rt, 'OUT', tmp_path)
+    monkeypatch.setattr(rt, 'build_table1_panel', lambda: panel)
+    monkeypatch.setattr(replicate_iti_figures, 'heldout_predictions', lambda: labels)
+    result = rt.table1().set_index('variable')
+    assert result.loc['Project ITI(13D)', 'n'] == 3
+    assert result.loc['Project ITI(13D)', 'mean'] == pytest.approx((.4+.6+.3)/3)
+    assert result.loc['Author ITI(13D)', 'n'] == 4
+    assert result.loc['Author ITI(13D), project-scored overlap', 'n'] == 3
+    assert result.loc['Author ITI(13D)', 'source'] == 'posted author benchmark'
+
+
+def test_group_prediction_fold_never_enters_model_or_tuning(monkeypatch):
+    import train_iti_groups as tg
+    sample = pd.DataFrame({'filing': np.arange(10), 'outer_fold': np.repeat(np.arange(5), 2),
+                           'marker': np.arange(10), 'itrade': np.tile([0, 1], 5)})
+
+    def select(train, labels, jobs, features):
+        assert set(train.filing) == set(labels.filing)
+        assert train.outer_fold.nunique() == 4
+        return {}, []
+
+    class RecordingClassifier:
+        def fit(self, x, y):
+            self.seen = set(x.marker)
+
+        def predict_proba(self, x):
+            assert not self.seen.intersection(x.marker)
+            return np.tile([.5, .5], (len(x), 1))
+
+    monkeypatch.setattr(tg, 'select_params', select)
+    monkeypatch.setattr(tg, 'classifier', lambda params, jobs: RecordingClassifier())
+    audit = {}
+    result, _ = tg.out_of_fold(sample, sample, ['marker'], jobs=1, audit=audit)
+    assert result.eq(.5).all() and len(audit) == 5
+
+
+def test_group_checkpoint_preserves_completed_groups_and_rejects_changed_inputs(tmp_path, monkeypatch):
+    import train_iti_groups as tg
+    monkeypatch.setattr(tg, 'ROOT', tmp_path)
+    monkeypatch.setattr(tg, 'DATA', tmp_path)
+    monkeypatch.setattr(tg, 'LABELS', tmp_path / 'labels.parquet')
+    monkeypatch.setattr(tg, 'OUT', tmp_path / 'group_oof_predictions.parquet')
+    monkeypatch.setattr(tg, '__file__', str(tmp_path / 'src/train_iti_groups.py'))
+    monkeypatch.setattr(tg, 'sha256', lambda path: 'original')
+    sample = pd.DataFrame({'filing': [1, 2], 'permno': [5, 6], 'date': pd.to_datetime(['2010-01-04']*2),
+                           'itrade': [0, 1], 'outer_fold': [0, 1]})
+    monkeypatch.setattr(tg, 'load_sample', lambda: (sample, sample))
+    calls = []
+
+    def fit(sample, labels, features, jobs, audit):
+        calls.append(features)
+        return pd.Series([.2, .8]), {0: {}, 1: {}}
+
+    monkeypatch.setattr(tg, 'out_of_fold', fit)
+    monkeypatch.setattr(sys, 'argv', ['train_iti_groups.py', '--groups', 'return'])
+    tg.main()
+    monkeypatch.setattr(sys, 'argv', ['train_iti_groups.py', '--groups', 'return', 'liquidity'])
+    tg.main()
+    assert len(calls) == 2
+    saved = pd.read_parquet(tg.OUT)
+    assert {'ITI(return)', 'ITI(liquidity)'} <= set(saved)
+    import json
+    report = json.loads((tmp_path / 'group_models.json').read_text())
+    assert set(report['groups']) == {'return', 'liquidity'}
+    monkeypatch.setattr(tg, 'sha256', lambda path: 'changed')
+    with pytest.raises(ValueError, match='fingerprints differ'):
+        tg.main()
