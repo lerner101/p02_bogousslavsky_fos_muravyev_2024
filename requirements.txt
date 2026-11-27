@@ -38,6 +38,7 @@ notebook
 
 
 # Documentation/notebook rendering dependencies
+beautifulsoup4>=4.12
 chartbook>=0.4.0
 
 

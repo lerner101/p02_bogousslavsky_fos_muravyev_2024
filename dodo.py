@@ -5,6 +5,7 @@ summary. This is not yet an implementation of all thirteen screenshot targets.
 """
 
 import sys
+import tomllib
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
@@ -390,16 +391,28 @@ def task_publish():
 
 def task_build_chartbook_site():
     """Build the public project site into docs/ from committed outputs; no data needed."""
+    def exhibits_unchanged(task, values):
+        manifest = tomllib.loads(Path("chartbook.toml").read_text(encoding="utf-8"))
+        exhibits = [
+            Path(entry["path"])
+            for section in ("charts", "dataframes", "notebooks")
+            for entry in manifest[section].values()
+        ]
+        return committed_outputs_unchanged(exhibits)(task, values)
+
     return {
-        "actions": ["chartbook docs build -f"],
+        "actions": ["chartbook docs build -f", python_action("src/style_chartbook.py")],
         "file_dep": [
             "README.md",
             "chartbook.toml",
+            "src/style_chartbook.py",
+            "docs_src/site/_static/iti.css",
             REPORT_DIR / "scorecard.png",
             REPORT_DIR / "validation_coverage.png",
             *sorted(Path("docs_src").rglob("*.md")),
         ],
-        "targets": ["docs/index.html"],
+        "uptodate": [exhibits_unchanged],
+        "targets": ["docs/index.html", "docs/cb/charts.html", "docs/_static/iti.css"],
         "clean": True,
     }
 
