@@ -1,7 +1,10 @@
 \documentclass{article}
 \usepackage[letterpaper,margin=1in]{geometry}
-\usepackage{amsmath,booktabs,graphicx}
+\usepackage{amsmath,booktabs,graphicx,float,longtable}
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\graphicspath{{../_output/}}
+% Every number quoted in the text is a macro written by src/report_latex_tables.py.
+\input{../_output/report/stats.tex}
 
 \title{Informed Trading Intensity: Replication and Extension}
 \author{Jacob Lerner \and Andrew Arbitman \and Andrew McLaughlin \and Nate Lee}
@@ -11,21 +14,234 @@
 \maketitle
 
 \section{Project Overview}
-This project replicates and extends \cite{bogousslavsky2024informed}.
-The research pipeline and results are not yet implemented.
+\cite{bogousslavsky2024informed} train a gradient-boosted tree classifier to
+recognize days on which Schedule 13D activists trade, using 41 same-day
+liquidity, return, volatility and volume features. Applied to every stock-day,
+the classifier's probability is the Informed Trading Intensity (ITI). The paper
+shows that ITI detects informed trades better than standard liquidity
+measures, rises around earnings and M\&A announcements, predicts weaker return
+reversal, and predicts higher next-month returns.
+
+We rebuilt the pipeline end to end on a shorter sample (2005--2019 instead of
+1993--2019): we extracted 13D transaction labels from the original filing text,
+constructed all 41 features from CRSP, WRDS Intraday Indicators and supplemental
+TAQ aggregates, trained our own ITI(13D) with nested calendar-fold
+cross-validation, and replicated the downstream exhibits. Because our sample is
+shorter and our labels are reconstructed, we do not target exact equality. We
+fixed one acceptance rule before comparing: an estimate matches if it has the
+paper's sign and lies within a factor of \ScoreBand{} of the published value
+(looser when the paper's own estimate is insignificant). By that rule,
+\ScorePassed{} of \ScoreScored{} scored comparisons replicate
+(Table~\ref{tab:scorecard}).
+
+\paragraph{Where it worked.} The event-study exhibits (earnings, news, M\&A),
+the return-reversal regression, ITI(impatient) return predictability, and the
+stability of ITI's advantage over liquidity controls in Figure~1 replicate in
+sign and magnitude. ITI(13D) return predictability replicates in sign, with
+smaller magnitude for the long-short alpha (Table~11, 0.33 of the paper's).
+
+\paragraph{Where it was hard.} (i) Raw 13D data: filers' transaction tables are
+free text, so we wrote and hand-audited an extractor. (ii) TAQ: several of the
+41 features are not in WRDS Intraday Indicators and required bounded server-side
+TAQ aggregation. (iii) Our trained ITI(13D) reaches an out-of-sample ROC AUC of
+\ModelAUC{} against the paper's \PaperAUC{}, and its yearly explanatory power is
+about half the paper's. (iv) ITI(insider) and ITI(patient) lose most of their
+return predictability in our 2005--2019 window.
+
+\paragraph{Data sources.} CRSP daily stock, names, delisting and index files;
+WRDS Intraday Indicators and TAQ; WRDS SEC filing text (Schedule 13D);
+Compustat quarterly earnings dates; SDC M\&A; Thomson Reuters insider filings;
+Markit securities lending; the authors' posted ITI series; the
+Boudoukh--Feldman--Kogan--Richardson news classifications; and Kenneth French's
+factors.
 
 \section{Data and Validation}
-% Describe data sources, sample construction, filters, and validation results.
+Table~\ref{tab:validation} checks our data against benchmarks that do not depend
+on our code. Panel A compares the rebuilt 13D labels with statistics published
+in the paper: the share of window days with a 13D trade is \ItradeOurs{}
+(paper: \ItradePaper{}), and filers trade more often in the last 20 days than
+in the first 40, as the 10-day filing deadline implies. Panel B reconciles our
+TAQ bucket-sum volume with WRDS Intraday Indicators (IID) market-hours volume
+(lowest ratio \VolRatioMin{}).
+Panel C and Figure~\ref{fig:validation} track coverage over time. Every
+training year keeps at least \MinCoverage{} of label rows after the feature
+screens (lowest in \MinCoverageYear{}), and our yearly ITI(13D) correlation with
+the authors' posted series never falls below \MinPearson{}. These checks run
+as tests in the pipeline (\texttt{tests/test\_data\_validation.py}).
+
+\begin{table}[H]
+\centering\small
+\caption{Data validation. Rebuilt labels match the paper's trade frequency
+closely, but filers' share of daily volume is about half the published figure.
+Our extractor keeps small trades that the authors may have aggregated, so
+our labels carry the right timing with a weaker per-day signal. Our TAQ volume
+matches WRDS IID volume exactly in 2004 and is \VolRatioMin{} or more of it in 2019. Both
+aggregate the same TAQ trades, so this checks our aggregation rather than the
+trade data itself; the 2019 shortfall is volume printed under sale conditions
+our regular/odd-lot screen excludes. Coverage and agreement with the
+authors' series clear every tolerance, so differences in the downstream exhibits
+do not come from a broken universe or a missing year.}
+\label{tab:validation}
+\resizebox{\textwidth}{!}{\input{../_output/report/validation_table.tex}}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{report/validation_coverage.png}
+\caption{Coverage through time. (a) 13D label rows and those with all model
+inputs; the dotted line is the 60\% tolerance. The 2019 drop is by design:
+13D training ends in 2018, so we did not collect 2019 training inputs.
+(b) Share of our scored stock-days present in the authors' posted file, and the
+correlation between our ITI(13D) and theirs. There are no unexplained breaks,
+and agreement is stable across market regimes.}
+\label{fig:validation}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{13d_filing_car.png}
+\caption{Cumulative abnormal return around our rebuilt 13D filings. The
+two-day filing jump matches the paper's Figure IA.1 (about 2\%), confirming that
+our filing dates and stock links are correct. The pre-filing run-up is smaller
+than the paper's, consistent with our weaker per-day trade signal.}
+\end{figure}
 
 \section{Replication Results}
-% Include tables and figures generated by the pipeline from ../_output/.
-% Every exhibit should have a caption explaining its main finding.
+
+{\scriptsize
+\setlength{\LTcapwidth}{\textwidth}
+\def\ScorecardCaption{\caption{Replication scorecard. Each row compares one of our estimates with the
+published value. ``Pass'' means the same sign and a ratio within
+$[1/\ScoreBand, \ScoreBand]$ (or, when the paper's estimate is insignificant,
+the same sign or also insignificant). \ScorePassed{} of \ScoreScored{}
+comparisons pass. The failures concentrate in ITI(insider) and ITI(patient)
+return predictability and in the volatility partial dependence of Figure~2.}\label{tab:scorecard}}
+\input{../_output/report/scorecard.tex}
+}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth,height=0.8\textheight,keepaspectratio]{report/scorecard.png}
+\caption{Scorecard as ratios of our estimate to the paper's. Most points sit
+inside the shaded tolerance band. Return-predictability estimates (Tables 10--11)
+sit left of 1: right sign, smaller size, as expected from a model trained on a
+shorter, reconstructed label sample. Event-study peaks (Figure 4, IA.5) sit at
+or slightly right of 1. Of the points beyond the band at large ratios,
+two pass because the paper's own estimate is insignificant (Table~5 \texttt{ret}
+and \texttt{ret*turn}); two are genuine misses: Figure~4(b) ``small day $-1$''
+(3.61, no published $t$-statistic) and Table~5 \texttt{ret*ES\%} (3.35, paper
+$t=-4.94$).}
+\end{figure}
+
+\subsection{Detecting informed trading (Figures 1--3)}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{replication/figure1.png}
+\caption{Figure 1: annual out-of-sample adjusted $R^2$ for the 13D trade
+indicator. Our ITI explains on average \FigOneIti{} per year versus
+\FigOneCtrl{} for the liquidity controls, so ITI beats the controls in every year,
+as in the paper. The level is about half the paper's (\FigOnePaperIti{}),
+mirroring our lower AUC (\ModelAUC{} vs \PaperAUC{}).}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{replication/figure2.png}
+\caption{Figure 2: partial dependence. ITI rises steeply and concavely in volume,
+as in the paper. Our model is almost flat in volatility, where the paper finds a
+decreasing, convex relation. This is the clearest difference between our
+estimated model and the authors' model.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{replication/figure3.png}
+\caption{Figure 3: depth-3 surrogate tree approximating ITI. As in the paper,
+volume appears repeatedly and high-volume/low-volatility days get the highest
+ITI. Our tree splits first on intraday illiquidity rather than volume, a
+reordering of the same ingredients.}
+\end{figure}
+
+\subsection{Return reversal (Table 5)}
+\begin{table}[H]
+\centering\scriptsize
+\caption{Table 5: next-day return on today's return interacted with ITI(13D),
+date fixed effects, stock/date clustered $t$-statistics. Returns on high-ITI days
+reverse less ($\text{ret}\times\text{ITI}>0$), as the paper finds, and the
+interaction survives the turnover, volatility and spread interactions. The
+$\text{ret}\times\text{rvol}$ coefficient is not comparable because our
+realized-volatility input has a different scale.}
+\resizebox{\textwidth}{!}{\input{../_output/report/table5.tex}}
+\end{table}
+
+\subsection{Informational events (Figure 4 and IA.5)}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{replication/figure4a.png}
+\includegraphics[width=0.85\textwidth]{replication/figure4b.png}
+\caption{Figure 4(a)--(b): ITI(13D) around earnings announcements. ITI rises two
+days before the announcement, peaks on day 0 (\FourDayZero{} vs the paper's
+\FourDayZeroPaper{}), and stays elevated, most strongly for large-surprise
+announcements. The pattern replicates closely.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{figure_04c_preview.png}
+\caption{Figure 4(c), preliminary: ITI around firm news days outside earnings
+windows (BFKR news, 2005--2015). ITI rises the day before news and peaks on day
+0, as in the paper. This version uses raw earnings dates for the exclusion
+window and does not yet apply the full control screen.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{replication/figureIA5.png}
+\caption{Figure IA.5: ITI(13D) around M\&A announcements for public US targets
+(\IAFiveEvents{} events). ITI jumps after the announcement (day +1:
+\IAFiveDayOne{}) and decays, as in the paper. Our pre-announcement drift is weaker
+and noisier.}
+\end{figure}
+
+\subsection{Asset pricing (Tables 10 and 11)}
+\begin{table}[H]
+\centering\scriptsize
+\caption{Table 10: next-month return on prior-week ITI, week fixed effects,
+stock/week clustered $t$-statistics. ITI(13D) predicts returns with a
+coefficient of \TenCoef{} ($t=\TenT$), about 40\% of the paper's value, and
+ITI(impatient) dominates ITI(patient), as in the paper. ITI(insider) does not
+predict returns in our 2005--2019 window.}
+\resizebox{\textwidth}{!}{\input{../_output/report/table10.tex}}
+\end{table}
+
+\begin{table}[H]
+\centering\scriptsize
+\caption{Table 11: equal-weighted decile portfolios on prior-week ITI, monthly
+percent returns, Newey--West $t$-statistics in parentheses. The ITI(13D)
+high-minus-low FF4 alpha is \ElevenAlpha\% per month ($t=\ElevenAlphaT$) and
+ITI(impatient)'s is \ImpAlpha\%. Both are positive and significant but about a third of
+the paper's. ITI(short) is insignificant in both samples.}
+\resizebox{\textwidth}{!}{\input{../_output/report/table11.tex}}
+\end{table}
 
 \section{Updated Results}
-% Recompute the assigned exhibits using the most recent available data.
+% TODO (update): rerun Tables 5, 10, 11 and Figure 4 through the latest data
+% using the authors' extended ITI release (1993-2024) once CRSP 2020-2024 is
+% collected. See TODO.md.
+The update is in progress: the authors' refreshed ITI release runs through 2024,
+and extending the panel requires CRSP and TAQ indicators for 2020--2024.
 
-\section{Extension}
-% Describe the extension agreed at the instructor consultation.
+\section{Extension: a published ITI replication monitor}
+Our extension is a ChartBook website, built by the pipeline and published on
+GitHub Pages, that any researcher can use without WRDS access. It contains
+(i) the replication scorecard, which recomputes automatically whenever an output
+changes, (ii) a side-by-side comparison of our independently trained ITI(13D)
+with the authors' posted series (overall correlation \AgreePearson{} on
+\AgreeRows{} stock-days, \AgreeStocks{} stocks), with coverage diagnostics by
+year, and (iii) the replicated exhibits with their data. Before using either
+version of ITI, a researcher can see where the measure is robust (event
+studies, reversal, ITI(13D) and ITI(impatient) pricing) and where it is fragile
+(ITI(insider) pricing after 2005, volatility dependence).
 
 \bibliographystyle{plain}
 \bibliography{bibliography}

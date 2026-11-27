@@ -1,0 +1,24 @@
+{
+  "itrade_ours": 0.363,
+  "itrade_paper": 0.3603,
+  "impatient_minus_patient_ours": 0.119,
+  "volume_ratio_min": 0.8335081351055244,
+  "volume_ratio_max": 1.0,
+  "volume_pilot_rows": 6,
+  "min_input_coverage_train": 0.6428347444339918,
+  "min_input_coverage_year": 2009,
+  "input_coverage_2019": 0.0117711470024637,
+  "min_author_match": 0.953715775749674,
+  "min_yearly_pearson": 0.5189146384855307,
+  "median_yearly_pearson": 0.5632262048434432,
+  "tolerances": {
+    "itrade_abs_diff": 0.05,
+    "volume_ratio_band": [
+      0.8,
+      1.01
+    ],
+    "min_input_coverage": 0.6,
+    "min_author_match": 0.95,
+    "min_yearly_pearson": 0.4
+  }
+}
