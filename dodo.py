@@ -278,8 +278,8 @@ def task_replication():
 
 
 FIGURE4 = Path("_data/derived/figure4")
-FIGURE4_COMMON = ["src/replicate_figure4.py", "src/regress.py", "src/paper_values.py", "src/build_panel.py",
-                  PANEL / "daily.parquet", WRDS / "compustat_earnings.parquet",
+FIGURE4_COMMON = ["src/replicate_figure4.py", "src/replicate_exhibits.py", "src/regress.py", "src/paper_values.py",
+                  "src/build_panel.py", PANEL / "daily.parquet", WRDS / "compustat_earnings.parquet",
                   WRDS / "crsp_compustat_links.parquet"]
 
 
