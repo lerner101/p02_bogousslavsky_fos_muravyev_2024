@@ -391,12 +391,15 @@ def task_publish():
 
 def task_build_chartbook_site():
     """Build the public project site into docs/ from committed outputs; no data needed."""
-    manifest = tomllib.loads(Path("chartbook.toml").read_text(encoding="utf-8"))
-    exhibits = [
-        Path(entry["path"])
-        for section in ("charts", "dataframes", "notebooks")
-        for entry in manifest[section].values()
-    ]
+    def exhibits_unchanged(task, values):
+        manifest = tomllib.loads(Path("chartbook.toml").read_text(encoding="utf-8"))
+        exhibits = [
+            Path(entry["path"])
+            for section in ("charts", "dataframes", "notebooks")
+            for entry in manifest[section].values()
+        ]
+        return committed_outputs_unchanged(exhibits)(task, values)
+
     return {
         "actions": ["chartbook docs build -f", python_action("src/style_chartbook.py")],
         "file_dep": [
@@ -408,7 +411,7 @@ def task_build_chartbook_site():
             REPORT_DIR / "validation_coverage.png",
             *sorted(Path("docs_src").rglob("*.md")),
         ],
-        "uptodate": [committed_outputs_unchanged(exhibits)],
+        "uptodate": [exhibits_unchanged],
         "targets": ["docs/index.html", "docs/cb/charts.html", "docs/_static/iti.css"],
         "clean": True,
     }
