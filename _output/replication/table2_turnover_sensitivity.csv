@@ -1,0 +1,121 @@
+column,variable,coef,t,specification
+4,ITI,0.04612137769406452,1.6278274663021155,raw share turnover (primary)
+4,Obs.,24911.0,,raw share turnover (primary)
+4,R2 (within),0.00012317484634938314,,raw share turnover (primary)
+4,Adj. R2 (within),8.019896630329093e-05,,raw share turnover (primary)
+4,Filings,1644.0,,raw share turnover (primary)
+5,es,0.2106378262246029,2.342901203360663,raw share turnover (primary)
+5,lambda,-0.046949480025634975,-3.335444148149246,raw share turnover (primary)
+5,depth,-2.7983797460585613,-1.065010451591273,raw share turnover (primary)
+5,rvol,-0.028689029463674694,-0.986515223823689,raw share turnover (primary)
+5,turn,0.04539863992831081,2.7839690927027787,raw share turnover (primary)
+5,oi,-0.053502320873857506,-0.46768836377031575,raw share turnover (primary)
+5,abs_oi,0.2560643204243489,3.540499118686613,raw share turnover (primary)
+5,ret,0.00468426258462446,0.4250010997649158,raw share turnover (primary)
+5,Obs.,24911.0,,raw share turnover (primary)
+5,R2 (within),7.366712281486887e-05,,raw share turnover (primary)
+5,Adj. R2 (within),-0.00027026041762190367,,raw share turnover (primary)
+5,Filings,1644.0,,raw share turnover (primary)
+6,ITI,0.040989741523132804,1.2459632282939077,raw share turnover (primary)
+6,es,0.29005500589643696,1.9287198551898732,raw share turnover (primary)
+6,lambda,0.06343823973493645,0.7517319654970371,raw share turnover (primary)
+6,depth,-3.532349100515595,-1.1013292708732256,raw share turnover (primary)
+6,rvol,-0.026011004581275622,-0.9679526705049039,raw share turnover (primary)
+6,turn,0.032400816310331954,4.705431745175995,raw share turnover (primary)
+6,oi,-0.07160890477181177,-0.5587660336786816,raw share turnover (primary)
+6,abs_oi,0.07170860878466145,0.7933140933273869,raw share turnover (primary)
+6,ret,0.012470227590705978,0.727380515778387,raw share turnover (primary)
+6,Obs.,24911.0,,raw share turnover (primary)
+6,R2 (within),0.00014958350190297232,,raw share turnover (primary)
+6,Adj. R2 (within),-0.00023732224014194614,,raw share turnover (primary)
+6,Filings,1644.0,,raw share turnover (primary)
+4,ITI,0.017704723042207427,18.49563142137349,share turnover winsorized 0.05%/99.95%
+4,Obs.,24911.0,,share turnover winsorized 0.05%/99.95%
+4,R2 (within),0.08434143121447635,,share turnover winsorized 0.05%/99.95%
+4,Adj. R2 (within),0.0843020751339818,,share turnover winsorized 0.05%/99.95%
+4,Filings,1644.0,,share turnover winsorized 0.05%/99.95%
+5,es,0.13868756450432637,2.8578062051431603,share turnover winsorized 0.05%/99.95%
+5,lambda,-0.04088433615939392,-3.545817282793855,share turnover winsorized 0.05%/99.95%
+5,depth,-0.18317819142565667,-0.6225704211702487,share turnover winsorized 0.05%/99.95%
+5,rvol,-0.00032389071676962485,-0.07819891769569721,share turnover winsorized 0.05%/99.95%
+5,turn,0.029737220845864235,7.0370507643195355,share turnover winsorized 0.05%/99.95%
+5,oi,0.04898338262085172,2.1871192812755607,share turnover winsorized 0.05%/99.95%
+5,abs_oi,0.1817169259672816,6.989537246803138,share turnover winsorized 0.05%/99.95%
+5,ret,-0.005318622667114284,-2.3044686634441187,share turnover winsorized 0.05%/99.95%
+5,Obs.,24911.0,,share turnover winsorized 0.05%/99.95%
+5,R2 (within),0.18390135509111427,,share turnover winsorized 0.05%/99.95%
+5,Adj. R2 (within),0.18362065561309415,,share turnover winsorized 0.05%/99.95%
+5,Filings,1644.0,,share turnover winsorized 0.05%/99.95%
+6,ITI,0.008241205742528962,10.34514116029874,share turnover winsorized 0.05%/99.95%
+6,es,0.15465481125550723,3.1493726137189357,share turnover winsorized 0.05%/99.95%
+6,lambda,-0.018690297451389656,-1.7471180972684854,share turnover winsorized 0.05%/99.95%
+6,depth,-0.33074663743254046,-1.1572695272624638,share turnover winsorized 0.05%/99.95%
+6,rvol,0.0002145404423292284,0.0526176611217157,share turnover winsorized 0.05%/99.95%
+6,turn,0.027123939213424327,6.44644176627161,share turnover winsorized 0.05%/99.95%
+6,oi,0.04534295753758574,2.0609839953961457,share turnover winsorized 0.05%/99.95%
+6,abs_oi,0.14465122872262884,5.530307366045242,share turnover winsorized 0.05%/99.95%
+6,ret,-0.003753212953978254,-1.6368308174918655,share turnover winsorized 0.05%/99.95%
+6,Obs.,24911.0,,share turnover winsorized 0.05%/99.95%
+6,R2 (within),0.198161102904997,,share turnover winsorized 0.05%/99.95%
+6,Adj. R2 (within),0.19785082041837498,,share turnover winsorized 0.05%/99.95%
+6,Filings,1644.0,,share turnover winsorized 0.05%/99.95%
+4,ITI,0.017794573998325677,17.968364471443607,share turnover at most 100%
+4,Obs.,24908.0,,share turnover at most 100%
+4,R2 (within),0.07833453647443855,,share turnover at most 100%
+4,Adj. R2 (within),0.07829491710189307,,share turnover at most 100%
+4,Filings,1644.0,,share turnover at most 100%
+5,es,0.13214144055365454,2.7037652258193026,share turnover at most 100%
+5,lambda,-0.04178707665486644,-3.4304462307828696,share turnover at most 100%
+5,depth,-0.20663490843014373,-0.6913862317870709,share turnover at most 100%
+5,rvol,2.0284358882789125e-05,0.004776950384242806,share turnover at most 100%
+5,turn,0.029888084014963817,6.697669335094036,share turnover at most 100%
+5,oi,0.05771938083032585,2.1972816262985706,share turnover at most 100%
+5,abs_oi,0.19205864248110613,6.02161554290863,share turnover at most 100%
+5,ret,-0.00598951800035461,-2.2271634523004735,share turnover at most 100%
+5,Obs.,24908.0,,share turnover at most 100%
+5,R2 (within),0.17495571548837852,,share turnover at most 100%
+5,Adj. R2 (within),0.1746719025250102,,share turnover at most 100%
+5,Filings,1644.0,,share turnover at most 100%
+6,ITI,0.00808964152856742,9.935818244006308,share turnover at most 100%
+6,es,0.14781456167730356,2.9912013173066114,share turnover at most 100%
+6,lambda,-0.02000205745595258,-1.7634780011443913,share turnover at most 100%
+6,depth,-0.3515832318984774,-1.2107230006424974,share turnover at most 100%
+6,rvol,0.0005469015074873753,0.13072409467558027,share turnover at most 100%
+6,turn,0.027324656617978615,6.140148925643728,share turnover at most 100%
+6,oi,0.05414209425303613,2.089148793340439,share turnover at most 100%
+6,abs_oi,0.15567624937296629,4.853969199730478,share turnover at most 100%
+6,ret,-0.004453136560315233,-1.6608555410712909,share turnover at most 100%
+6,Obs.,24908.0,,share turnover at most 100%
+6,R2 (within),0.18758880797931476,,share turnover at most 100%
+6,Adj. R2 (within),0.18727439384350797,,share turnover at most 100%
+6,Filings,1644.0,,share turnover at most 100%
+4,ITI,0.05285561502343501,1.838493972236438,legacy dollar turnover proxy
+4,Obs.,24911.0,,legacy dollar turnover proxy
+4,R2 (within),0.00016136476315709025,,legacy dollar turnover proxy
+4,Adj. R2 (within),0.00011839052455842047,,legacy dollar turnover proxy
+4,Filings,1644.0,,legacy dollar turnover proxy
+5,es,0.07549559553525105,0.5754252251106784,legacy dollar turnover proxy
+5,lambda,-0.0494233464188707,-0.9515553773281306,legacy dollar turnover proxy
+5,depth,-2.9408201114824446,-1.105957343985662,legacy dollar turnover proxy
+5,rvol,-0.0350701895628454,-1.1785026847283104,legacy dollar turnover proxy
+5,turn,0.0381055394745102,1.9228156404454313,legacy dollar turnover proxy
+5,oi,0.13340550602602497,0.6092899568631028,legacy dollar turnover proxy
+5,abs_oi,0.5333995076595539,2.0221753251836545,legacy dollar turnover proxy
+5,ret,0.004250314184307113,0.3208674015144908,legacy dollar turnover proxy
+5,Obs.,24911.0,,legacy dollar turnover proxy
+5,R2 (within),0.00010382801624619908,,legacy dollar turnover proxy
+5,Adj. R2 (within),-0.00024008915026452193,,legacy dollar turnover proxy
+5,Filings,1644.0,,legacy dollar turnover proxy
+6,ITI,0.045477776236069876,1.3708707494864845,legacy dollar turnover proxy
+6,es,0.16360829379115835,0.9248481976231585,legacy dollar turnover proxy
+6,lambda,0.07305090767341432,0.7302483107490628,legacy dollar turnover proxy
+6,depth,-3.7551529866310096,-1.16044739995248,legacy dollar turnover proxy
+6,rvol,-0.03209894329900554,-1.1653763859065853,legacy dollar turnover proxy
+6,turn,0.0236845626132449,1.8726621986042133,legacy dollar turnover proxy
+6,oi,0.11331640225731605,0.5009110119980976,legacy dollar turnover proxy
+6,abs_oi,0.3288583837039536,1.220961905870586,legacy dollar turnover proxy
+6,ret,0.01288877739902669,0.6970960490094855,legacy dollar turnover proxy
+6,Obs.,24911.0,,legacy dollar turnover proxy
+6,R2 (within),0.00019704445886081778,,legacy dollar turnover proxy
+6,Adj. R2 (within),-0.0001898429175202221,,legacy dollar turnover proxy
+6,Filings,1644.0,,legacy dollar turnover proxy

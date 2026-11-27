@@ -78,7 +78,8 @@ def metrics(y, p):
             "log_loss": log_loss(y, p, labels=[0, 1]), "mae": mean_absolute_error(y, p)}
 
 
-def select_params(training, fold_universe, jobs=2):
+def select_params(training, fold_universe, jobs=2, features=FEATURES):
+    """Pick hyperparameters by inner calendar-fold log loss on `features`."""
     fold_map = fold_universe[["filing"]].copy()
     fold_map["inner_fold"] = calendar_folds(fold_universe)
     fold_map = fold_map.drop_duplicates("filing")
@@ -94,8 +95,8 @@ def select_params(training, fold_universe, jobs=2):
             if a.itrade.nunique() != 2 or b.empty:
                 raise ValueError("Insufficient labeled classes/rows in nested fold")
             model = classifier(params, jobs)
-            model.fit(a[FEATURES], a.itrade)
-            losses.append(log_loss(b.itrade, model.predict_proba(b[FEATURES])[:, 1], labels=[0, 1]))
+            model.fit(a[features], a.itrade)
+            losses.append(log_loss(b.itrade, model.predict_proba(b[features])[:, 1], labels=[0, 1]))
         rows.append({**params, "mean_log_loss": float(np.mean(losses)), "fold_losses": losses})
         print(f"Tuning candidate {i}/{len(candidates)}: mean validation log loss {np.mean(losses):.6f}", flush=True)
     best = min(rows, key=lambda r: r["mean_log_loss"])

@@ -19,6 +19,12 @@ market extracts to build Figures 1–3 on the 2005–2018 training sample, with
 approximate published-figure comparisons and a methods report. See the
 [figure inputs and methods](docs_src/site/project_overview/ml_model.md#figures-13-from-a-completed-run).
 
+Tables 1–4 now have a local-data workflow using our own scores, with explicit
+author benchmarks, feature-group models, and turnover sensitivity checks. See
+[table methods and commands](docs_src/site/project_overview/tables.md) and the
+[table comparison report](_output/replication/tables_comparison.md). Table 1
+covers the bounded feature sample rather than the full market universe.
+
 Source-data acquisition covers a working target of 2005–2019, with 2004 warm-up
 history. Schedule 13D extraction, label construction and validation code are
 implemented; independent label verification remains outstanding. BFKR news
@@ -124,6 +130,10 @@ doit bfkr_preview                    # Preliminary Figure 4(c); see limitations 
 doit iti_figures                     # Build Figures 1–3 from the saved ML run
 doit publish                         # Clean clone, no data: scorecard, validation, tests, report
 doit build_chartbook_site            # Clean clone, no data: public site into docs/
+doit tables                          # Tables 1, 2, 4 on local data
+doit iti_train_groups                # Train the four additional Table 3 group models
+doit table3                          # Table 3 from completed group predictions
+doit tables_report                   # Validate and compare Tables 1–4
 ```
 
 **From a clean clone without data access**, `doit publish` rebuilds the
