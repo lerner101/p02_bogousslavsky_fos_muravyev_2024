@@ -3,13 +3,13 @@
 Table 10 (cols 1-5): weekly ITI predicting next-month returns.
 Table 11: decile portfolios on prior-week ITI, raw and FF4 alphas.
 Table 5: daily return reversal and ITI(13D).
-Figure 4(a)-(b): ITI(13D) around earnings announcements.
 Figure IA.5: ITI(13D) around M&A announcements (targets).
+Figure 4 is built by src/replicate_figure4.py.
 
 Reads _data/derived/panel/{daily,weekly}.parquet (src/build_panel.py).
 Writes CSVs and PNGs to _output/replication/.
 
-Run: python src/replicate_exhibits.py [table10 table11 table5 fig4 figia5]
+Run: python src/replicate_exhibits.py [table10 table11 table5 figia5]
 """
 
 import sys
@@ -227,25 +227,6 @@ def plot_event(tab, paper, title, path, labels=None):
     plt.close(fig)
 
 
-def fig4():
-    d = load_daily(["eligible", "vol", "ret", "ITI(13D)"]).sort_values(["permno", "date"])
-    ev = earnings_events(d)
-    ev = ev[(ev.day0 >= SAMPLE_START) & (ev.day0 <= SAMPLE_END)]
-    a = event_regression(d, ev)
-    a.to_csv(OUT / "figure4a.csv", index=False)
-    plot_event(a, {"all": pv.FIG4A}, "Figure 4(a): ITI(13D) around earnings announcements",
-               OUT / "figure4a.png", {"all": "all announcements"})
-    q = ev.ret0.abs()
-    lo, hi = q.quantile([0.25, 0.75])
-    ev = ev.assign(group=np.select([q >= hi, q <= lo], ["large", "small"], "middle"))
-    b = event_regression(d, ev, groups=["large", "small", "middle"])
-    b.to_csv(OUT / "figure4b.csv", index=False)
-    plot_event(b[b.group != "middle"], {"large |r|": pv.FIG4B_LARGE, "small |r|": pv.FIG4B_SMALL},
-               "Figure 4(b): top vs bottom quartile |announcement return|", OUT / "figure4b.png",
-               {"large": "large |r|", "small": "small |r|"})
-    return a, b, len(ev)
-
-
 def ma_events(d):
     """Completed acquisitions of US public targets, linked to CRSP by 6-digit CUSIP."""
     s = pd.read_parquet(WRDS / "sdc_ma.parquet")
@@ -277,7 +258,7 @@ def figia5():
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    wanted = sys.argv[1:] or ["table10", "table11", "table5", "fig4", "figia5"]
+    wanted = sys.argv[1:] or ["table10", "table11", "table5", "figia5"]
     for name in wanted:
         print("Running", name, flush=True)
         globals()[name]()

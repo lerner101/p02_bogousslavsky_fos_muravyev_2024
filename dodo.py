@@ -268,13 +268,63 @@ def task_panel():
 
 
 def task_replication():
-    """Replicate Tables 5, 10, 11 and Figures 4(a)-(b), IA.5."""
+    """Replicate Tables 5, 10, 11 and Figure IA.5."""
     return {
         "actions": [python_action("src/replicate_exhibits.py")],
         "file_dep": ["src/replicate_exhibits.py", "src/regress.py", "src/paper_values.py",
                      PANEL / "daily.parquet", PANEL / "weekly.parquet"],
         "targets": [REPLICATION / f for f in ["table10.csv", "table11.csv", "table5.csv",
-                                              "figure4a.csv", "figure4b.csv", "figureIA5.csv"]],
+                                              "figureIA5.csv"]],
+    }
+
+
+FIGURE4 = Path("_data/derived/figure4")
+FIGURE4_COMMON = ["src/replicate_figure4.py", "src/replicate_exhibits.py", "src/regress.py", "src/paper_values.py",
+                  "src/build_panel.py", PANEL / "daily.parquet", WRDS / "compustat_earnings.parquet",
+                  WRDS / "crsp_compustat_links.parquet"]
+
+
+def task_figure4_ab():
+    """Figure 4(a)-(b): ITI(13D) around earnings announcements."""
+    return {
+        "actions": [python_action("src/replicate_figure4.py", "ab")],
+        "file_dep": FIGURE4_COMMON,
+        "targets": [REPLICATION / "figure4a.csv", REPLICATION / "figure4b.csv",
+                    FIGURE4 / "earnings_adjusted.parquet", FIGURE4 / "figure4_counts_ab.json"],
+    }
+
+
+def task_figure4_c():
+    """Figure 4(c): ITI(impatient) around BFKR news days, excluding earnings windows."""
+    return {
+        "actions": [python_action("src/replicate_figure4.py", "c")],
+        "file_dep": [*FIGURE4_COMMON, "src/analyze_bfkr_news.py", "_data/derived/bfkr/news_daily.parquet",
+                     WRDS / "crsp_market.parquet", FIGURE4 / "earnings_adjusted.parquet"],
+        "task_dep": ["bfkr_inputs"],
+        "targets": [REPLICATION / "figure4c.csv", FIGURE4 / "figure4c_sample.parquet",
+                    FIGURE4 / "figure4_counts_c.json"],
+    }
+
+
+def task_figure4():
+    """Figure 4 plots, comparison report and manifest from the three panel tables."""
+    return {
+        "actions": [python_action("src/replicate_figure4.py", "report")],
+        "file_dep": ["src/replicate_figure4.py", "src/paper_values.py",
+                     *[REPLICATION / f"figure4{k}.csv" for k in "abc"],
+                     FIGURE4 / "figure4_counts_ab.json", FIGURE4 / "figure4_counts_c.json"],
+        "targets": [REPLICATION / f for f in ["figure4.png", "figure4a.png", "figure4b.png", "figure4c.png",
+                                              "figure4_comparison.md", "figure4_manifest.json"]],
+    }
+
+
+def task_figure4_diagnose():
+    """Figure 4(a)-(b) diagnostics: day 0 by specification step and by subperiod (13 regressions)."""
+    return {
+        "actions": [python_action("src/replicate_figure4.py", "diagnose")],
+        "file_dep": FIGURE4_COMMON,
+        "targets": [REPLICATION / f for f in ["figure4_diagnosis.csv", "figure4_diagnosis.md",
+                                              "figure4_subperiods.csv"]],
     }
 
 

@@ -1,0 +1,61 @@
+{
+  "script": "src/replicate_figure4.py",
+  "panels": [
+    "a",
+    "b",
+    "c"
+  ],
+  "sample": [
+    "2005-01-01",
+    "2019-07-31"
+  ],
+  "news_sample": [
+    "2005-01-01",
+    "2015-12-31"
+  ],
+  "controls_screen": [
+    "es",
+    "depth",
+    "rvol",
+    "turn",
+    "oi",
+    "absoi",
+    "ret"
+  ],
+  "deviations": [
+    "Sample 2005-01 to 2019-07 (paper: 1993-01 to 2019-07); local CRSP, TAQ indicators, Compustat and ITI start in 2004, used only as event-time warm-up.",
+    "Panel (c) covers 2005-2015 (paper: 2000-2015).",
+    "Control-completeness screen uses seven controls; Kyle's lambda is not built for the general panel.",
+    "With-controls sensitivity uses the panel's depth (shares) and OI (share of volume) units, not the authors' shares-outstanding scaling.",
+    "Earnings dates use our own volume test on Compustat rdq, not the authors' EAdates.hdf.",
+    "Paper values are read off the published plots (about +/-0.003; panel (c) about +/-0.0003)."
+  ],
+  "counts": {
+    "sequence_rows": 10279512,
+    "sparse_rows_dropped": 369,
+    "sequence_stocks": 6523,
+    "earnings_events_crsp_days": 250940,
+    "earnings_events_on_sequence": 162663,
+    "posted_iti_rows_ineligible_share": 0.0004354626401465845,
+    "news_rows_linked": 1634901,
+    "earnings_window_rows_excluded": 109016,
+    "news_sample_dates": [
+      "2005-01-03",
+      "2015-12-23"
+    ]
+  },
+  "inputs": {
+    "_data/derived/panel/daily.parquet": {
+      "bytes": 1640244731
+    },
+    "_data/wrds/compustat_earnings.parquet": {
+      "bytes": 6581976
+    },
+    "_data/wrds/crsp_compustat_links.parquet": {
+      "bytes": 1163281
+    },
+    "_data/derived/bfkr/news_daily.parquet": {
+      "bytes": 3353269
+    }
+  }
+}
