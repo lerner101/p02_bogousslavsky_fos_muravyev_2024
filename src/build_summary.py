@@ -27,7 +27,7 @@ def main():
              "Figures 1–3 can be built on the project sample with `doit iti_figures` "
              "using the saved ITI(13D) run and local market extracts.", "",
              "Figure 4 (all three panels, 2005–7/2019 sample) is built with "
-             "`doit figure4_ab figure4_c` from the stock panel and BFKR news; see "
+             "`doit figure4` from the stock panel and BFKR news; see "
              "_output/replication/figure4_comparison.md. The preview above is the earlier "
              "raw-date diagnostic.", "",
              "Tables 1–5 and 9–11 and Figure IA.5 do not yet have "

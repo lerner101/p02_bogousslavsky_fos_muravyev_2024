@@ -22,10 +22,14 @@ controls; the with-controls sensitivity uses the panel's units for depth and OI.
 
 Reads _data/derived/panel/daily.parquet (src/build_panel.py) and, for panel (c),
 _data/derived/bfkr/news_daily.parquet (src/prepare_bfkr_news.py).
-Writes _output/replication/figure4{a,b,c}.{csv,png}, figure4.png,
-figure4_comparison.md, figure4_manifest.json and _data/derived/figure4/.
+Parts (each owns its outputs, matching the doit tasks):
+  ab        figure4{a,b}.csv; _data/derived/figure4/earnings_adjusted.parquet, figure4_counts_ab.json
+  c         figure4c.csv; _data/derived/figure4/figure4c_sample.parquet, figure4_counts_c.json
+  diagnose  figure4_diagnosis.{csv,md}, figure4_subperiods.csv
+  report    figure4.png, figure4{a,b,c}.png, figure4_comparison.md, figure4_manifest.json
+Outputs are in _output/replication/ unless noted.
 
-Run: python src/replicate_figure4.py [ab] [c] [diagnose]
+Run: python src/replicate_figure4.py [ab] [c] [diagnose] [report]   (default: ab c report)
 """
 
 import argparse
@@ -162,6 +166,9 @@ def quartile_groups(permno, flag, ret, which, dummies):
     g = group.groupby(np.asarray(permno))
     group = g.ffill(limit=10)
     group = group.groupby(np.asarray(permno)).bfill(limit=10)
+    # Literal port of the authors' filter. On our sequence it never fires: every
+    # announcement row has a return, so it gets a group, and the +/-10-row fills
+    # cover the whole event window. Kept so the port stays line-for-line.
     exclude = (dummies.sum(axis=1) == 1) & group.isna().to_numpy()
     keep = ~exclude & ((group == 1) | group.isna()).to_numpy()
     return keep, int(idd.sum())
@@ -231,6 +238,7 @@ def panels_ab(d):
             "sequence_stocks": int(seq.permno.nunique()),
             "earnings_events_crsp_days": len(ev), "earnings_events_on_sequence": int(flag.sum()),
             "posted_iti_rows_ineligible_share": ineligible_share(d)}
+    write_counts("ab", info)
     return a, b, info
 
 
@@ -264,7 +272,21 @@ def panel_c(d, earnings=None):
     info = {"news_rows_linked": len(news), "earnings_window_rows_excluded": excluded,
             "news_sample_dates": [str(used.index.get_level_values("date").min().date()),
                                   str(used.index.get_level_values("date").max().date())]}
+    write_counts("c", info)
     return c, info
+
+
+def write_counts(part, info):
+    (DERIVED / f"figure4_counts_{part}.json").write_text(json.dumps(info, indent=2) + "\n", encoding="utf-8")
+
+
+def read_counts():
+    info = {}
+    for part in ["ab", "c"]:
+        path = DERIVED / f"figure4_counts_{part}.json"
+        if path.exists():
+            info.update(json.loads(path.read_text(encoding="utf-8")))
+    return info
 
 
 def diagnose(d):
@@ -290,21 +312,59 @@ def diagnose(d):
         print(label, f"{day0.coef:.4f}", flush=True)
     out = pd.DataFrame(rows)
     out.to_csv(OUT / "figure4_diagnosis.csv", index=False)
-    # Final specification by subperiod: does the response drift over time? The paper's
-    # sample adds 1993-2004, which local data do not cover.
+    # Final specification by subperiod, for panel (a) and both panel (b) quartiles: does
+    # the response drift over time, and by the same amount for large and small |r|? The
+    # paper's sample adds 1993-2004, which local data do not cover. Quartile cutoffs are
+    # over all announcements, as in panel (b).
     seq, _ = row_sequence(d)
     flag = flag_events(seq, ev)
     sub = []
-    for lo, hi in [("2005-01-01", "2009-12-31"), ("2010-01-01", "2014-12-31"), ("2015-01-01", "2019-07-31")]:
-        t, _ = event_table(seq, flag, with_controls=False, start=pd.Timestamp(lo), end=pd.Timestamp(hi))
+    for lo, hi in SUBPERIODS:
         window = seq[(seq.date >= lo) & (seq.date <= hi)]
-        sub.append({"period": f"{lo[:4]}-{hi[:4]}", "day0_coef": t[t.day == 0].coef.item(),
-                    "day0_se": t[t.day == 0].se.item(), "mean_iti13d": float(window["ITI(13D)"].mean()),
-                    "sd_iti13d": float(window["ITI(13D)"].std()), "nobs": int(t.nobs.iloc[0]),
-                    "n_events": int(t.n_events.iloc[0])})
-        print(sub[-1], flush=True)
-    pd.DataFrame(sub).to_csv(OUT / "figure4_subperiods.csv", index=False)
+        for which, group in [(None, "all"), ("top", "large"), ("bottom", "small")]:
+            t, _ = event_table(seq, flag, which=which, with_controls=False,
+                               start=pd.Timestamp(lo), end=pd.Timestamp(hi))
+            coef = t.set_index("day").coef
+            sub.append({"period": f"{lo[:4]}-{hi[:4]}", "group": group,
+                        "day_minus1_coef": coef[-1], "day0_coef": coef[0],
+                        "day0_se": t[t.day == 0].se.item(), "day1_coef": coef[1], "day2_coef": coef[2],
+                        "mean_iti13d": float(window["ITI(13D)"].mean()),
+                        "sd_iti13d": float(window["ITI(13D)"].std()), "nobs": int(t.nobs.iloc[0]),
+                        "n_events": int(t.n_events.iloc[0])})
+            print(sub[-1], flush=True)
+    sp = pd.DataFrame(sub)
+    sp.to_csv(OUT / "figure4_subperiods.csv", index=False)
+    write_diagnosis_md(out, sp)
     return out
+
+
+SUBPERIODS = [("2005-01-01", "2009-12-31"), ("2010-01-01", "2014-12-31"), ("2015-01-01", "2019-07-31")]
+PAPER_DAY0 = {"all": pv.FIG4A, "large": pv.FIG4B_LARGE, "small": pv.FIG4B_SMALL}
+
+
+def write_diagnosis_md(dg, sp):
+    i0 = EA_DAYS.index(0)
+    lines = ["# Figure 4(a)-(b) diagnostics", "",
+             "Built by `src/replicate_figure4.py diagnose` (`doit figure4_diagnose`).", "",
+             "## Panel (a) day-0 coefficient by specification step", "",
+             "| step | day 0 | day -1 | day 1 | observations |", "|---|---|---|---|---|"]
+    lines += [f"| {r.step} | {r.day0_coef:.4f} | {r.day_minus1_coef:.4f} | {r.day1_coef:.4f} | {r.nobs:,} |"
+              for r in dg.itertuples()]
+    lines += ["", f"Paper day 0: {pv.FIG4A[i0]:.3f}.", "",
+              "## Day-0 coefficient by subperiod (final specification)", "",
+              "Panel (b) quartile cutoffs are over all announcements, as in the full-sample panel.", "",
+              "| period | all | large \\|r\\| | small \\|r\\| | large - small | events (all) | observations (all) |",
+              "|---|---|---|---|---|---|---|"]
+    for period, g in sp.groupby("period", sort=False):
+        v = g.set_index("group")
+        lines.append(f"| {period} | {v.day0_coef['all']:.4f} | {v.day0_coef['large']:.4f} | "
+                     f"{v.day0_coef['small']:.4f} | {v.day0_coef['large'] - v.day0_coef['small']:.4f} | "
+                     f"{v.n_events['all']:,} | {v.nobs['all']:,} |")
+    p = {k: v[i0] for k, v in PAPER_DAY0.items()}
+    lines += [f"| paper, 1993-2019 | {p['all']:.3f} | {p['large']:.3f} | {p['small']:.3f} | "
+              f"{p['large'] - p['small']:.3f} | | |", "",
+              "Standard errors, days -1 to 2, and ITI(13D) moments are in `figure4_subperiods.csv`.", ""]
+    (OUT / "figure4_diagnosis.md").write_text("\n".join(lines), encoding="utf-8")
 
 
 # ---------------------------------------------------------------- outputs
@@ -377,23 +437,8 @@ def write_reports(tables, info):
              "## Deviations from the paper", "", *[f"- {x}" for x in DEVIATIONS], ""]
     for key, tab in tables.items():
         lines += [f"## Panel {PANELS[key][0]}", "", *summary_lines(tab), "", *md_table(tab), ""]
-    diag = OUT / "figure4_diagnosis.csv"
-    if diag.exists():
-        dg = pd.read_csv(diag)
-        lines += ["## Panel (a) day-0 coefficient by specification step", "",
-                  "| step | day 0 | day -1 | day 1 | observations |", "|---|---|---|---|---|"]
-        lines += [f"| {r.step} | {r.day0_coef:.4f} | {r.day_minus1_coef:.4f} | {r.day1_coef:.4f} | {r.nobs:,} |"
-                  for r in dg.itertuples()]
-        lines += ["", f"Paper day 0: {pv.FIG4A[EA_DAYS.index(0)]:.3f}.", ""]
-    subp = OUT / "figure4_subperiods.csv"
-    if subp.exists():
-        sp = pd.read_csv(subp)
-        lines += ["## Panel (a) by subperiod (final specification)", "",
-                  "| period | day 0 | SE | mean ITI(13D) | SD ITI(13D) | events | observations |",
-                  "|---|---|---|---|---|---|---|"]
-        lines += [f"| {r.period} | {r.day0_coef:.4f} | {r.day0_se:.4f} | {r.mean_iti13d:.3f} | "
-                  f"{r.sd_iti13d:.3f} | {r.n_events:,} | {r.nobs:,} |" for r in sp.itertuples()]
-        lines += [""]
+    lines += ["Specification diagnostics and the subperiod split are in `figure4_diagnosis.md` "
+              "(`doit figure4_diagnose`).", ""]
     lines += ["## Sample counts", "", "```json", json.dumps(info, indent=2), "```", ""]
     (OUT / "figure4_comparison.md").write_text("\n".join(lines), encoding="utf-8")
     manifest = {"script": "src/replicate_figure4.py", "panels": sorted(tables),
@@ -412,32 +457,36 @@ def load_existing(key):
     return pd.read_csv(path) if path.exists() else None
 
 
+PARTS = ["ab", "c", "diagnose", "report"]
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("parts", nargs="*", choices=["ab", "c", "diagnose"], default=None)
+    # No `choices`: with nargs="*", Python <= 3.11 rejects the empty default against them.
+    ap.add_argument("parts", nargs="*", metavar="part", help=f"any of {', '.join(PARTS)} (default: ab c report)")
     args = ap.parse_args()
-    parts = args.parts or ["ab", "c"]
+    bad = sorted(set(args.parts) - set(PARTS))
+    if bad:
+        ap.error(f"invalid part(s) {', '.join(bad)}; choose from {', '.join(PARTS)}")
+    parts = args.parts or ["ab", "c", "report"]
     OUT.mkdir(parents=True, exist_ok=True)
     DERIVED.mkdir(parents=True, exist_ok=True)
-    d = load_panel()
-    manifest = OUT / "figure4_manifest.json"
-    info = json.loads(manifest.read_text())["counts"] if manifest.exists() else {}
+    d = load_panel() if set(parts) & {"ab", "c", "diagnose"} else None
     ea = None
     if "diagnose" in parts:
         diagnose(d)
     if "ab" in parts:
-        a, b, i = panels_ab(d)
-        info.update(i)
+        panels_ab(d)
         ea = pd.read_parquet(DERIVED / "earnings_adjusted.parquet")
     if "c" in parts:
-        _, i = panel_c(d, ea)
-        info.update(i)
-    tables = {k: load_existing(k) for k in "abc"}
-    tables = {k: v for k, v in tables.items() if v is not None}
-    plot(tables)
-    write_reports(tables, info)
-    for k, t in tables.items():
-        print(f"Panel ({k})", *summary_lines(t), sep="\n  ", flush=True)
+        panel_c(d, ea)
+    if "report" in parts:
+        tables = {k: load_existing(k) for k in "abc"}
+        tables = {k: v for k, v in tables.items() if v is not None}
+        plot(tables)
+        write_reports(tables, read_counts())
+        for k, t in tables.items():
+            print(f"Panel ({k})", *summary_lines(t), sep="\n  ", flush=True)
 
 
 if __name__ == "__main__":

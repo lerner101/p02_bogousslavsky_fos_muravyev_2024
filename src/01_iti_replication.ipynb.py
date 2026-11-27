@@ -26,7 +26,7 @@
 # | 13D trade-day labels | `doit 13d_validation` | `_data/derived/13d/`, `_output/13d_label_validation.md` |
 # | Stock panels | `doit panel` | `_data/derived/panel/{daily,weekly}.parquet` |
 # | Exhibits | `doit replication` | `_output/replication/` |
-# | Figure 4 | `doit figure4_ab figure4_c` | `_output/replication/figure4*` |
+# | Figure 4 | `doit figure4 figure4_diagnose` | `_output/replication/figure4*` |
 
 # %%
 from pathlib import Path
@@ -177,11 +177,20 @@ for name in ["figure4_diagnosis.csv", "figure4_subperiods.csv"]:
 # %% [markdown]
 # Same shape as the paper: ITI rises from day −2, spikes on day 0, decays over ten
 # days, and the spike is larger for large-|r| announcements. The earnings profiles
-# correlate above 0.98 with the paper's, but their level is 1.2–1.5× higher (day 0:
-# 0.123 vs 0.095). The authors' sample rules barely move it (diagnosis table). The
-# day-0 response rises over our sample, from 0.109 in 2005–09 to 0.147 in 2015–19
-# (`figure4_subperiods.csv`). That is consistent with the paper's 1993–2019 average
-# being lower than our 2005–2019 one, though local data can't test 1993–2004.
+# correlate above 0.98 with the paper's, but sit above them by the same amount in
+# all three series: +0.028 at day 0 (0.123 vs 0.095, 0.183 vs 0.155, 0.086 vs
+# 0.058), fading to about +0.003 by day 10. The authors' sample rules barely move it
+# (diagnosis table).
+#
+# The subperiod split (`figure4_subperiods.csv`) does not support a sample-period
+# explanation. Day 0 drifts little through 2014, and the 2015–19 rise is mostly in
+# large |r| (+0.057 vs +0.010 for small), so it scales with the surprise rather than
+# shifting every series equally. Matching the paper would need 1993–2004 day-0
+# responses of roughly 0.06 / 0.12 / 0.02 (all / large / small), well below 2005–09.
+# Earnings dates remain the main open candidate: misdated events have small day-0
+# returns and sort into the bottom quartile, so their dilution need not be
+# proportional to the peak. The gap is otherwise unexplained.
+#
 # Panel (c) matches the paper closely: day 0 is 0.0115 vs 0.0120.
 #
 # ## 6. Figure IA.5: ITI(13D) around M&A announcements

@@ -61,7 +61,7 @@ sample to `_data/derived/bfkr/figure_04c_preview_sample.parquet`.
 ## Figure 4(c) build
 
 ```bash
-doit panel bfkr_news figure4_ab figure4_c
+doit panel bfkr_news figure4
 ```
 
 `src/replicate_figure4.py c` builds panel (c) with the inputs the preview lacks.

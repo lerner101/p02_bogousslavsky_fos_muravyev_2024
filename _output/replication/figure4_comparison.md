@@ -107,24 +107,7 @@ Built by `src/replicate_figure4.py` from the posted original-vintage ITI. Specif
 | all news | 4 | 0.0010 | 0.0001 | 0.0019 | -0.0001 |
 | all news | 5 | -0.0003 | -0.0011 | 0.0005 | -0.0001 |
 
-## Panel (a) day-0 coefficient by specification step
-
-| step | day 0 | day -1 | day 1 | observations |
-|---|---|---|---|---|
-| previous build: all CRSP days, no screens, zero-filled edges | 0.1225 | 0.0291 | 0.0606 | 9,569,557 |
-| + posted-ITI row sequence, drop edge rows | 0.1228 | 0.0291 | 0.0606 | 9,477,010 |
-| + drop sparse stocks | 0.1228 | 0.0291 | 0.0606 | 9,476,747 |
-| + require seven controls (final) | 0.1233 | 0.0294 | 0.0611 | 9,231,755 |
-
-Paper day 0: 0.095.
-
-## Panel (a) by subperiod (final specification)
-
-| period | day 0 | SE | mean ITI(13D) | SD ITI(13D) | events | observations |
-|---|---|---|---|---|---|---|
-| 2005-2009 | 0.1094 | 0.0020 | 0.281 | 0.157 | 55,598 | 3,495,774 |
-| 2010-2014 | 0.1180 | 0.0023 | 0.286 | 0.165 | 48,176 | 3,026,874 |
-| 2015-2019 | 0.1474 | 0.0025 | 0.305 | 0.168 | 42,786 | 2,709,107 |
+Specification diagnostics and the subperiod split are in `figure4_diagnosis.md` (`doit figure4_diagnose`).
 
 ## Sample counts
 
